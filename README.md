@@ -20,7 +20,17 @@ Support `.wpy` files too.
 
 ## Config
 
+`g:vim_vue_plugin_has_init_indent`: indent one tab inside `sytle/template/script` tags (default: 0)
+
+    let g:vim_vue_plugin_has_init_indent = 1
+
 ## Screenshot
+
+![screenshot](static/screenshot.png)
+
+## Acknowledgments
+
+[mxw/vim-jsx][1]
 
 [1]: https://github.com/mxw/vim-jsx "mxw: vim-jsx"
 [2]: https://github.com/VundleVim/Vundle.vim
