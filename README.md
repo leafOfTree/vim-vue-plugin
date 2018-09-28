@@ -18,7 +18,9 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 
 Support `.wpy` files too.
 
-## Config
+## Configuration
+
+Set global variable to `1` to enable or `0` to disable.
 
 `g:vim_vue_plugin_has_init_indent`: indent one tab inside `sytle/template/script` tags (default: 0)
 
@@ -28,9 +30,11 @@ Support `.wpy` files too.
 
 ![screenshot](static/screenshot.png)
 
-## Acknowledgments
+## Acknowledgments & Refs
 
 [mxw/vim-jsx][1]
+[Single File Components][3]
 
 [1]: https://github.com/mxw/vim-jsx "mxw: vim-jsx"
 [2]: https://github.com/VundleVim/Vundle.vim
+[3]: https://vuejs.org/v2/guide/single-file-components.html
