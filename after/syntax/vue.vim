@@ -1,8 +1,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim syntax file
 "
-" Language: Vue (JavaScript)
-" Maintainer: leafOfTree <leafvocation@gmail.com>
+" Language: Vue (Wepy)
+" Maintainer: leaf <leafvocation@gmail.com>
 " Depends: pangloss/vim-javascript
 "
 " CREDITS: Inspired by mxw/vim-jsx.
@@ -20,7 +20,12 @@ let b:current_syntax='vue'
 " Find tag <script> / <style> and enable javascript / css syntax
 syn region vueTemplate start=+<template\(\s.\{-}\)\?>+ end=+</template>+ keepend contains=@HTMLSyntax
 syn region vueScript start=+<script\(\s.\{-}\)\?>+ end=+</script>+ keepend contains=@jsAll,jsImport,jsExport
-syn region vueStyle start=+<style\(\s.\{-}\)\?>+ end=+</style>+ keepend contains=@CSSSyntax
+syn region vueStyle start=+<style\(\s.\{-}\)\?>+ end=+</style>+ keepend contains=@CSSSyntax,@HTMLSyntax
+
+hi def link vueTag htmlTagName
+hi! link vueTemplate vueTag
+hi! link vueScript vueTag
+hi! link vueStyle vueTag
 
 " Officially, vim-jsx depends on the pangloss/vim-javascript syntax package
 " (and is tested against it exclusively).  However, in practice, we make some
