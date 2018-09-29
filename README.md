@@ -33,6 +33,7 @@ Set global variable to `1` to enable or `0` to disable.
 ## Acknowledgments & Refs
 
 [mxw/vim-jsx][1]
+
 [Single File Components][3]
 
 [1]: https://github.com/mxw/vim-jsx "mxw: vim-jsx"
