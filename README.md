@@ -22,7 +22,7 @@ Support `.wpy` files too.
 
 Set global variable to `1` to enable or `0` to disable.
 
-`g:vim_vue_plugin_has_init_indent`: indent one tab inside `sytle/template/script` tags (default: 0)
+`g:vim_vue_plugin_has_init_indent`: indent one tab inside `sytle/template/script` tags (default: 0 for .vue and 1 for .wpy)
 
     let g:vim_vue_plugin_has_init_indent = 1
 
