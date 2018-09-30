@@ -41,13 +41,13 @@ function! SynsEOL(lnum)
 endfunction
 
 function! SynsHTMLish(syns)
-  let last_syn = get(a:syns, -1)
-  return last_syn =~? '\v^(html)'
+  let first_syn = get(a:syns, 0)
+  return first_syn =~? '\v^(vueTemplate)'
 endfunction
 
 function! SynsCSSish(syns)
-  let last_syn = get(a:syns, -1)
-  return last_syn =~? '\v^(css)|(less)|(sass)'
+  let first_syn = get(a:syns, 1)
+  return first_syn =~? '\v^(vueStyle)'
 endfunction
 
 function! SynsVueScope(syns)
@@ -62,7 +62,7 @@ function! GetVueIndent()
   let prevsyns = SynsEOL(v:lnum - 1)
 
   if SynsHTMLish(prevsyns)
-    call LogMsg('type: xml')
+    call LogMsg('type: html')
     let ind = XmlIndentGet(v:lnum, 0)
 
     " Align '/>' and '>' with '<' for multiline tags.
