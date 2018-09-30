@@ -8,7 +8,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
         Plugin 'leafOfTree/vim-vue-plugin'
 
-- Or manual: download 'vim-vue-plugin' and drop it in `Vim/vimfiles`.
+- Or manual: download `vim-vue-plugin` and drop it in `Vim/vimfiles`.
 
 Plugin works if filetype is set to `javascript.vue`.
 
