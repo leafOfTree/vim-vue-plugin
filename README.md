@@ -26,7 +26,9 @@ Set global variable to `1` to enable or `0` to disable.
 
     let g:vim_vue_plugin_has_init_indent = 1
 
-`g: vim_vue_plugin_debug`: echo debug message in `messages` list. Useful to debug if indent errors occur.
+`g:vim_vue_plugin_debug`: echo debug message in `messages` list. Useful to debug if indent errors occur. (default: 0)
+
+    let g:vim_vue_plugin_debug = 1
 
 ## Screenshot
 
