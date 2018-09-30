@@ -17,9 +17,11 @@ let s:name = 'vim-vue-plugin'
 " Save the current JavaScript indentexpr.
 let b:vue_js_indentexpr = &indentexpr
 
+" load xml indent method
 unlet b:did_indent
 runtime! indent/xml.vim
 
+" load css indent method
 unlet b:did_indent
 runtime! indent/css.vim
 
