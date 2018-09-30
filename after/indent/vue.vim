@@ -5,11 +5,6 @@
 " Maintainer: leafOfTree <leafvocation@gmail.com>
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-if exists("b:did_vue_indent")
-  finish
-endif
-
 se sw=2 ts=2
 
 let s:name = 'vim-vue-plugin'
