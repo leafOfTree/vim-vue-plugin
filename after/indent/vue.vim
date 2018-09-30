@@ -13,7 +13,7 @@ endif
 se sw=2 ts=2
 
 let s:name = 'vim-vue-plugin'
-let s:__DEBUG__ = 1
+
 " Save the current JavaScript indentexpr.
 let b:vue_js_indentexpr = &indentexpr
 
@@ -105,7 +105,7 @@ function! GetVueIndent()
 endfunction
 
 function! LogMsg(msg)
-  if s:__DEBUG__
+  if g:vim_vue_plugin_debug
     echom '['.s:name.'] '. a:msg
   endif
 endfunction
