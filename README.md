@@ -16,7 +16,7 @@ Plugin works if filetype is set to `javascript.vue`.
 
 Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin`. (Like XML and JavaScript for `.jsx`).
 
-Support `.wpy` files from [wepy](https://tencent.github.io/wepy) too.
+Support `.wpy` files from [WePY](https://tencent.github.io/wepy) too.
 
 ## Configuration
 
