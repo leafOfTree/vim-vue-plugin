@@ -16,7 +16,8 @@ Plugin works if filetype is set to `javascript.vue`.
 
 Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin`. (Like XML and JavaScript for `.jsx`).
 
-Support `.wpy` files from [WePY](https://tencent.github.io/wepy) too.
+- Support Pug(`<template lang="pug"`) with [vim-pug][4].
+- Support `.wpy` files from [WePY](https://tencent.github.io/wepy)
 
 ## Configuration
 
@@ -43,3 +44,4 @@ Set global variable to `1` to enable or `0` to disable.
 [1]: https://github.com/mxw/vim-jsx "mxw: vim-jsx"
 [2]: https://github.com/VundleVim/Vundle.vim
 [3]: https://vuejs.org/v2/guide/single-file-components.html
+[4]: https://github.com/digitaltoad/vim-pug

@@ -8,22 +8,26 @@
 " CREDITS: Inspired by mxw/vim-jsx.
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Load syntax/*.vim to syntax group
 unlet b:current_syntax
-" runtime! syntax/html.vim
 syn include @HTMLSyntax syntax/html.vim
+
+unlet b:current_syntax
+syn include @PugSyntax syntax/pug.vim
 
 unlet! b:current_syntax
 syn include @CSSSyntax syntax/css.vim
 
 let b:current_syntax='vue'
 
-" Find tag <script> / <style> and enable javascript / css syntax
-syn region vueTemplate start=+<template\(\s.\{-}\)\?>+ end=+</template>+ keepend contains=@HTMLSyntax,vueTag
+" Find tag <template> / <script> / <style> and enable currespond syntax
+syn region vueTemplate start=+<template\(\s.\{-}\)\?>+ end=+</template>+ keepend contains=vueTemplatePug,@HTMLSyntax,vueTag
+syn region vueTemplatePug start=+<template lang="pug"\(\s.\{-}\)\?>+ end=+</template>+ contained contains=@PugSyntax,vueTag
 syn region vueScript start=+<script\(\s.\{-}\)\?>+ end=+</script>+ keepend contains=@jsAll,jsImport,jsExport,vueTag
 syn region vueStyle start=+<style\(\s.\{-}\)\?>+ end=+</style>+ keepend contains=@CSSSyntax,@HTMLSyntax,vueTag
 
 hi def link vueTag htmlTagName
-syn match vueTag /\v(tempalte|script|style)/
+syn match vueTag contained /\v(template|script|style)/
 
 " Officially, vim-jsx depends on the pangloss/vim-javascript syntax package
 " (and is tested against it exclusively).  However, in practice, we make some

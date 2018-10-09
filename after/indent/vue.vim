@@ -16,6 +16,10 @@ let b:vue_js_indentexpr = &indentexpr
 unlet b:did_indent
 runtime! indent/xml.vim
 
+" load pug indent method
+unlet b:did_indent
+runtime! indent/pug.vim
+
 " load css indent method
 unlet b:did_indent
 runtime! indent/css.vim
@@ -45,6 +49,11 @@ function! SynsHTMLish(syns)
   return first_syn =~? '\v^(vueTemplate)'
 endfunction
 
+function! SynsPugish(syns)
+  let second_syn = get(a:syns, 1)
+  return second_syn =~? '\v^(vueTemplatePug)'
+endfunction
+
 function! SynsCSSish(syns)
   let first_syn = get(a:syns, 1)
   return first_syn =~? '\v^(vueStyle)'
@@ -61,7 +70,10 @@ function! GetVueIndent()
   let cursyns = SynsEOL(v:lnum)
   let prevsyns = SynsEOL(v:lnum - 1)
 
-  if SynsHTMLish(prevsyns)
+  if SynsPugish(prevsyns)
+    call LogMsg('type: pug')
+    let ind = GetPugIndent()
+  elseif SynsHTMLish(prevsyns)
     call LogMsg('type: html')
     let ind = XmlIndentGet(v:lnum, 0)
 
