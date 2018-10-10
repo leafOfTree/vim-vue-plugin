@@ -10,14 +10,15 @@ Vim syntax and indent plugin for `.vue` and `.wpy` files. Mainly inspired by [mx
 
 - Or manual: download `vim-vue-plugin` and drop it in `Vim/vimfiles`.
 
-Plugin works if filetype is set to `javascript.vue`.
+Plugin works if filetype is set to `javascript.vue`. Please stay up to date. Any issue or pull request is welcome.
 
 ## How it works
 
 Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin`. (Like XML and JavaScript for `.jsx`).
 
-- Support Pug(`<template lang="pug"`) with [vim-pug][4].
+- Support Pug(`<template lang="pug">`) with [vim-pug][4].
 - Support `.wpy` files from [WePY](https://tencent.github.io/wepy)
+
 
 ## Configuration
 
