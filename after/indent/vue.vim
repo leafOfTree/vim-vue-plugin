@@ -55,7 +55,7 @@ function! SynsPugish(syns)
 endfunction
 
 function! SynsCSSish(syns)
-  let first_syn = get(a:syns, 1)
+  let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueStyle)'
 endfunction
 
