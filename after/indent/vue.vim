@@ -34,7 +34,7 @@ setlocal indentkeys+=*<Return>,<>>,<<>,/
 
 let s:vue_tag = '\v\<\/?(template|script|style)'
 let s:vue_tag_no_indent = '\v\<\/?(script|style)'
-let s:end_tag = '^\s*\/\?>\s*;\='
+let s:end_tag = '^\s*\/\?>\s*'
 
 setlocal indentexpr=GetVueIndent()
 
@@ -81,6 +81,11 @@ function! GetVueIndent()
     if curline =~? s:end_tag 
       let ind = ind - &sw
     endif
+    " Then correct the indentation of any element following '/>' or '>'.
+    if prevline =~? s:end_tag
+      let ind = ind + &sw
+    endif
+
   elseif SynsCSSish(prevsyns)
     call LogMsg('type: css')
     let ind = GetCSSIndent()
