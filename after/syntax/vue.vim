@@ -9,14 +9,28 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load syntax/*.vim to syntax group
-unlet b:current_syntax
-syn include @HTMLSyntax syntax/html.vim
+if exists("g:vim_vue_plugin_load_full_syntax")
+      \ && g:vim_vue_plugin_load_full_syntax == 1
+  unlet b:current_syntax
+  syn include @HTMLSyntax syntax/html.vim
 
-unlet b:current_syntax
-syn include @PugSyntax syntax/pug.vim
+  unlet! b:current_syntax
+  syn include @CSSSyntax syntax/css.vim
+else
+  unlet b:current_syntax
+  syn include @HTMLSyntax $vimruntime/syntax/html.vim
+  silent! syn include @HTMLSyntax $vimruntime/../vimfiles/syntax/html.vim
 
-unlet! b:current_syntax
-syn include @CSSSyntax syntax/css.vim
+  unlet! b:current_syntax
+  syn include @CSSSyntax $vimruntime/syntax/css.vim
+  silent! syn include @HTMLSyntax $vimruntime/../vimfiles/syntax/css.vim
+endif
+
+if exists("g:vim_vue_plugin_use_pug")
+      \ && g:vim_vue_plugin_use_pug == 1
+  unlet b:current_syntax
+  syn include @PugSyntax syntax/pug.vim
+endif
 
 let b:current_syntax='vue'
 

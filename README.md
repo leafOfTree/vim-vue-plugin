@@ -16,21 +16,26 @@ Plugin works if filetype is set to `javascript.vue`. Please stay up to date. Any
 
 Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin`. (Like XML and JavaScript for `.jsx`).
 
-- Support Pug(`<template lang="pug">`) with [vim-pug][4].
 - Support `.wpy` files from [WePY](https://tencent.github.io/wepy)
+- Support Pug(`<template lang="pug">`) with [vim-pug][4] (see Configuration).
 
 
 ## Configuration
 
 Set global variable to `1` to enable or `0` to disable.
 
-`g:vim_vue_plugin_has_init_indent`: initially indent one tab inside `style/script` tags. (default: 0 for `.vue` and 1 for `.wpy`)
+Ex: 
 
     let g:vim_vue_plugin_has_init_indent = 1
 
-`g:vim_vue_plugin_debug`: echo debug message in `messages` list. Useful to debug if indent errors occur. (default: 0)
+| variable                              | description                                                                                     | default                    |
+|---------------------------------------|-------------------------------------------------------------------------------------------------|----------------------------|
+| `g:vim_vue_plugin_has_init_indent`    | initially indent one tab inside `style/script` tags.                                            | 0 for `.vue`. 1 for `.wpy` |
+| `g:vim_uue_plugin_load_full_syntax`\* | enable: load all syntax files in `runtimepath`. disable: only in `syntax` and `vimfiles/syntax` | 0                          |
+| `g:vim_uue_plugin_use_pug`\*          | enable `vim-pug` pug syntax for `<template lang="pug">`.                                        | 0                          |
+| `g:vim_vue_plugin_debug`              | echo debug message in `messages` list. Useful to debug if indent errors occur.                  | 0                          |
 
-    let g:vim_vue_plugin_debug = 1
+\*: May be slow if enabled. Find balance between syntax highlight and speed.
 
 ## Screenshot
 
