@@ -47,7 +47,7 @@ Ex:
 
 ## Screenshot
 
-![screenshot](static/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png)
 
 ## Acknowledgments & Refs
 
