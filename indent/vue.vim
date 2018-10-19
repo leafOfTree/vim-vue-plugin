@@ -8,6 +8,7 @@
 se sw=2 ts=2
 
 let s:name = 'vim-vue-plugin'
+let b:did_indent = 'init'
 
 " Save the current JavaScript indentexpr.
 let b:vue_js_indentexpr = &indentexpr

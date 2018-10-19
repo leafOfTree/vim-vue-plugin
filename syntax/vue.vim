@@ -8,6 +8,8 @@
 " CREDITS: Inspired by mxw/vim-jsx.
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let b:current_syntax = 'init'
+
 " Load syntax/*.vim to syntax group
 if exists("g:vim_vue_plugin_load_full_syntax")
       \ && g:vim_vue_plugin_load_full_syntax == 1
@@ -18,12 +20,12 @@ if exists("g:vim_vue_plugin_load_full_syntax")
   syn include @CSSSyntax syntax/css.vim
 else
   unlet b:current_syntax
-  syn include @HTMLSyntax $vimruntime/syntax/html.vim
-  silent! syn include @HTMLSyntax $vimruntime/../vimfiles/syntax/html.vim
+  syn include @HTMLSyntax $VIMRUNTIME/syntax/html.vim
+  silent! syn include @HTMLSyntax $VIMRUNTIME/../vimfiles/syntax/html.vim
 
   unlet! b:current_syntax
-  syn include @CSSSyntax $vimruntime/syntax/css.vim
-  silent! syn include @HTMLSyntax $vimruntime/../vimfiles/syntax/css.vim
+  syn include @CSSSyntax $VIMRUNTIME/syntax/css.vim
+  silent! syn include @HTMLSyntax $VIMRUNTIME/../vimfiles/syntax/css.vim
 endif
 
 if exists("g:vim_vue_plugin_use_pug")
@@ -32,7 +34,7 @@ if exists("g:vim_vue_plugin_use_pug")
   syn include @PugSyntax syntax/pug.vim
 endif
 
-let b:current_syntax='vue'
+let b:current_syntax = 'vue'
 
 " Find tag <template> / <script> / <style> and enable currespond syntax
 syn region vueTemplate start=+<template\(\s.\{-}\)\?>+ end=+</template>+ keepend contains=vueTemplatePug,@HTMLSyntax,vueTag
