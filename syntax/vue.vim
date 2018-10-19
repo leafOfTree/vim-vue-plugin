@@ -26,6 +26,15 @@ else
   silent! syn include @HTMLSyntax $VIMRUNTIME/../vimfiles/syntax/css.vim
 endif
 
+" Load default javascript syntax file as syntax group if 
+" pangloss/vim-javascript is not used
+
+if hlexists('jsNoise') == 0
+  unlet! b:current_syntax
+  syn include @jsAll $VIMRUNTIME/syntax/javascript.vim
+  silent! syn include @jsAll $VIMRUNTIME/../vimfiles/syntax/javascript.vim
+endif
+
 if exists("g:vim_vue_plugin_use_pug")
       \ && g:vim_vue_plugin_use_pug == 1
   unlet! b:current_syntax
