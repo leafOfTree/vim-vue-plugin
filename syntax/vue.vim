@@ -8,18 +8,16 @@
 " CREDITS: Inspired by mxw/vim-jsx.
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let b:current_syntax = 'init'
-
 " Load syntax/*.vim to syntax group
 if exists("g:vim_vue_plugin_load_full_syntax")
       \ && g:vim_vue_plugin_load_full_syntax == 1
-  unlet b:current_syntax
+  unlet! b:current_syntax
   syn include @HTMLSyntax syntax/html.vim
 
   unlet! b:current_syntax
   syn include @CSSSyntax syntax/css.vim
 else
-  unlet b:current_syntax
+  unlet! b:current_syntax
   syn include @HTMLSyntax $VIMRUNTIME/syntax/html.vim
   silent! syn include @HTMLSyntax $VIMRUNTIME/../vimfiles/syntax/html.vim
 
@@ -30,7 +28,7 @@ endif
 
 if exists("g:vim_vue_plugin_use_pug")
       \ && g:vim_vue_plugin_use_pug == 1
-  unlet b:current_syntax
+  unlet! b:current_syntax
   syn include @PugSyntax syntax/pug.vim
 endif
 

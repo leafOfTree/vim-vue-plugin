@@ -8,21 +8,20 @@
 se sw=2 ts=2
 
 let s:name = 'vim-vue-plugin'
-let b:did_indent = 'init'
 
 " Save the current JavaScript indentexpr.
 let b:vue_js_indentexpr = &indentexpr
 
 " load xml indent method
-unlet b:did_indent
+unlet! b:did_indent
 runtime! indent/xml.vim
 
 " load pug indent method
-unlet b:did_indent
+unlet! b:did_indent
 runtime! indent/pug.vim
 
 " load css indent method
-unlet b:did_indent
+unlet! b:did_indent
 runtime! indent/css.vim
 
 let b:did_indent = 1
