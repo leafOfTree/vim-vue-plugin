@@ -43,7 +43,7 @@ syn region vueStyle start=+<style\(\s.\{-}\)\?>+ end=+</style>+ keepend contains
 hi def link vueTag htmlTagName
 syn match vueTag contained /\v(template|script|style)/
 
-" Officially, vim-jsx depends on the pangloss/vim-javascript syntax package
+" Officially, vim-vue-plugin syntax uses the pangloss/vim-javascript syntax package
 " (and is tested against it exclusively).  However, in practice, we make some
 " effort towards compatibility with other packages.
 "
