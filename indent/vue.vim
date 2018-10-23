@@ -4,6 +4,8 @@
 " Language: Vue (Wepy)
 " Maintainer: leafOfTree <leafvocation@gmail.com>
 "
+" CREDITS: Inspired by mxw/vim-jsx.
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 se sw=2 ts=2
 

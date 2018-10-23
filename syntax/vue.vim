@@ -3,42 +3,45 @@
 "
 " Language: Vue (Wepy)
 " Maintainer: leaf <leafvocation@gmail.com>
-" Depends: pangloss/vim-javascript
 "
 " CREDITS: Inspired by mxw/vim-jsx.
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:LoadDefaultSyntax(group, type)
+  unlet! b:current_syntax
+  exec 'syn include '.a:group.' $VIMRUNTIME/syntax/'.a:type.'.vim'
+  exec 'silent! syn include '.a:group.' $VIM/vimfiles/syntax/'.a:type.'.vim'
+  exec 'silent! syn include '.a:group.' $HOME/.vim/syntax/'.a:type.'.vim'
+endfunction
+
+function! s:LoadFullSyntax(group, type)
+  unlet! b:current_syntax
+  exec 'syn include '.a:group.' syntax/'.a:type.'.vim'
+endfunction
+
 " Load syntax/*.vim to syntax group
 if exists("g:vim_vue_plugin_load_full_syntax")
       \ && g:vim_vue_plugin_load_full_syntax == 1
-  unlet! b:current_syntax
-  syn include @HTMLSyntax syntax/html.vim
+  call s:LoadFullSyntax('@HTMLSyntax', 'html')
+  call s:LoadFullSyntax('@CSSSyntax', 'css')
 
-  unlet! b:current_syntax
-  syn include @CSSSyntax syntax/css.vim
+  " Load javascript syntax file as syntax group if 
+  " pangloss/vim-javascript is not used
+  if hlexists('jsNoise') == 0
+    call s:LoadFullSyntax('@jsAll', 'javascript')
+  endif
 else
-  unlet! b:current_syntax
-  syn include @HTMLSyntax $VIMRUNTIME/syntax/html.vim
-  silent! syn include @HTMLSyntax $VIMRUNTIME/../vimfiles/syntax/html.vim
-
-  unlet! b:current_syntax
-  syn include @CSSSyntax $VIMRUNTIME/syntax/css.vim
-  silent! syn include @HTMLSyntax $VIMRUNTIME/../vimfiles/syntax/css.vim
+  call s:LoadDefaultSyntax('@HTMLSyntax', 'html')
+  call s:LoadDefaultSyntax('@CSSSyntax', 'css')
+  if hlexists('jsNoise') == 0
+    call s:LoadDefaultSyntax('@jsAll', 'javascript')
+  endif
 endif
 
-" Load default javascript syntax file as syntax group if 
-" pangloss/vim-javascript is not used
-
-if hlexists('jsNoise') == 0
-  unlet! b:current_syntax
-  syn include @jsAll $VIMRUNTIME/syntax/javascript.vim
-  silent! syn include @jsAll $VIMRUNTIME/../vimfiles/syntax/javascript.vim
-endif
-
+" Load vim-pug syntax if pug support is enabled
 if exists("g:vim_vue_plugin_use_pug")
       \ && g:vim_vue_plugin_use_pug == 1
-  unlet! b:current_syntax
-  syn include @PugSyntax syntax/pug.vim
+  call s:LoadFullSyntax('@PugSyntax', 'pug')
 endif
 
 let b:current_syntax = 'vue'
