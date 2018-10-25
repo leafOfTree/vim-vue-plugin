@@ -73,10 +73,10 @@ function! GetVueIndent()
   let prevsyns = SynsEOL(v:lnum - 1)
 
   if SynsPugish(prevsyns)
-    call LogMsg('type: pug')
+    call s:LogMsg('type: pug')
     let ind = GetPugIndent()
   elseif SynsHTMLish(prevsyns)
-    call LogMsg('type: html')
+    call s:LogMsg('type: html')
     let ind = XmlIndentGet(v:lnum, 0)
 
     " Align '/>' and '>' with '<' for multiline tags.
@@ -89,10 +89,10 @@ function! GetVueIndent()
     endif
 
   elseif SynsCSSish(prevsyns)
-    call LogMsg('type: css')
+    call s:LogMsg('type: css')
     let ind = GetCSSIndent()
   else
-    call LogMsg('type: javascript')
+    call s:LogMsg('type: javascript')
     if len(b:vue_js_indentexpr)
       let ind = eval(b:vue_js_indentexpr)
     else
@@ -101,26 +101,26 @@ function! GetVueIndent()
   endif
 
   if curline =~? s:vue_tag
-    call LogMsg('cur vue tag')
+    call s:LogMsg('cur vue tag')
     let ind = 0
   elseif (exists("g:vim_vue_plugin_has_init_indent")
         \ && g:vim_vue_plugin_has_init_indent != 0)
     if SynsVueScope(cursyns) && ind == 0
-      call LogMsg('add init')
+      call s:LogMsg('add init')
       let ind = &sw
     endif
   else
     if prevline =~? s:vue_tag_no_indent
-      call LogMsg('prev vue tag')
+      call s:LogMsg('prev vue tag')
       let ind = 0
     endif
   endif
-  call LogMsg('result ind: '.ind)
+  call s:LogMsg('result ind: '.ind)
 
   return ind
 endfunction
 
-function! LogMsg(msg)
+function! s:LogMsg(msg)
   if g:vim_vue_plugin_debug
     echom '['.s:name.'] '. a:msg
   endif
