@@ -37,10 +37,10 @@ Ex:
 
 | variable                              | description                                                                                            | default                    |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| `g:vim_vue_plugin_load_full_syntax`\* | enable: load all syntax files in `runtimepath`. disable: only in `syntax`, `~/.vim/syntax` and `$VIM/vimfiles/syntax` | 0                          |
-| `g:vim_vue_plugin_use_pug`\*          | enable `vim-pug` pug syntax for `<template lang="pug">`.                                               | 0                          |
-| `g:vim_vue_plugin_debug`              | echo debug message in `messages` list. Useful to debug if indent errors occur.                         | 0                          |
-| `g:vim_vue_plugin_has_init_indent`    | initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
+| `g:vim_vue_plugin_load_full_syntax`\* | Enable: load all syntax files in `runtimepath`. Disable: only in `syntax`, `~/.vim/syntax` and `$VIM/vimfiles/syntax` | 0                          |
+| `g:vim_vue_plugin_use_pug`\*          | Enable `vim-pug` pug syntax for `<template lang="pug">`.                                               | 0                          |
+| `g:vim_vue_plugin_debug`              | Echo debug message in `messages` list. Useful to debug if indent errors occur.                         | 0                          |
+| `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 
 \*: May be slow if enabled. Find balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
 
