@@ -23,7 +23,7 @@ Plugin works if filetype is set to `javascript.vue`. Please stay up to date. Any
 
 Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin`. (Like XML and JavaScript for `.jsx`).
 
-- Support `.wpy` files from [WePY](https://tencent.github.io/wepy)
+- Support `.wpy` files from [WePY][6]
 - Support Pug(`<template lang="pug">`) with [vim-pug][4] (see Configuration).
 
 
@@ -37,7 +37,7 @@ Ex:
 
 | variable                              | description                                                                                            | default                    |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| `g:vim_vue_plugin_load_full_syntax`\* | Enable: load all syntax files in `runtimepath`. Disable: only in `syntax`, `~/.vim/syntax` and `$VIM/vimfiles/syntax` | 0                          |
+| `g:vim_vue_plugin_load_full_syntax`\* | Enable: load all syntax files in `runtimepath` to enable related syntax plugins. Disable: only in `syntax`, `~/.vim/syntax` and `$VIM/vimfiles/syntax` | 0                          |
 | `g:vim_vue_plugin_use_pug`\*          | Enable `vim-pug` pug syntax for `<template lang="pug">`.                                               | 0                          |
 | `g:vim_vue_plugin_debug`              | Echo debug message in `messages` list. Useful to debug if indent errors occur.                         | 0                          |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
@@ -59,3 +59,4 @@ Ex:
 [3]: https://vuejs.org/v2/guide/single-file-components.html
 [4]: https://github.com/digitaltoad/vim-pug
 [5]: https://github.com/tpope/vim-pathogen
+[6]: https://tencent.github.io/wepy
