@@ -13,6 +13,11 @@ Vim syntax and indent plugin for `.vue` and `.wpy` files. Mainly inspired by [mx
         cd ~/.vim/bundle && \
         git clone https://github.com/leafOfTree/vim-vue-plugin
 
+- Use [vim-plug][7]
+
+        Plug 'leafOfTree/vim-vue-plugin'
+        :PlugInstall
+
 - Or manually, clone this plugin, drop it in custom `path/to/this_plugin`, and add it to `rtp` in vimrc
 
         set rpt+=path/to/this_plugin
@@ -60,3 +65,4 @@ Ex:
 [4]: https://github.com/digitaltoad/vim-pug
 [5]: https://github.com/tpope/vim-pathogen
 [6]: https://tencent.github.io/wepy
+[7]: https://github.com/junegunn/vim-plug
