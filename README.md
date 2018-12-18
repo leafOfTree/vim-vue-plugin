@@ -1,6 +1,6 @@
 # vim-vue-plugin
 
-Vim syntax and indent plugin for `.vue` and `.wpy` files. Mainly inspired by [mxw/vim-jsx][1]. 
+Vim syntax and indent plugin for `.vue` and `.wpy` files. Mainly inspired by [mxw/vim-jsx][1].
 
 ## Install
 
@@ -9,7 +9,7 @@ Vim syntax and indent plugin for `.vue` and `.wpy` files. Mainly inspired by [mx
         Plugin 'leafOfTree/vim-vue-plugin'
 
 - Or Use [vim-pathogen][5]
-        
+
         cd ~/.vim/bundle && \
         git clone https://github.com/leafOfTree/vim-vue-plugin
 
@@ -31,9 +31,9 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 
 Set global variable to `1` to enable or `0` to disable.
 
-Ex: 
+Ex:
 
-    let g:vim_uue_plugin_load_full_syntax = 1
+    let g:vim_vue_plugin_load_full_syntax = 1
 
 | variable                              | description                                                                                            | default                    |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------|
