@@ -8,7 +8,7 @@ Vim syntax and indent plugin for `.vue` and `.wpy` files. Mainly inspired by [mx
 
         Plugin 'leafOfTree/vim-vue-plugin'
 
-- Or Use [vim-pathogen][5]
+- Use [vim-pathogen][5]
 
         cd ~/.vim/bundle && \
         git clone https://github.com/leafOfTree/vim-vue-plugin
