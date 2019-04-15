@@ -47,25 +47,28 @@ endif
 let b:current_syntax = 'vue'
 
 " Find tag <template> / <script> / <style> and enable currespond syntax
-syn region vueTemplate start=+<template\(\s.\{-}\)\?>+ end=+</template>+ keepend contains=vueTemplatePug,@HTMLSyntax,vueTag
-syn region vueTemplatePug start=+<template lang="pug"\(\s.\{-}\)\?>+ end=+</template>+ contained contains=@PugSyntax,vueTag
-syn region vueScript start=+<script\(\s.\{-}\)\?>+ end=+</script>+ keepend contains=@jsAll,jsImport,jsExport,vueTag
-syn region vueStyle start=+<style\(\s.\{-}\)\?>+ end=+</style>+ keepend contains=@CSSSyntax,@HTMLSyntax,vueTag
+syn region vueTemplate 
+      \ start=+<template\(\s.\{-}\)\?>+ 
+      \ end=+</template>+ 
+      \ keepend contains=vueTemplatePug,@HTMLSyntax,vueTag
+syn region vueTemplatePug 
+      \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
+      \ end=+</template>+ 
+      \ contained contains=@PugSyntax,vueTag
+syn region vueScript 
+      \ start=+<script\(\s.\{-}\)\?>+ 
+      \ end=+</script>+ 
+      \ keepend contains=@jsAll,jsImport,jsExport,vueTag
+syn region vueStyle 
+      \ start=+<style\(\s.\{-}\)\?>+ 
+      \ end=+</style>+ 
+      \ keepend contains=@CSSSyntax,@HTMLSyntax,vueTag
 
 hi def link vueTag htmlTagName
 syn match vueTag contained /\v(template|script|style)/
 
-" Officially, vim-vue-plugin syntax uses the pangloss/vim-javascript syntax package
-" (and is tested against it exclusively).  However, in practice, we make some
-" effort towards compatibility with other packages.
-"
-" These are the plugin-to-syntax-element correspondences:
-"
-"   - pangloss/vim-javascript:      jsBlock, jsExpression
-"   - jelera/vim-javascript-syntax: javascriptBlock
-"   - othree/yajs.vim:              javascriptNoReserved
-
-
 " Vue attributes should color as JS.  Note the trivial end pattern; we let
 " jsBlock take care of ending the region.
-syn region xmlString contained start=+{+ end=++ contains=jsBlock,javascriptBlock
+syn region xmlString 
+      \ start=+{+ end=++  
+      \ contained contains=jsBlock,javascriptBlock
