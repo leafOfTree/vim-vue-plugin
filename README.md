@@ -59,6 +59,10 @@ Ex:
 
 [Single File Components][3]
 
+## License
+
+This plugin is under [The Unlicense][8].
+
 [1]: https://github.com/mxw/vim-jsx "mxw: vim-jsx"
 [2]: https://github.com/VundleVim/Vundle.vim
 [3]: https://vuejs.org/v2/guide/single-file-components.html
@@ -66,3 +70,4 @@ Ex:
 [5]: https://github.com/tpope/vim-pathogen
 [6]: https://tencent.github.io/wepy
 [7]: https://github.com/junegunn/vim-plug
+[8]: https://choosealicense.com/licenses/unlicense/
