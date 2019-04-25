@@ -7,9 +7,15 @@
 " CREDITS: Inspired by mxw/vim-jsx.
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if exists("b:did_vue_indent")
+    finish
+endif
 se sw=2 ts=2
 
 let s:name = 'vim-vue-plugin'
+let s:vue_tag = '\v\<\/?(template|script|style)'
+let s:vue_end_tag = '\v\<\/?(script|style)'
+let s:end_tag = '^\s*\/\?>\s*'
 
 " Save the current JavaScript indentexpr.
 let b:vue_js_indentexpr = &indentexpr
@@ -33,10 +39,6 @@ let b:did_vue_indent = 1
 setlocal indentkeys=0{,0},0),0],0\,,!^F,o,O,e
 " XML indentkeys
 setlocal indentkeys+=*<Return>,<>>,<<>,/
-
-let s:vue_tag = '\v\<\/?(template|script|style)'
-let s:vue_tag_no_indent = '\v\<\/?(script|style)'
-let s:end_tag = '^\s*\/\?>\s*'
 
 setlocal indentexpr=GetVueIndent()
 
@@ -75,6 +77,7 @@ function! GetVueIndent()
   if SynsPug(prevsyns)
     call s:LogMsg('syntax: pug')
     let ind = GetPugIndent()
+
   elseif SynsHTML(prevsyns)
     call s:LogMsg('syntax: html')
     let ind = XmlIndentGet(v:lnum, 0)
@@ -109,11 +112,9 @@ function! GetVueIndent()
       call s:LogMsg('add initial indent')
       let ind = &sw
     endif
-  else
-    if prevline =~? s:vue_tag_no_indent
-      call s:LogMsg('prev is vue tag')
-      let ind = 0
-    endif
+  elseif prevline =~? s:vue_end_tag
+    call s:LogMsg('prev is vue tag')
+    let ind = 0
   endif
   call s:LogMsg('result indent: '.ind)
 
@@ -122,6 +123,6 @@ endfunction
 
 function! s:LogMsg(msg)
   if g:vim_vue_plugin_debug
-    echom '['.s:name.'] '. a:msg
+    echom '['.s:name.'] '.a:msg
   endif
 endfunction
