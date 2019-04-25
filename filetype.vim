@@ -1,6 +1,6 @@
-au BufNewFile,BufRead *.vue,*.wpy call s:setFileType()
+au BufNewFile,BufRead *.vue,*.wpy call s:setFiletype()
 
-function! s:setFileType()
+function! s:setFiletype()
   " enable javascript autocmds first
   let &filetype = 'javascript'
 
