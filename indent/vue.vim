@@ -46,17 +46,17 @@ function! SynsEOL(lnum)
   return map(synstack(lnum, col), 'synIDattr(v:val, "name")')
 endfunction
 
-function! SynsHTMLish(syns)
+function! SynsHTML(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueTemplate)'
 endfunction
 
-function! SynsPugish(syns)
+function! SynsPug(syns)
   let second_syn = get(a:syns, 1)
   return second_syn =~? '\v^(vueTemplatePug)'
 endfunction
 
-function! SynsCSSish(syns)
+function! SynsCSS(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueStyle)'
 endfunction
@@ -72,11 +72,11 @@ function! GetVueIndent()
   let cursyns = SynsEOL(v:lnum)
   let prevsyns = SynsEOL(v:lnum - 1)
 
-  if SynsPugish(prevsyns)
-    call s:LogMsg('type: pug')
+  if SynsPug(prevsyns)
+    call s:LogMsg('syntax: pug')
     let ind = GetPugIndent()
-  elseif SynsHTMLish(prevsyns)
-    call s:LogMsg('type: html')
+  elseif SynsHTML(prevsyns)
+    call s:LogMsg('syntax: html')
     let ind = XmlIndentGet(v:lnum, 0)
 
     " Align '/>' and '>' with '<' for multiline tags.
@@ -88,11 +88,11 @@ function! GetVueIndent()
       let ind = ind + &sw
     endif
 
-  elseif SynsCSSish(prevsyns)
-    call s:LogMsg('type: css')
+  elseif SynsCSS(prevsyns)
+    call s:LogMsg('syntax: css')
     let ind = GetCSSIndent()
   else
-    call s:LogMsg('type: javascript')
+    call s:LogMsg('syntax: javascript')
     if len(b:vue_js_indentexpr)
       let ind = eval(b:vue_js_indentexpr)
     else
@@ -101,21 +101,21 @@ function! GetVueIndent()
   endif
 
   if curline =~? s:vue_tag
-    call s:LogMsg('cur vue tag')
+    call s:LogMsg('current is vue tag')
     let ind = 0
   elseif (exists("g:vim_vue_plugin_has_init_indent")
         \ && g:vim_vue_plugin_has_init_indent != 0)
     if SynsVueScope(cursyns) && ind == 0
-      call s:LogMsg('add init')
+      call s:LogMsg('add initial indent')
       let ind = &sw
     endif
   else
     if prevline =~? s:vue_tag_no_indent
-      call s:LogMsg('prev vue tag')
+      call s:LogMsg('prev is vue tag')
       let ind = 0
     endif
   endif
-  call s:LogMsg('result ind: '.ind)
+  call s:LogMsg('result indent: '.ind)
 
   return ind
 endfunction
