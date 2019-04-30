@@ -22,7 +22,7 @@ Vim syntax and indent plugin for `.vue` and `.wpy` files. Mainly inspired by [mx
 
         set rpt+=path/to/this_plugin
 
-Plugin works if filetype is set to `javascript.vue`. Please stay up to date. Feel free to make an issue or pull request.
+Plugin works if filetype is set to `javascript.vue`. Please stay up to date. Feel free to make an issue or a pull request.
 
 ## How it works
 
