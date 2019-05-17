@@ -13,7 +13,9 @@ endif
 se sw=2 ts=2
 
 let s:name = 'vim-vue-plugin'
-let s:vue_tag = '\v^\<(script|style)' " let <template> be handled by HTML indent
+
+" let <template> be handled by HTML indent
+let s:vue_tag = '\v^\<(script|style)' 
 let s:vue_end_tag = '\v\<\/?(script|style)'
 let s:end_tag = '^\s*\/\?>\s*'
 
@@ -65,7 +67,7 @@ endfunction
 
 function! SynsVueScope(syns)
   let first_syn = get(a:syns, 0)
-  return first_syn =~? '\v^(vueStyle)|(vueTemplate)|(vueScript)'
+  return first_syn =~? '\v^(vueStyle)|(vueScript)'
 endfunction
 
 function! GetVueIndent()
