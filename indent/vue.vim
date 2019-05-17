@@ -64,14 +64,15 @@ function! SynsPug(syns)
   return first_syn =~? '\v^(vueTemplatePug)'
 endfunction
 
+function! SynsSASS(syns)
+  let first_syn = get(a:syns, 0)
+  echom first_syn
+  return first_syn =~? '\v^(vueStyleSASS)'
+endfunction
+
 function! SynsCSS(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueStyle)'
-endfunction
-
-function! SynsSASS(syns)
-  let first_syn = get(a:syns, 0)
-  return first_syn =~? '\v^(vueStyleSASS)'
 endfunction
 
 function! SynsVueScope(syns)
@@ -101,13 +102,12 @@ function! GetVueIndent()
     if prevline =~? s:end_tag
       let ind = ind + &sw
     endif
-
-  elseif SynsCSS(prevsyns)
-    call s:LogMsg('syntax: css')
-    let ind = GetCSSIndent()
   elseif SynsSASS(prevsyns)
     call s:LogMsg('syntax: sass')
     let ind = GetSassIndent()
+  elseif SynsCSS(prevsyns)
+    call s:LogMsg('syntax: css')
+    let ind = GetCSSIndent()
   else
     call s:LogMsg('syntax: javascript')
     if len(b:vue_js_indentexpr)
