@@ -105,7 +105,7 @@ function! GetVueIndent()
     endif
   endif
 
-  if curline =~? s:vue_tag
+  if curline =~? s:vue_tag || curline =~? s:vue_end_tag 
     call s:LogMsg('current is vue tag')
     let ind = 0
   elseif (exists("g:vim_vue_plugin_has_init_indent")
