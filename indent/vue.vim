@@ -16,7 +16,7 @@ let s:name = 'vim-vue-plugin'
 
 " let <template> be handled by HTML indent
 let s:vue_tag = '\v^\<(script|style)' 
-let s:vue_end_tag = '\v\<\/?(script|style)'
+let s:vue_end_tag = '\v\<\/(template|script|style)'
 let s:end_tag = '^\s*\/\?>\s*'
 
 " Save the current JavaScript indentexpr.
@@ -56,8 +56,8 @@ function! SynsHTML(syns)
 endfunction
 
 function! SynsPug(syns)
-  let second_syn = get(a:syns, 1)
-  return second_syn =~? '\v^(vueTemplatePug)'
+  let first_syn = get(a:syns, 0)
+  return first_syn =~? '\v^(vueTemplatePug)'
 endfunction
 
 function! SynsCSS(syns)
