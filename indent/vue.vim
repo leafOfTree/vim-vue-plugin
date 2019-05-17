@@ -15,14 +15,14 @@ se sw=2 ts=2
 
 let s:name = 'vim-vue-plugin'
 
-let s:debug = exists("g:vim_vue_plugin_use_pug")
+let s:debug = exists("g:vim_vue_plugin_debug")
       \ && g:vim_vue_plugin_debug == 1
 let s:use_pug = exists("g:vim_vue_plugin_use_pug")
       \ && g:vim_vue_plugin_use_pug == 1
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
 let s:has_init_indent = exists("g:vim_vue_plugin_has_init_indent")
-        \ && g:vim_vue_plugin_has_init_indent == 1
+      \ && g:vim_vue_plugin_has_init_indent == 1
 
 " Let <template> be handled by HTML indent
 let s:vue_tag = '\v^\<(script|style)' 
@@ -40,13 +40,17 @@ runtime! indent/xml.vim
 unlet! b:did_indent
 runtime! indent/css.vim
 
-" Load pug indent method
-unlet! b:did_indent
-runtime! indent/pug.vim
+if s:use_pug
+  " Load pug indent method
+  unlet! b:did_indent
+  runtime! indent/pug.vim
+endif
 
-" Load sass indent method
-unlet! b:did_indent
-runtime! indent/sass.vim
+if s:use_sass
+  " Load sass indent method
+  unlet! b:did_indent
+  runtime! indent/sass.vim
+endif
 
 let b:did_indent = 1
 let b:did_vue_indent = 1
@@ -127,7 +131,7 @@ function! GetVueIndent()
   endif
 
   if curline =~? s:vue_tag || curline =~? s:vue_end_tag 
-    call s:LogMsg('current is vue tag')
+    call s:LogMsg('current line is vue tag')
     let ind = 0
   elseif s:has_init_indent
     if SynsVueScope(cursyns) && ind == 0
@@ -135,7 +139,7 @@ function! GetVueIndent()
       let ind = &sw
     endif
   elseif prevline =~? s:vue_tag || prevline =~? s:vue_end_tag
-    call s:LogMsg('prev is vue tag')
+    call s:LogMsg('prev line is vue tag')
     let ind = 0
   endif
   call s:LogMsg('result indent: '.ind)
