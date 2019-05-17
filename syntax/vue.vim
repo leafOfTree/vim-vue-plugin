@@ -19,6 +19,7 @@ function! s:LoadFullSyntax(group, type)
   exec 'syn include '.a:group.' syntax/'.a:type.'.vim'
 endfunction
 
+
 " Load syntax/*.vim to syntax group
 if exists("g:vim_vue_plugin_load_full_syntax")
       \ && g:vim_vue_plugin_load_full_syntax == 1
@@ -48,6 +49,13 @@ endif
 if exists("g:vim_vue_plugin_use_less")
       \ && g:vim_vue_plugin_use_less == 1
   call s:LoadFullSyntax('@LessSyntax', 'less')
+  syn clear cssDefinition
+  syn region lessDefinition 
+        \ matchgroup=cssBraces
+        \ contains=@LessSyntax
+        \ start="{" 
+        \ end="}" 
+  
 endif
 
 let b:current_syntax = 'vue'
