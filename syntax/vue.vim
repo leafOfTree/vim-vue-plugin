@@ -38,10 +38,16 @@ else
   endif
 endif
 
-" Load vim-pug syntax if pug support is enabled
+" If pug is enabled, load vim-pug syntax 
 if exists("g:vim_vue_plugin_use_pug")
       \ && g:vim_vue_plugin_use_pug == 1
   call s:LoadFullSyntax('@PugSyntax', 'pug')
+endif
+
+" If less is enabled, load vim-pug syntax 
+if exists("g:vim_vue_plugin_use_less")
+      \ && g:vim_vue_plugin_use_less == 1
+  call s:LoadFullSyntax('@LessSyntax', 'less')
 endif
 
 let b:current_syntax = 'vue'
@@ -49,26 +55,35 @@ let b:current_syntax = 'vue'
 " Find tag <template> / <script> / <style> and enable currespond syntax
 syn region vueTemplate 
       \ start=+<template\(\s.\{-}\)\?>+ 
-      \ end=+</template>+ 
-      \ keepend contains=vueTemplatePug,@HTMLSyntax,vueTag
+      \ end=+^</template>+ 
+      \ keepend contains=@HTMLSyntax
 syn region vueTemplatePug 
       \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
       \ end=+</template>+ 
-      \ contained contains=@PugSyntax,vueTag
+      \ keepend contains=@PugSyntax,vueTag
+
 syn region vueScript 
       \ start=+<script\(\s.\{-}\)\?>+ 
       \ end=+</script>+ 
       \ keepend contains=@jsAll,jsImport,jsExport,vueTag
+
 syn region vueStyle 
       \ start=+<style\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
-      \ keepend contains=@CSSSyntax,@HTMLSyntax,vueTag
+      \ keepend contains=@CSSSyntax,vueTag
+syn region vueStyleLESS 
+      \ start=+<style lang="less"\(\s.\{-}\)\?>+ 
+      \ end=+</style>+ 
+      \ keepend contains=@LessSyntax,vueTag
 
-hi def link vueTag htmlTagName
-syn match vueTag contained /\v(template|script|style)/
+syn region vueTag contained start=+<[^/]+ end=+>+ contains=htmlTagN,htmlString,htmlArg
+syn region vueTag contained start=+</+ end=+>+ contains=htmlTagN,htmlString,htmlArg
+" syn keyword vueTagName containedin=htmlTagN template script style
 
 " Vue attributes should color as JS.  Note the trivial end pattern; we let
 " jsBlock take care of ending the region.
 syn region xmlString 
       \ start=+{+ end=++  
       \ contained contains=jsBlock,javascriptBlock
+
+hi def link vueTag htmlTag
