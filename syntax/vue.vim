@@ -11,6 +11,15 @@ if exists("b:current_syntax") && b:current_syntax == 'vue'
     finish
 endif
 
+let s:load_full_syntax = exists("g:vim_vue_plugin_load_full_syntax")
+      \ && g:vim_vue_plugin_load_full_syntax == 1
+let s:use_pug = exists("g:vim_vue_plugin_use_pug")
+      \ && g:vim_vue_plugin_use_pug == 1
+let s:use_less = exists("g:vim_vue_plugin_use_less")
+      \ && g:vim_vue_plugin_use_less == 1
+let s:use_sass = exists("g:vim_vue_plugin_use_sass")
+      \ && g:vim_vue_plugin_use_sass == 1
+
 function! s:LoadDefaultSyntax(group, type)
   unlet! b:current_syntax
   exec 'syn include '.a:group.' $VIMRUNTIME/syntax/'.a:type.'.vim'
@@ -25,8 +34,7 @@ endfunction
 
 
 " Load syntax/*.vim to syntax group
-if exists("g:vim_vue_plugin_load_full_syntax")
-      \ && g:vim_vue_plugin_load_full_syntax == 1
+if s:load_full_syntax
   call s:LoadFullSyntax('@HTMLSyntax', 'html')
   call s:LoadFullSyntax('@CSSSyntax', 'css')
 
@@ -44,25 +52,21 @@ else
 endif
 
 " If pug is enabled, load vim-pug syntax 
-if exists("g:vim_vue_plugin_use_pug")
-      \ && g:vim_vue_plugin_use_pug == 1
+if s:use_pug
   call s:LoadFullSyntax('@PugSyntax', 'pug')
 endif
 
 " If less is enabled, load less syntax 
-if exists("g:vim_vue_plugin_use_less")
-      \ && g:vim_vue_plugin_use_less == 1
+if s:use_less
   call s:LoadFullSyntax('@LessSyntax', 'less')
   syn clear cssDefinition
   syn region lessDefinition matchgroup=cssBraces contains=@LessSyntax
         \ start="{" 
         \ end="}" 
-  
 endif
 
 " If sass is enabled, load sass syntax 
-if exists("g:vim_vue_plugin_use_sass")
-      \ && g:vim_vue_plugin_use_sass == 1
+if s:use_sass
   call s:LoadFullSyntax('@SassSyntax', 'sass')
   syn clear cssDefinition
   syn region sassDefinition matchgroup=cssBraces contains=@SassSyntax
