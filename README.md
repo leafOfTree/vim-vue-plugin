@@ -45,8 +45,8 @@ Ex:
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------|
 | `g:vim_vue_plugin_load_full_syntax`\* | Enable: load all syntax files in `runtimepath` to enable related syntax plugins. Disable: only in `syntax`, `~/.vim/syntax` and `$VIM/vimfiles/syntax` | 0 |
 | `g:vim_vue_plugin_use_pug`\*          | Enable `vim-pug` pug syntax for `<template lang="pug">`.                                               | 0 |
-| `g:vim_vue_plugin_use_less`           | Enable less syntax for `<template lang="less">`.                                                       | 0 |
-| `g:vim_vue_plugin_use_sass`           | Enable sass/scss syntax for `<template lang="sass">` or `<template lang="scss">`.                      | 0 |
+| `g:vim_vue_plugin_use_less`           | Enable less syntax for `<style lang="less">`.                                                          | 0 |
+| `g:vim_vue_plugin_use_sass`           | Enable sass/scss syntax for `<style lang="sass">`(or scss).                                            | 0 |
 | `g:vim_vue_plugin_debug`              | Echo debug message in `messages` list. Useful to debug if indent errors occur.                         | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 
