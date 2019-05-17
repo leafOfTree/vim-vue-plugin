@@ -8,7 +8,7 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists("b:current_syntax") && b:current_syntax == 'vue'
-    finish
+  finish
 endif
 
 let s:load_full_syntax = exists("g:vim_vue_plugin_load_full_syntax")
@@ -56,20 +56,21 @@ if s:use_pug
   call s:LoadFullSyntax('@PugSyntax', 'pug')
 endif
 
-" If less is enabled, load less syntax 
-if s:use_less
-  call s:LoadFullSyntax('@LessSyntax', 'less')
-  syn clear cssDefinition
-  syn region lessDefinition matchgroup=cssBraces contains=@LessSyntax
-        \ start="{" 
-        \ end="}" 
-endif
-
 " If sass is enabled, load sass syntax 
 if s:use_sass
   call s:LoadFullSyntax('@SassSyntax', 'sass')
-  syn clear cssDefinition
-  syn region sassDefinition matchgroup=cssBraces contains=@SassSyntax
+endif
+
+" If less is enabled, load less syntax 
+if s:use_less
+  call s:LoadFullSyntax('@LessSyntax', 'less')
+endif
+
+if s:use_sass || s:use_less
+  syn region lessDefinition transparent matchgroup=cssBraces contains=@LessSyntax
+        \ start="{" 
+        \ end="}" 
+  syn region sassDefinition transparent matchgroup=cssBraces contains=@SassSyntax
         \ start="{" 
         \ end="}" 
 endif
@@ -108,7 +109,7 @@ syn region vueStyleSCSS
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
 
-syn region vueTag contained start=+<[^/]+ end=+>+ contains=htmlTagN,htmlString,htmlArg
+syn region vueTag contained start=+<[^/]+ end=+>+ contains=htmlTagN,htmlString,htmlArg fold
 syn region vueTag contained start=+</+ end=+>+ contains=htmlTagN,htmlString,htmlArg
 " syn keyword vueTagName containedin=htmlTagN template script style
 
