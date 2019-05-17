@@ -30,6 +30,7 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 
 - Support Pug(`<template lang="pug">`) with [vim-pug][4] (see Configuration).
 - Support Less(`<style lang="less">`) with or without [vim-less][9] (see Configuration).
+- Support Sass/Scss(`<style lang="sass(or scss)">`) (see Configuration).
 - Support `.wpy` files from [WePY][6]
 
 ## Configuration
