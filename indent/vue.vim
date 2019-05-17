@@ -26,13 +26,17 @@ let b:vue_js_indentexpr = &indentexpr
 unlet! b:did_indent
 runtime! indent/xml.vim
 
+" load css indent method
+unlet! b:did_indent
+runtime! indent/css.vim
+
 " load pug indent method
 unlet! b:did_indent
 runtime! indent/pug.vim
 
-" load css indent method
+" load sass indent method
 unlet! b:did_indent
-runtime! indent/css.vim
+runtime! indent/sass.vim
 
 let b:did_indent = 1
 let b:did_vue_indent = 1
@@ -63,6 +67,11 @@ endfunction
 function! SynsCSS(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueStyle)'
+endfunction
+
+function! SynsSASS(syns)
+  let first_syn = get(a:syns, 0)
+  return first_syn =~? '\v^(vueStyleSASS)'
 endfunction
 
 function! SynsVueScope(syns)
@@ -96,6 +105,9 @@ function! GetVueIndent()
   elseif SynsCSS(prevsyns)
     call s:LogMsg('syntax: css')
     let ind = GetCSSIndent()
+  elseif SynsSASS(prevsyns)
+    call s:LogMsg('syntax: sass')
+    let ind = GetSassIndent()
   else
     call s:LogMsg('syntax: javascript')
     if len(b:vue_js_indentexpr)
@@ -109,12 +121,12 @@ function! GetVueIndent()
     call s:LogMsg('current is vue tag')
     let ind = 0
   elseif (exists("g:vim_vue_plugin_has_init_indent")
-        \ && g:vim_vue_plugin_has_init_indent != 0)
+        \ && g:vim_vue_plugin_has_init_indent == 1)
     if SynsVueScope(cursyns) && ind == 0
       call s:LogMsg('add initial indent')
       let ind = &sw
     endif
-  elseif prevline =~? s:vue_end_tag
+  elseif prevline =~? s:vue_tag || prevline =~? s:vue_end_tag
     call s:LogMsg('prev is vue tag')
     let ind = 0
   endif

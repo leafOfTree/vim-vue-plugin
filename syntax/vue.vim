@@ -7,6 +7,10 @@
 " CREDITS: Inspired by mxw/vim-jsx.
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if exists("b:current_syntax") && b:current_syntax == 'vue'
+    finish
+endif
+
 function! s:LoadDefaultSyntax(group, type)
   unlet! b:current_syntax
   exec 'syn include '.a:group.' $VIMRUNTIME/syntax/'.a:type.'.vim'
@@ -45,17 +49,25 @@ if exists("g:vim_vue_plugin_use_pug")
   call s:LoadFullSyntax('@PugSyntax', 'pug')
 endif
 
-" If less is enabled, load vim-pug syntax 
+" If less is enabled, load less syntax 
 if exists("g:vim_vue_plugin_use_less")
       \ && g:vim_vue_plugin_use_less == 1
   call s:LoadFullSyntax('@LessSyntax', 'less')
   syn clear cssDefinition
-  syn region lessDefinition 
-        \ matchgroup=cssBraces
-        \ contains=@LessSyntax
+  syn region lessDefinition matchgroup=cssBraces contains=@LessSyntax
         \ start="{" 
         \ end="}" 
   
+endif
+
+" If sass is enabled, load sass syntax 
+if exists("g:vim_vue_plugin_use_sass")
+      \ && g:vim_vue_plugin_use_sass == 1
+  call s:LoadFullSyntax('@SassSyntax', 'sass')
+  syn clear cssDefinition
+  syn region sassDefinition matchgroup=cssBraces contains=@SassSyntax
+        \ start="{" 
+        \ end="}" 
 endif
 
 let b:current_syntax = 'vue'
@@ -83,6 +95,14 @@ syn region vueStyleLESS
       \ start=+<style lang="less"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@LessSyntax,vueTag
+syn region vueStyleSASS 
+      \ start=+<style lang="sass"\(\s.\{-}\)\?>+ 
+      \ end=+</style>+ 
+      \ keepend contains=@SassSyntax,vueTag
+syn region vueStyleSCSS 
+      \ start=+<style lang="scss"\(\s.\{-}\)\?>+ 
+      \ end=+</style>+ 
+      \ keepend contains=@SassSyntax,vueTag
 
 syn region vueTag contained start=+<[^/]+ end=+>+ contains=htmlTagN,htmlString,htmlArg
 syn region vueTag contained start=+</+ end=+>+ contains=htmlTagN,htmlString,htmlArg
