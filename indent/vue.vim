@@ -43,14 +43,14 @@ runtime! indent/xml.vim
 unlet! b:did_indent
 runtime! indent/css.vim
 
+" Load pug indent method
 if s:use_pug
-  " Load pug indent method
   unlet! b:did_indent
   runtime! indent/pug.vim
 endif
 
+" Load sass indent method
 if s:use_sass
-  " Load sass indent method
   unlet! b:did_indent
   runtime! indent/sass.vim
 endif
@@ -94,6 +94,24 @@ endfunction
 function! s:SynsVueScope(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueStyle)|(vueScript)'
+endfunction
+
+function! GetVueCurrentTag()
+  let lnum = getcurpos()[1]
+  let cursyns = s:SynsEOL(lnum)
+  let first_syn = get(cursyns, 0)
+
+  if first_syn =~ 'vueTemplate.*'
+    let tag = 'template'
+  elseif first_syn =~ 'vueScript.*'
+    let tag = 'script'
+  elseif first_syn =~ 'vueStyle.*'
+    let tag = 'style'
+  else
+    let tag = ''
+  endif
+
+  return tag
 endfunction
 
 function! GetVueIndent()
