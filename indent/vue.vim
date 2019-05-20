@@ -102,7 +102,6 @@ function! GetVueIndent()
   if SynsPug(prevsyns)
     call s:LogMsg('syntax: pug')
     let ind = GetPugIndent()
-
   elseif SynsHTML(prevsyns)
     call s:LogMsg('syntax: html')
     let ind = XmlIndentGet(v:lnum, 0)
@@ -142,8 +141,8 @@ function! GetVueIndent()
     call s:LogMsg('prev line is vue tag')
     let ind = 0
   endif
-  call s:LogMsg('result indent: '.ind)
 
+  call s:LogMsg('result indent: '.ind)
   return ind
 endfunction
 
