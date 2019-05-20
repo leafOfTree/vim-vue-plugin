@@ -29,8 +29,12 @@ let s:vue_tag = '\v^\<(script|style)'
 let s:vue_end_tag = '\v\<\/(template|script|style)'
 let s:end_tag = '^\s*\/\?>\s*'
 
+
+" Load javascript indent method
+unlet! b:did_indent
+runtime! indent/javascript.vim
 " Save the current JavaScript indentexpr.
-let b:vue_js_indentexpr = &indentexpr
+let b:javascript_indentexpr = &indentexpr
 
 " Load xml indent method
 unlet! b:did_indent
@@ -122,8 +126,8 @@ function! GetVueIndent()
     let ind = GetCSSIndent()
   else
     call s:LogMsg('syntax: javascript')
-    if len(b:vue_js_indentexpr)
-      let ind = eval(b:vue_js_indentexpr)
+    if len(b:javascript_indentexpr)
+      let ind = eval(b:javascript_indentexpr)
     else
       let ind = cindent(v:lnum)
     endif
