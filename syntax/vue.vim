@@ -20,6 +20,14 @@ let s:use_less = exists("g:vim_vue_plugin_use_less")
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
 
+function! s:LoadSyntax(group, type)
+  if s:load_full_syntax
+    call s:LoadFullSyntax(a:group, a:type)
+  else
+    call s:LoadDefaultSyntax(a:group, a:type)
+  endif
+endfunction
+
 function! s:LoadDefaultSyntax(group, type)
   unlet! b:current_syntax
   exec 'syn include '.a:group.' $VIMRUNTIME/syntax/'.a:type.'.vim'
@@ -32,38 +40,42 @@ function! s:LoadFullSyntax(group, type)
   exec 'syn include '.a:group.' syntax/'.a:type.'.vim'
 endfunction
 
-
+"""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Main
+"
+"""""""""""""""""""""""""""""""""""""""""""""""
 " Load syntax/*.vim to syntax group
-if s:load_full_syntax
-  call s:LoadFullSyntax('@HTMLSyntax', 'html')
-  call s:LoadFullSyntax('@CSSSyntax', 'css')
+call s:LoadSyntax('@HTMLSyntax', 'html')
 
-  " Load javascript syntax file as syntax group if 
-  " pangloss/vim-javascript is not used
-  if hlexists('jsNoise') == 0
-    call s:LoadFullSyntax('@jsAll', 'javascript')
-  endif
-else
-  call s:LoadDefaultSyntax('@HTMLSyntax', 'html')
-  call s:LoadDefaultSyntax('@CSSSyntax', 'css')
-  if hlexists('jsNoise') == 0
-    call s:LoadDefaultSyntax('@jsAll', 'javascript')
-  endif
+" Avoid overload
+if hlexists('cssTagName') == 0
+  call s:LoadSyntax('@htmlCss', 'css')
 endif
 
-" If pug is enabled, load vim-pug syntax 
+" Avoid overload
+if hlexists('jsNoise') == 0
+  call s:LoadSyntax('@jsAll', 'javascript')
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+"
+" pre-processors
+"
+"""""""""""""""""""""""""""""""""""""""""""""""
+" If pug is enabled, load vim-pug syntax
 if s:use_pug
   call s:LoadFullSyntax('@PugSyntax', 'pug')
 endif
 
 " If sass is enabled, load sass syntax 
 if s:use_sass
-  call s:LoadFullSyntax('@SassSyntax', 'sass')
+  call s:LoadSyntax('@SassSyntax', 'sass')
 endif
 
 " If less is enabled, load less syntax 
 if s:use_less
-  call s:LoadFullSyntax('@LessSyntax', 'less')
+  call s:LoadSyntax('@LessSyntax', 'less')
 endif
 
 if s:use_sass || s:use_less
@@ -74,6 +86,7 @@ if s:use_sass || s:use_less
         \ start="{" 
         \ end="}" 
 endif
+
 
 let b:current_syntax = 'vue'
 
@@ -95,7 +108,7 @@ syn region vueScript
 syn region vueStyle 
       \ start=+<style\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
-      \ keepend contains=@CSSSyntax,vueTag
+      \ keepend contains=@htmlCss,vueTag
 syn region vueStyleLESS 
       \ start=+<style lang="less"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 

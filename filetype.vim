@@ -1,11 +1,11 @@
 au BufNewFile,BufRead *.vue,*.wpy call s:setFiletype()
 
 function! s:setFiletype()
-  " enable javascript autocmds first
-  let &filetype = 'javascript'
+  " enable JavaScript autocmds first
+  " let &filetype = 'javascript'
 
   " then set filetype
-  let &filetype = 'javascript.vue'
+  let &filetype = 'vue'
 endfunction
 
 if !exists("g:vim_vue_plugin_has_init_indent")

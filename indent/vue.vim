@@ -14,7 +14,6 @@ endif
 se sw=2 ts=2
 
 let s:name = 'vim-vue-plugin'
-
 let s:debug = exists("g:vim_vue_plugin_debug")
       \ && g:vim_vue_plugin_debug == 1
 let s:use_pug = exists("g:vim_vue_plugin_use_pug")
@@ -24,8 +23,9 @@ let s:use_sass = exists("g:vim_vue_plugin_use_sass")
 let s:has_init_indent = exists("g:vim_vue_plugin_has_init_indent")
       \ && g:vim_vue_plugin_has_init_indent == 1
 
-" Let <template> be handled by HTML indent
+" Let <template> handled by HTML indent
 let s:vue_tag = '\v^\<(script|style)' 
+
 let s:vue_end_tag = '\v\<\/(template|script|style)'
 let s:end_tag = '^\s*\/\?>\s*'
 

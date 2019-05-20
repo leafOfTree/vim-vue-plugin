@@ -22,16 +22,20 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
         set rpt+=path/to/this_plugin
 
-Plugin works if filetype is set to `javascript.vue`. Please stay up to date. Feel free to open an issue or a pull request.
+Plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or a pull request.
+
+**Note**: `filetype` used to be `javascript.vue`, which caused `javascript`syntax to be loaded multiple times and a significant delay. Now `filetype` is set to `vue` and autocmds for `javascript` have to be manually added for `vue`.
 
 ## How it works
 
 Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin`. (Like XML and JavaScript for `.jsx`).
 
-- Support Pug(`<template lang="pug">`) with [vim-pug][4] (see Configuration).
-- Support Less(`<style lang="less">`) with or without [vim-less][9] (see Configuration).
-- Support Sass/Scss(`<style lang="sass(or scss)">`) (see Configuration).
-- Support `.wpy` files from [WePY][6]
+Supports
+
+- Pug with [vim-pug][4] (see Configuration).
+- Less with or without [vim-less][9] (see Configuration).
+- Sass/Scss (see Configuration).
+- `.wpy` files from [WePY][6]
 
 ## Configuration
 
@@ -47,7 +51,7 @@ Ex:
 | `g:vim_vue_plugin_use_pug`\*          | Enable `vim-pug` pug syntax for `<template lang="pug">`.                                               | 0 |
 | `g:vim_vue_plugin_use_less`           | Enable less syntax for `<style lang="less">`.                                                          | 0 |
 | `g:vim_vue_plugin_use_sass`           | Enable sass/scss syntax for `<style lang="sass">`(or scss).                                            | 0 |
-| `g:vim_vue_plugin_debug`              | Echo debug message in `messages` list. Useful to debug if indent errors occur.                         | 0 |
+| `g:vim_vue_plugin_debug`              | Echo debug message in `messages` list. Useful to debug if unexpendted indents occur.                   | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 
 \*: Vim may be slow if the feature is enabled. Find balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
