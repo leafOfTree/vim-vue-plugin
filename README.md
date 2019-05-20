@@ -24,7 +24,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 Plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or a pull request.
 
-**Note**: `filetype` used to be `javascript.vue`, which caused `javascript`syntax to be loaded multiple times and a significant delay. Now `filetype` is set to `vue` and autocmds for `javascript` have to be manually added for `vue`.
+**Note**: `filetype` used to be set to `javascript.vue`, which caused `javascript`syntax to be loaded multiple times and a significant delay. Now it is `vue` and autocmds for `javascript` have to be manually added for `vue`.
 
 ## How it works
 
