@@ -29,7 +29,6 @@ let s:vue_tag = '\v^\<(script|style)'
 let s:vue_end_tag = '\v\<\/(template|script|style)'
 let s:end_tag = '^\s*\/\?>\s*'
 
-
 " Load javascript indent method
 unlet! b:did_indent
 runtime! indent/javascript.vim
@@ -66,33 +65,33 @@ setlocal indentkeys+=*<Return>,<>>,<<>,/
 
 setlocal indentexpr=GetVueIndent()
 
-function! SynsEOL(lnum)
+function! s:SynsEOL(lnum)
   let lnum = prevnonblank(a:lnum)
   let col = strlen(getline(lnum))
   return map(synstack(lnum, col), 'synIDattr(v:val, "name")')
 endfunction
 
-function! SynsHTML(syns)
+function! s:SynsHTML(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueTemplate)'
 endfunction
 
-function! SynsPug(syns)
+function! s:SynsPug(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueTemplatePug)'
 endfunction
 
-function! SynsSASS(syns)
+function! s:SynsSASS(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueStyleSASS)'
 endfunction
 
-function! SynsCSS(syns)
+function! s:SynsCSS(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueStyle)'
 endfunction
 
-function! SynsVueScope(syns)
+function! s:SynsVueScope(syns)
   let first_syn = get(a:syns, 0)
   return first_syn =~? '\v^(vueStyle)|(vueScript)'
 endfunction
@@ -100,13 +99,13 @@ endfunction
 function! GetVueIndent()
   let curline = getline(v:lnum)
   let prevline = getline(v:lnum - 1)
-  let cursyns = SynsEOL(v:lnum)
-  let prevsyns = SynsEOL(v:lnum - 1)
+  let cursyns = s:SynsEOL(v:lnum)
+  let prevsyns = s:SynsEOL(v:lnum - 1)
 
-  if SynsPug(prevsyns)
+  if s:SynsPug(prevsyns)
     call s:LogMsg('syntax: pug')
     let ind = GetPugIndent()
-  elseif SynsHTML(prevsyns)
+  elseif s:SynsHTML(prevsyns)
     call s:LogMsg('syntax: html')
     let ind = XmlIndentGet(v:lnum, 0)
 
@@ -118,10 +117,10 @@ function! GetVueIndent()
     if prevline =~? s:end_tag
       let ind = ind + &sw
     endif
-  elseif SynsSASS(prevsyns)
+  elseif s:SynsSASS(prevsyns)
     call s:LogMsg('syntax: sass')
     let ind = GetSassIndent()
-  elseif SynsCSS(prevsyns)
+  elseif s:SynsCSS(prevsyns)
     call s:LogMsg('syntax: css')
     let ind = GetCSSIndent()
   else
@@ -137,7 +136,7 @@ function! GetVueIndent()
     call s:LogMsg('current line is vue tag')
     let ind = 0
   elseif s:has_init_indent
-    if SynsVueScope(cursyns) && ind == 0
+    if s:SynsVueScope(cursyns) && ind == 0
       call s:LogMsg('add initial indent')
       let ind = &sw
     endif
