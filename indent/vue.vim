@@ -136,7 +136,7 @@ function! GetVueIndent()
     let ind = 0
   endif
 
-  call LogMsg('result indent: '.ind)
+  call LogMsg('indent: '.ind)
   return ind
 endfunction
 
@@ -185,9 +185,8 @@ function! GetVueCurrentTag()
 endfunction
 
 function! LogMsg(msg)
-  echom 'debug'
   if s:debug
-    echom '['.s:name.'] '.a:msg
+    echom '['.s:name.']['.v:lnum.'] '.a:msg
   endif
 endfunction
 
