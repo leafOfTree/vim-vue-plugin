@@ -11,6 +11,11 @@ if exists("b:current_syntax") && b:current_syntax == 'vue'
   finish
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Config
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:load_full_syntax = exists("g:vim_vue_plugin_load_full_syntax")
       \ && g:vim_vue_plugin_load_full_syntax == 1
 let s:use_pug = exists("g:vim_vue_plugin_use_pug")
@@ -20,6 +25,11 @@ let s:use_less = exists("g:vim_vue_plugin_use_less")
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Functions
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! s:LoadSyntax(group, type)
   if s:load_full_syntax
     call s:LoadFullSyntax(a:group, a:type)
@@ -40,11 +50,11 @@ function! s:LoadFullSyntax(group, type)
   exec 'syn include '.a:group.' syntax/'.a:type.'.vim'
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Main
+" Load main syntax
 "
-"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load syntax/*.vim to syntax group
 call s:LoadSyntax('@HTMLSyntax', 'html')
 
@@ -58,11 +68,11 @@ if hlexists('jsNoise') == 0
   call s:LoadSyntax('@jsAll', 'javascript')
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" pre-processors
+" Load pre-processors syntax
 "
-"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " If pug is enabled, load vim-pug syntax
 if s:use_pug
   call s:LoadFullSyntax('@PugSyntax', 'pug')
@@ -87,9 +97,11 @@ if s:use_sass || s:use_less
         \ end="}" 
 endif
 
-
-let b:current_syntax = 'vue'
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Syntax highlight
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Find tag <template> / <script> / <style> and enable currespond syntax
 syn region vueTemplate 
       \ start=+<template\(\s.\{-}\)\?>+ 
@@ -122,8 +134,12 @@ syn region vueStyleSCSS
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
 
-syn region vueTag contained start=+<[^/]+ end=+>+ contains=htmlTagN,htmlString,htmlArg fold
-syn region vueTag contained start=+</+ end=+>+ contains=htmlTagN,htmlString,htmlArg
+syn region vueTag 
+      \ start=+<[^/]+ end=+>+ 
+      \ contained contains=htmlTagN,htmlString,htmlArg fold
+syn region vueTag 
+      \ start=+</+ end=+>+ 
+      \ contained contains=htmlTagN,htmlString,htmlArg
 " syn keyword vueTagName containedin=htmlTagN template script style
 
 " Vue attributes should color as JS.  Note the trivial end pattern; we let
@@ -133,3 +149,5 @@ syn region xmlString
       \ contained contains=jsBlock,javascriptBlock
 
 hi def link vueTag htmlTag
+
+let b:current_syntax = 'vue'
