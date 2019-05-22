@@ -22,7 +22,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
         set rpt+=path/to/this_plugin
 
-Plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or a pull request.
+The plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or a pull request.
 
 
 ## How it works
@@ -53,9 +53,9 @@ Ex:
 | `g:vim_vue_plugin_debug`              | Echo debug message in `messages` list. Useful to debug if unexpendted indents occur.                   | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 
-\*: Vim may be slow if the feature is enabled. Find balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
+\*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
 
-**Note**: `filetype` used to be set to `javascript.vue`, which caused `javascript`syntax to be loaded multiple times and a significant delay. Now it is `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
+**Note**: `filetype` used to be set to `javascript.vue`, which caused `javascript` syntax to be loaded multiple times and a significant delay. Now it is `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
 
 ## Screenshot
 
@@ -63,7 +63,7 @@ Ex:
 
 ## Context based behavior
 
-As there are more than one language in `.vue` file, different behavior like mapping or completion may be expected under different tag.
+As there are more than one language in `.vue` file, the different behavior like mapping or completion may be expected under the different tag.
 
 This plugin provides a Function to get the tag the cursor is in.
 
