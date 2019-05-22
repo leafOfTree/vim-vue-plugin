@@ -24,7 +24,6 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 Plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or a pull request.
 
-**Note**: `filetype` used to be set to `javascript.vue`, which caused `javascript`syntax to be loaded multiple times and a significant delay. Now it is `vue` and autocmds for `javascript` have to be manually added for `vue`.
 
 ## How it works
 
@@ -56,9 +55,34 @@ Ex:
 
 \*: Vim may be slow if the feature is enabled. Find balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
 
+**Note**: `filetype` used to be set to `javascript.vue`, which caused `javascript`syntax to be loaded multiple times and a significant delay. Now it is `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
+
 ## Screenshot
 
 ![screenshot](https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png)
+
+## Context based behavior
+
+As there are more than one language in `.vue` file, different behavior like mapping or completion may be expected under different tag.
+
+This plugin provides a Function to get the tag the cursor is in.
+
+- `GetVueTag() => String` Return value is 'template', 'script' or 'style'.
+
+### Example
+
+```vim
+autocmd FileType vue inoremap <buffer><expr> : InsertColon()
+
+function! InsertColon()
+  let tag = GetVueTag()
+  if tag == 'template'
+    return ':'
+  else
+    return ': '
+  endif
+endfunction
+```
 
 ## Acknowledgments & Refs
 
