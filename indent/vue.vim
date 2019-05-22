@@ -166,7 +166,7 @@ function! s:SynVueScope(syn)
   return a:syn =~? '\v^(vueStyle)|(vueScript)'
 endfunction
 
-function! GetVueCurrentTag()
+function! GetVueTag()
   let lnum = getcurpos()[1]
   let cursyns = s:SynsEOL(lnum)
   let first_syn = get(cursyns, 0)
