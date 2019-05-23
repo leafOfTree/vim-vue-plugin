@@ -7,7 +7,7 @@
 " CREDITS: Inspired by mxw/vim-jsx.
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if exists("b:did_vue_indent")
+if exists("b:did_indent")
   finish
 endif
 
@@ -191,4 +191,3 @@ function! LogMsg(msg)
 endfunction
 
 let b:did_indent = 1
-let b:did_vue_indent = 1
