@@ -13,7 +13,7 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Variables
+" Variables {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:name = 'vim-vue-plugin'
@@ -21,10 +21,11 @@ let s:name = 'vim-vue-plugin'
 let s:vue_tag = '\v^\<(script|style)' 
 let s:vue_end_tag = '\v\<\/(template|script|style)'
 let s:end_tag = '^\s*\/\?>\s*'
+"}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Config
+" Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:debug = exists("g:vim_vue_plugin_debug")
@@ -42,10 +43,11 @@ if !exists("g:vim_vue_plugin_has_init_indent")
 elseif g:vim_vue_plugin_has_init_indent == 1
   let s:has_init_indent = 1
 endif
+"}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Load indent method
+" Load indent method {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 unlet! b:did_indent
@@ -67,10 +69,11 @@ if s:use_sass
   unlet! b:did_indent
   runtime! indent/sass.vim
 endif
+"}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Settings
+" Settings {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 setlocal sw=2 ts=2
@@ -79,10 +82,11 @@ setlocal indentkeys=0{,0},0),0],0\,,!^F,o,O,e
 " XML indentkeys
 setlocal indentkeys+=*<Return>,<>>,<<>,/
 setlocal indentexpr=GetVueIndent()
+"}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Functions
+" Functions {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! GetVueIndent()
@@ -189,5 +193,7 @@ function! LogMsg(msg)
     echom '['.s:name.']['.v:lnum.'] '.a:msg
   endif
 endfunction
+"}}}
 
 let b:did_indent = 1
+" vim: fdm=marker

@@ -13,7 +13,7 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Config
+" Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:load_full_syntax = exists("g:vim_vue_plugin_load_full_syntax")
@@ -24,10 +24,11 @@ let s:use_less = exists("g:vim_vue_plugin_use_less")
       \ && g:vim_vue_plugin_use_less == 1
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
+"}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Functions
+" Functions {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! s:LoadSyntax(group, type)
@@ -49,10 +50,11 @@ function! s:LoadFullSyntax(group, type)
   unlet! b:current_syntax
   exec 'syn include '.a:group.' syntax/'.a:type.'.vim'
 endfunction
+"}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Load main syntax
+" Load main syntax {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load syntax/*.vim to syntax group
@@ -67,10 +69,11 @@ endif
 if hlexists('jsNoise') == 0
   call s:LoadSyntax('@jsAll', 'javascript')
 endif
+"}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Load pre-processors syntax
+" Load pre-processors syntax {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " If pug is enabled, load vim-pug syntax
@@ -88,6 +91,7 @@ if s:use_less
   call s:LoadSyntax('@LessSyntax', 'less')
 endif
 
+" Redefine syn-region to color correctly.
 if s:use_sass || s:use_less
   syn region lessDefinition transparent matchgroup=cssBraces contains=@LessSyntax
         \ start="{" 
@@ -96,10 +100,11 @@ if s:use_sass || s:use_less
         \ start="{" 
         \ end="}" 
 endif
+"}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Syntax highlight
+" Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Find tag <template> / <script> / <style> and enable currespond syntax
@@ -149,5 +154,7 @@ syn region xmlString
       \ contained contains=jsBlock,javascriptBlock
 
 hi def link vueTag htmlTag
+"}}}
 
 let b:current_syntax = 'vue'
+" vim: fdm=marker
