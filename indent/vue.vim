@@ -1,7 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim indent file
 "
-" Language: Vue (Wepy)
+" Language: Vue
 " Maintainer: leafOfTree <leafvocation@gmail.com>
 "
 " CREDITS: Inspired by mxw/vim-jsx.

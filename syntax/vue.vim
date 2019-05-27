@@ -1,7 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim syntax file
 "
-" Language: Vue (Wepy)
+" Language: Vue
 " Maintainer: leaf <leafvocation@gmail.com>
 "
 " CREDITS: Inspired by mxw/vim-jsx.
