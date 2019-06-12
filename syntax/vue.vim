@@ -107,10 +107,9 @@ endif
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Find tag <template> / <script> / <style> and enable currespond syntax
 syn region vueTemplate 
       \ start=+<template\(\s.\{-}\)\?>+ 
-      \ end=+</template>+ 
+      \ end=+^</template>+ 
       \ keepend contains=@HTMLSyntax
 syn region vueTemplatePug 
       \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
