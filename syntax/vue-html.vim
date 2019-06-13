@@ -7,15 +7,15 @@ syntax match VueValue contains=VueInject contained '\v\"\zs[^"]*\ze\"'
 syntax match VueInject contained '\v\$\w*'
 
 syntax region VueExpression 
-      \ containedin=vueTemplate,vueValue,htmlString
+      \ containedin=html.*
       \ matchgroup=VueBrace
+      \ transparent
       \ start="{{"
       \ end="}}"
 
 syntax region VueExpression 
-      \ containedin=htmlItalic
+      \ containedin=vueTemplate,vueValue,htmlString
       \ matchgroup=VueBrace
-      \ transparent
       \ start="{{"
       \ end="}}"
 

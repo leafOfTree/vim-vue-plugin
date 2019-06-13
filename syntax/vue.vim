@@ -41,9 +41,10 @@ endfunction
 
 function! s:LoadDefaultSyntax(group, type)
   unlet! b:current_syntax
-  execute 'syntax include '.a:group.' $VIMRUNTIME/syntax/'.a:type.'.vim'
-  execute 'silent! syntax include '.a:group.' $VIM/vimfiles/syntax/'.a:type.'.vim'
-  execute 'silent! syntax include '.a:group.' $HOME/.vim/syntax/'.a:type.'.vim'
+  let syntaxPaths = ['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']
+  for path in syntaxPaths
+    execute 'silent! syntax include '.a:group.' '.path.'/syntax/'.a:type.'.vim'
+  endfor
 endfunction
 
 function! s:LoadFullSyntax(group, type)
