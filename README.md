@@ -60,7 +60,7 @@ Ex:
 
 ## Screenshot
 
-<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="500" />
+<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="600" />
 
 ## Context based behavior
 
