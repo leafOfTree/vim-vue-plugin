@@ -146,13 +146,6 @@ syntax region vueTag
 syntax region vueTag 
       \ start=+</+ end=+>+ 
       \ contained contains=htmlTagN,htmlString,htmlArg
-" syn keyword vueTagName containedin=htmlTagN template script style
-
-" Vue attributes should color as JS.  Note the trivial end pattern; we let
-" jsBlock take care of ending the region.
-syntax region xmlString 
-      \ start=+{+ end=++  
-      \ contained contains=jsBlock,javascriptBlock
 
 highlight def link vueTag htmlTag
 "}}}
