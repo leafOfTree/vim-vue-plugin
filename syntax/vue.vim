@@ -41,14 +41,14 @@ endfunction
 
 function! s:LoadDefaultSyntax(group, type)
   unlet! b:current_syntax
-  exec 'syn include '.a:group.' $VIMRUNTIME/syntax/'.a:type.'.vim'
-  exec 'silent! syn include '.a:group.' $VIM/vimfiles/syntax/'.a:type.'.vim'
-  exec 'silent! syn include '.a:group.' $HOME/.vim/syntax/'.a:type.'.vim'
+  execute 'syntax include '.a:group.' $VIMRUNTIME/syntax/'.a:type.'.vim'
+  execute 'silent! syntax include '.a:group.' $VIM/vimfiles/syntax/'.a:type.'.vim'
+  execute 'silent! syntax include '.a:group.' $HOME/.vim/syntax/'.a:type.'.vim'
 endfunction
 
 function! s:LoadFullSyntax(group, type)
   unlet! b:current_syntax
-  exec 'syn include '.a:group.' syntax/'.a:type.'.vim'
+  execute 'syntax include '.a:group.' syntax/'.a:type.'.vim'
 endfunction
 "}}}
 
@@ -59,6 +59,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load syntax/*.vim to syntax group
 call s:LoadSyntax('@HTMLSyntax', 'html')
+runtime syntax/vue-html.vim
 
 " Avoid overload
 if hlexists('cssTagName') == 0
@@ -93,10 +94,10 @@ endif
 
 " Redefine syn-region to color correctly.
 if s:use_sass || s:use_less
-  syn region lessDefinition transparent matchgroup=cssBraces contains=@LessSyntax
+  syntax region lessDefinition transparent matchgroup=cssBraces contains=@LessSyntax
         \ start="{" 
         \ end="}" 
-  syn region sassDefinition transparent matchgroup=cssBraces contains=@SassSyntax
+  syntax region sassDefinition transparent matchgroup=cssBraces contains=@SassSyntax
         \ start="{" 
         \ end="}" 
 endif
@@ -107,52 +108,52 @@ endif
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syn region vueTemplate 
+syntax region vueTemplate 
       \ start=+<template\(\s.\{-}\)\?>+ 
       \ end=+^</template>+ 
       \ keepend contains=@HTMLSyntax
-syn region vueTemplatePug 
+syntax region vueTemplatePug 
       \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
       \ end=+</template>+ 
       \ keepend contains=@PugSyntax,vueTag
 
-syn region vueScript 
+syntax region vueScript 
       \ start=+<script\(\s.\{-}\)\?>+ 
       \ end=+</script>+ 
       \ keepend contains=@jsAll,jsImport,jsExport,vueTag
 
-syn region vueStyle 
+syntax region vueStyle 
       \ start=+<style\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@htmlCss,vueTag
-syn region vueStyleLESS 
+syntax region vueStyleLESS 
       \ start=+<style lang="less"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@LessSyntax,vueTag
-syn region vueStyleSASS 
+syntax region vueStyleSASS 
       \ start=+<style lang="sass"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
-syn region vueStyleSCSS 
+syntax region vueStyleSCSS 
       \ start=+<style lang="scss"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
 
-syn region vueTag 
+syntax region vueTag 
       \ start=+<[^/]+ end=+>+ 
       \ contained contains=htmlTagN,htmlString,htmlArg fold
-syn region vueTag 
+syntax region vueTag 
       \ start=+</+ end=+>+ 
       \ contained contains=htmlTagN,htmlString,htmlArg
 " syn keyword vueTagName containedin=htmlTagN template script style
 
 " Vue attributes should color as JS.  Note the trivial end pattern; we let
 " jsBlock take care of ending the region.
-syn region xmlString 
+syntax region xmlString 
       \ start=+{+ end=++  
       \ contained contains=jsBlock,javascriptBlock
 
-hi def link vueTag htmlTag
+highlight def link vueTag htmlTag
 "}}}
 
 let b:current_syntax = 'vue'
