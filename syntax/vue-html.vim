@@ -1,3 +1,4 @@
+syntax match VueComponentName containedin=htmlTagN '\v<[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+>'
 syntax match VueAttr '\v(\S)@<![v:\@][^\=]+(\=\"[^"]*\")?' 
       \ containedin=htmlTag 
       \ contains=VueKey,VueValue,VueInject
@@ -30,3 +31,4 @@ highlight link VueAttr Comment
 highlight link VueKey  PreProc
 highlight link VueInject Constant
 highlight link VueBrace PreProc
+highlight link VueComponentName Statement
