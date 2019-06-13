@@ -31,10 +31,11 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 
 Supports
 
+- Vue directive.
 - Pug with [vim-pug][4] (see Configuration).
 - Less with or without [vim-less][9] (see Configuration).
 - Sass/Scss (see Configuration).
-- `.wpy` files from [WePY][6]
+- `.wpy` files from [WePY][6].
 
 ## Configuration
 
@@ -59,7 +60,7 @@ Ex:
 
 ## Screenshot
 
-![screenshot](https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png)
+<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="500" />
 
 ## Context based behavior
 
