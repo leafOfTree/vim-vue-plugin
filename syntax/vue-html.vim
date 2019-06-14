@@ -1,10 +1,12 @@
 syntax match VueComponentName containedin=htmlTagN '\v<[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+>'
-syntax match VueAttr '\v(\S)@<![v:\@][^\=]+(\=\"[^"]*\")?' 
+syntax match VueAttr '\v(\S)@<![v:\@][^\=]*(\=\"[^"]*\")?' 
       \ containedin=htmlTag 
-      \ contains=VueKey,VueValue,VueInject
+      \ contains=VueKey,VueValue
 
-syntax match VueKey contained '\v[v:\@][^\=]+'
-syntax match VueValue contains=VueInject contained '\v\"\zs[^"]*\ze\"'
+syntax match VueKey contained '\v[v:\@][^\=]+' keepend
+syntax match VueValue contained '\v\"\zs[^"]*\ze\"'
+      \ contains=VueInject,javaScriptStringS,javaScriptRepeat
+
 syntax match VueInject contained '\v\$\w*'
 
 syntax region VueExpression 
@@ -15,7 +17,8 @@ syntax region VueExpression
       \ end="}}"
 
 syntax region VueExpression 
-      \ containedin=vueTemplate,vueValue,htmlString
+      \ containedin=vueTemplate,VueValue,htmlString,htmlValue
+      \ contains=@jsAll
       \ matchgroup=VueBrace
       \ start="{{"
       \ end="}}"
@@ -28,7 +31,7 @@ syntax match VueAttr '\v(\S)@<!wx[^\=]+(\=\"[^"]*\")?'
 syntax match VueKey contained '\vwx[^\=]+'
 
 highlight link VueAttr Comment
-highlight link VueKey  PreProc
+highlight link VueKey  Type
 highlight link VueInject Constant
-highlight link VueBrace PreProc
+highlight link VueBrace Type
 highlight link VueComponentName Statement

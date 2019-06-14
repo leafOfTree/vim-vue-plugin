@@ -60,6 +60,8 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load syntax/*.vim to syntax group
 call s:LoadSyntax('@HTMLSyntax', 'html')
+
+" Load vue-html syntax
 runtime syntax/vue-html.vim
 
 " Avoid overload

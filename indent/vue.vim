@@ -90,12 +90,13 @@ setlocal indentexpr=GetVueIndent()
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! GetVueIndent()
-  let curline = getline(v:lnum)
   let prevline = getline(v:lnum - 1)
-  let cursyns = s:SynsEOL(v:lnum)
   let prevsyns = s:SynsEOL(v:lnum - 1)
-  let cursyn = get(cursyns, 0)
   let prevsyn = get(prevsyns, 0)
+
+  let curline = getline(v:lnum)
+  let cursyns = s:SynsEOL(v:lnum)
+  let cursyn = get(cursyns, 0)
 
   if s:SynPug(prevsyn)
     call LogMsg('syntax: pug')
