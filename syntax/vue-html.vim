@@ -30,8 +30,9 @@ syntax match VueAttr '\v(\S)@<!wx[^\=]+(\=\"[^"]*\")?'
 
 syntax match VueKey contained '\vwx[^\=]+'
 
-highlight link VueAttr Comment
-highlight link VueKey  Type
-highlight link VueInject Constant
-highlight link VueBrace Type
-highlight link VueComponentName Statement
+highlight default link VueAttr Comment
+highlight default link VueKey  Type
+highlight default link VueValue  Comment
+highlight default link VueInject Constant
+highlight default link VueBrace Type
+highlight default link VueComponentName Statement
