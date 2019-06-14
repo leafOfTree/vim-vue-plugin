@@ -19,7 +19,7 @@ endif
 let s:name = 'vim-vue-plugin'
 " Let <template> handled by HTML
 let s:vue_tag = '\v^\<(script|style)' 
-let s:vue_end_tag = '\v\<\/(template|script|style)'
+let s:vue_end_tag = '\v^\<\/(template|script|style)'
 let s:end_tag = '^\s*\/\?>\s*'
 "}}}
 
