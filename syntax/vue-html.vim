@@ -3,7 +3,7 @@ syntax match VueAttr '\v(\S)@<![v:\@][^\=]*(\=\"[^"]*\")?'
       \ containedin=htmlTag 
       \ contains=VueKey,VueValue
 
-syntax match VueKey contained '\v[v:\@][^\=]+' keepend
+syntax match VueKey contained '\v[v:\@][^\=]+'
 syntax match VueValue contained '\v\"\zs[^"]*\ze\"'
       \ contains=VueInject,javaScriptStringS,javaScriptRepeat
 
