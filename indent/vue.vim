@@ -55,7 +55,7 @@ runtime! indent/javascript.vim
 let b:javascript_indentexpr = &indentexpr
 
 unlet! b:did_indent
-runtime! indent/html.vim
+runtime! indent/xml.vim
 
 unlet! b:did_indent
 runtime! indent/css.vim
@@ -103,11 +103,7 @@ function! GetVueIndent()
     let ind = GetPugIndent()
   elseif s:SynHTML(prevsyn)
     call LogMsg('syntax: html')
-    if exists("*HtmlIndentGet")
-      let ind = HtmlIndentGet(v:lnum)
-    elseif exists("*HtmlIndent")
-      let ind = HtmlIndent()
-    endif
+    let ind = XmlIndentGet(v:lnum, 0)
 
     " Align '/>' and '>' with '<' for multiline tags.
     if curline =~? s:end_tag 
