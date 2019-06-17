@@ -20,6 +20,7 @@ let s:name = 'vim-vue-plugin'
 " Let <template> handled by HTML
 let s:vue_tag = '\v^\<(script|style)' 
 let s:vue_end_tag = '\v^\<\/(template|script|style)'
+let s:empty_tag = '\v\<(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)' 
 let s:end_tag = '^\s*\/\?>\s*'
 "}}}
 
@@ -56,6 +57,9 @@ let b:javascript_indentexpr = &indentexpr
 
 unlet! b:did_indent
 runtime! indent/xml.vim
+
+unlet! b:did_indent
+runtime! indent/html.vim
 
 unlet! b:did_indent
 runtime! indent/css.vim
@@ -102,8 +106,17 @@ function! GetVueIndent()
     call LogMsg('syntax: pug')
     let ind = GetPugIndent()
   elseif s:SynHTML(prevsyn)
-    call LogMsg('syntax: html')
-    let ind = XmlIndentGet(v:lnum, 0)
+    if prevline =~? s:empty_tag
+      call LogMsg('syntax: html')
+      if exists("*HtmlIndentGet")
+        let ind = HtmlIndentGet(v:lnum)
+      elseif exists("*HtmlIndent")
+        let ind = HtmlIndent()
+      endif
+    else
+      call LogMsg('syntax: xml')
+      let ind = XmlIndentGet(v:lnum, 0)
+    endif
 
     " Align '/>' and '>' with '<' for multiline tags.
     if curline =~? s:end_tag 
