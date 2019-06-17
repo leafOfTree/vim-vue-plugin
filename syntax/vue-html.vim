@@ -29,7 +29,7 @@ syntax match VueAttr '\v(\S)@<!wx[^\=]+(\=\"[^"]*\")?'
       \ contains=VueKey,VueValue,VueInject
 
 syntax match VueKey contained '\vwx[^\=]+'
-syntax match CustomTag containedin=htmlTagN '\v<(view|text|block|image)>'
+syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image)>'
 
 highlight default link VueAttr Comment
 highlight default link VueKey  Type
@@ -37,4 +37,4 @@ highlight default link VueValue  Comment
 highlight default link VueInject Constant
 highlight default link VueBrace Type
 highlight default link VueComponentName Statement
-highlight default link CustomTag Statement
+highlight default link VueCustomTag Statement
