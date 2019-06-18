@@ -143,10 +143,10 @@ syntax region vueStyleSCSS
       \ keepend contains=@SassSyntax,vueTag
 
 syntax region vueTag 
-      \ start=+<[^/]+ end=+>+ 
+      \ start=+^<[^/]+ end=+>+ 
       \ contained contains=htmlTagN,htmlString,htmlArg fold
 syntax region vueTag 
-      \ start=+</+ end=+>+ 
+      \ start=+^</+ end=+>+ 
       \ contained contains=htmlTagN,htmlString,htmlArg
 
 highlight def link vueTag htmlTag
