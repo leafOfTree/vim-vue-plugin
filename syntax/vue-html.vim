@@ -69,8 +69,8 @@ else
 endif
 highlight default link VueInject Constant
 highlight default link VueBrace Type
-highlight default link VueComponentName Statement
-highlight default link VueCustomTag Statement
+highlight default link VueComponentName htmlTagName
+highlight default link VueCustomTag htmlTagName
 highlight default link javaScriptRepeat	Statement
 highlight default link javaScriptStringS String
 highlight default link javaScriptNumber	Constant
