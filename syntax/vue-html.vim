@@ -3,8 +3,8 @@
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:highlight_vue_attr = !exists("g:vim_vue_plugin_highlight_vue_attr")
-      \ || g:vim_vue_plugin_highlight_vue_attr == 1
+let s:highlight_vue_attr = exists("g:vim_vue_plugin_highlight_vue_attr")
+      \ && g:vim_vue_plugin_highlight_vue_attr == 1
 ")}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -23,7 +23,7 @@ syntax match VueKey contained '\v[v:\@][^\=]+'
 syntax region VueQuote contained 
       \ start='"' end='"' contains=VueValue
 syntax match VueValue contained '\v\"\zs[^"]*\ze\"'
-      \ contains=VueInject,javaScriptStringS,javaScriptRepeat,javaScriptOperator
+      \ contains=VueInject,javaScriptStringS,javaScriptRepeat,javaScriptOperator,javascriptNumber
 
 syntax match VueInject contained '\v\$\w*'
 
@@ -48,18 +48,22 @@ syntax match VueAttr '\v(\S)@<!wx[^\=]+(\=\"[^"]*\")?'
 syntax match VueKey contained '\vwx[^\=]+'
 syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image)>'
 
-syn region  javaScriptStringS	
+" JavaScript syntax for VueValue
+syntax region  javaScriptStringS	
       \ start=+'+  skip=+\\\\\|\\'+  end=+'\|$+	contained
-syn region  javaScriptStringD	
+syntax region  javaScriptStringD	
       \ start=+"+  skip=+\\\\\|\\"+  end=+"\|$+	contained
-syn keyword javaScriptRepeat in contained
-syn match javaScriptOperator '[\!\|\&\+\-\<\>\=\%\/\*\~\^]\{1}' contained
+syntax match   javaScriptNumber "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" contained
+syntax keyword javaScriptRepeat in contained
+syntax match javaScriptOperator '[\!\|\&\+\-\<\>\=\%\/\*\~\^]\{1}' contained
 
 highlight default link VueAttr htmlTag
 if s:highlight_vue_attr
   highlight default link VueKey Type
   highlight default link VueQuote VueAttr
-  highlight default link VueValue Function
+  highlight default link VueValue None
+  " highlight default link VueQuote String
+  " highlight default link VueValue String
 else
   highlight default link VueKey htmlArg
   highlight default link VueQuote String
@@ -71,5 +75,7 @@ highlight default link VueComponentName Statement
 highlight default link VueCustomTag Statement
 highlight default link javaScriptRepeat	Statement
 highlight default link javaScriptStringS String
+highlight default link javaScriptNumber	Constant
+
 "}}}
 " vim: fdm=marker
