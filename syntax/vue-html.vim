@@ -1,4 +1,6 @@
 syntax match VueComponentName containedin=htmlTagN '\v<[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+>'
+syntax match VueComponentName containedin=htmlTagN '\v<([A-Z][a-zA-Z0-9]+)+>'
+
 syntax match VueAttr '\v(\S)@<![v:\@][^\=]*(\=\"[^"]*\")?' 
       \ containedin=htmlTag 
       \ contains=VueKey,VueValue
