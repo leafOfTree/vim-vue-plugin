@@ -62,8 +62,6 @@ if s:highlight_vue_attr
   highlight default link VueKey Type
   highlight default link VueQuote VueAttr
   highlight default link VueValue None
-  " highlight default link VueQuote String
-  " highlight default link VueValue String
 else
   highlight default link VueKey htmlArg
   highlight default link VueQuote String
