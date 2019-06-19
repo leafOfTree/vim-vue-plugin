@@ -94,8 +94,9 @@ setlocal indentexpr=GetVueIndent()
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! GetVueIndent()
-  let prevline = getline(v:lnum - 1)
-  let prevsyns = s:SynsEOL(v:lnum - 1)
+  let prevlnum = prevnonblank(v:lnum-1)
+  let prevline = getline(prevlnum)
+  let prevsyns = s:SynsEOL(prevlnum)
   let prevsyn = get(prevsyns, 0)
 
   let curline = getline(v:lnum)
