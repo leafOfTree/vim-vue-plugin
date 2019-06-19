@@ -143,14 +143,15 @@ function! GetVueIndent()
   endif
 
   if curline =~? s:vue_tag || curline =~? s:vue_end_tag 
-    call LogMsg('current line is vue tag')
+        \|| prevline =~? s:vue_end_tag
+    call LogMsg('current line is vue tag or prev line is svelte end tag')
     let ind = 0
   elseif s:has_init_indent
     if s:SynVueScope(cursyn) && ind == 0
       call LogMsg('add initial indent')
       let ind = &sw
     endif
-  elseif prevline =~? s:vue_tag || prevline =~? s:vue_end_tag
+  elseif prevline =~? s:vue_tag
     call LogMsg('prev line is vue tag')
     let ind = 0
   endif
