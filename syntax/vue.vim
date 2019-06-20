@@ -94,6 +94,15 @@ endif
 if s:use_less
   call s:LoadSyntax('@LessSyntax', 'less')
 endif
+"}}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Syntax patch {{{
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clear htmlHead that may cause highlighting out of bounds
+syntax clear htmlHead
 
 " Redefine syn-region to color correctly.
 if s:use_sass || s:use_less
