@@ -24,7 +24,7 @@ syntax match VueKey contained '\v[v:\@][^\=\>[:blank:]]+'
 syntax region VueQuote contained 
       \ start='"' end='"' contains=VueValue
 syntax match VueValue contained '\v\"\zs[^"]*\ze\"'
-      \ contains=VueInject,javaScriptStringS,javaScriptRepeat,javaScriptOperator,javascriptNumber
+      \ contains=VueInject,@simpleJavascriptExpression
 
 syntax match VueInject contained '\v\$\w*'
 
@@ -36,7 +36,7 @@ syntax region VueExpression
       \ end="}}"
 syntax region VueExpression 
       \ containedin=vueTemplate,VueValue,htmlString,htmlValue
-      \ contains=@jsAll
+      \ contains=@simpleJavascriptExpression
       \ matchgroup=VueBrace
       \ start="{{"
       \ end="}}"
@@ -49,14 +49,18 @@ syntax match VueAttr '\v(\S)@<!wx[^\=]+(\=\"[^"]*\")?'
 syntax match VueKey contained '\vwx[^\=]+'
 syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image)>'
 
-" JavaScript syntax for VueValue
-syntax region  javaScriptStringS	
-      \ start=+'+  skip=+\\\\\|\\'+  end=+'\|$+	contained
-syntax region  javaScriptStringD	
-      \ start=+"+  skip=+\\\\\|\\"+  end=+"\|$+	contained
-syntax match   javaScriptNumber "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" contained
-syntax keyword javaScriptRepeat in contained
-syntax match javaScriptOperator '[\!\|\&\+\-\<\>\=\%\/\*\~\^]\{1}' contained
+syntax cluster simpleJavascriptExpression contains=javaScriptStringS,javaScriptStringD,javascriptNumber,javaScriptRepeat,javaScriptOperator
+
+" JavaScript syntax
+if hlexists('javaScriptStringS') == 0
+  syntax region  javaScriptStringS	
+        \ start=+'+  skip=+\\\\\|\\'+  end=+'\|$+	contained
+  syntax region  javaScriptStringD	
+        \ start=+"+  skip=+\\\\\|\\"+  end=+"\|$+	contained
+  syntax match   javaScriptNumber "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" contained
+  syntax keyword javaScriptRepeat in contained
+  syntax match javaScriptOperator '[\!\|\&\+\-\<\>\=\%\/\*\~\^]\{1}' contained
+endif
 
 highlight default link VueAttr htmlTag
 if s:highlight_vue_attr
