@@ -59,9 +59,6 @@ unlet! b:did_indent
 runtime! indent/xml.vim
 
 unlet! b:did_indent
-runtime! indent/html.vim
-
-unlet! b:did_indent
 runtime! indent/css.vim
 
 if s:use_pug
@@ -104,19 +101,14 @@ function! GetVueIndent()
   let cursyn = get(cursyns, 0)
 
   if s:SynPug(prevsyn)
-    call LogMsg('syntax: pug')
+    call s:Log('syntax: pug')
     let ind = GetPugIndent()
   elseif s:SynHTML(prevsyn)
+    call s:Log('syntax: xml')
+    let ind = XmlIndentGet(v:lnum, 0)
     if prevline =~? s:empty_tag
-      call LogMsg('syntax: html')
-      if exists("*HtmlIndentGet")
-        let ind = HtmlIndentGet(v:lnum)
-      elseif exists("*HtmlIndent")
-        let ind = HtmlIndent()
-      endif
-    else
-      call LogMsg('syntax: xml')
-      let ind = XmlIndentGet(v:lnum, 0)
+      call s:Log('prev line is empty tag')
+      let ind = ind - &sw
     endif
 
     " Align '/>' and '>' with '<' for multiline tags.
@@ -128,13 +120,13 @@ function! GetVueIndent()
       let ind = ind + &sw
     endif
   elseif s:SynSASS(prevsyn)
-    call LogMsg('syntax: sass')
+    call s:Log('syntax: sass')
     let ind = GetSassIndent()
   elseif s:SynCSS(prevsyn)
-    call LogMsg('syntax: css')
+    call s:Log('syntax: css')
     let ind = GetCSSIndent()
   else
-    call LogMsg('syntax: javascript')
+    call s:Log('syntax: javascript')
     if len(b:javascript_indentexpr)
       let ind = eval(b:javascript_indentexpr)
     else
@@ -144,19 +136,19 @@ function! GetVueIndent()
 
   if curline =~? s:vue_tag || curline =~? s:vue_end_tag 
         \|| prevline =~? s:vue_end_tag
-    call LogMsg('current line is vue tag or prev line is svelte end tag')
+    call s:Log('current line is vue tag or prev line is vue end tag')
     let ind = 0
   elseif s:has_init_indent
     if s:SynVueScope(cursyn) && ind == 0
-      call LogMsg('add initial indent')
+      call s:Log('add initial indent')
       let ind = &sw
     endif
   elseif prevline =~? s:vue_tag
-    call LogMsg('prev line is vue tag')
+    call s:Log('prev line is vue tag')
     let ind = 0
   endif
 
-  call LogMsg('indent: '.ind)
+  call s:Log('indent: '.ind)
   return ind
 endfunction
 
@@ -204,7 +196,7 @@ function! GetVueTag()
   return tag
 endfunction
 
-function! LogMsg(msg)
+function! s:Log(msg)
   if s:debug
     echom '['.s:name.']['.v:lnum.'] '.a:msg
   endif
