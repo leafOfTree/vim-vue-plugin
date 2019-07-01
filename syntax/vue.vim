@@ -11,6 +11,7 @@ if exists("b:current_syntax") && b:current_syntax == 'vue'
   finish
 endif
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Config {{{
@@ -70,8 +71,8 @@ if hlexists('cssTagName') == 0
 endif
 
 " Avoid overload
-if hlexists('jsNoise') == 0
-  call s:LoadSyntax('@jsAll', 'javascript')
+if hlexists('javaScriptComment') == 0
+  call s:LoadSyntax('@htmlJavaScript', 'javascript')
 endif
 "}}}
 
@@ -101,6 +102,16 @@ endif
 " Syntax patch {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Patch 7.4.1142
+if has("patch-7.4-1142")
+  if has("win32")
+    syntax iskeyword @,48-57,_,128-167,224-235,$
+  else
+    syntax iskeyword @,48-57,_,192-255,$
+  endif
+endif
+
+
 " Clear htmlHead that may cause highlighting out of bounds
 syntax clear htmlHead
 
@@ -132,7 +143,7 @@ syntax region vueTemplatePug
 syntax region vueScript 
       \ start=+<script\(\s.\{-}\)\?>+ 
       \ end=+</script>+ 
-      \ keepend contains=@jsAll,jsImport,jsExport,vueTag
+      \ keepend contains=@htmlJavaScript,jsImport,jsExport,vueTag
 
 syntax region vueStyle 
       \ start=+<style\(\s.\{-}\)\?>+ 
