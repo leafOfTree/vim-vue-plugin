@@ -56,9 +56,8 @@ syntax region javaScriptStringS
       \ start=+'+  skip=+\\\\\|\\'+  end=+'\|$+	contained
 syntax region javaScriptStringD	
       \ start=+"+  skip=+\\\\\|\\"+  end=+"\|$+	contained
-syntax match javaScriptNumber "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" contained
-syntax match javaScriptNumber "\<-\=\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" contained
-syntax match javaScriptOperator "[-!|&+<>=%/*~^]" contained
+syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' contained
+syntax match javaScriptOperator '[-!|&+<>=%/*~^]' contained
 syntax keyword javaScriptOperator delete instanceof typeof void new in of contained
 
 highlight default link VueAttr htmlTag

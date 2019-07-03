@@ -126,7 +126,10 @@ endif
 "}}}
 
 " Number with minus
-syntax match javaScriptNumber "\<-\=\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" containedin=@htmlJavaScript
+syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' containedin=@htmlJavaScript
+
+" html5 data-*
+syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@@HTMLSyntax
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
