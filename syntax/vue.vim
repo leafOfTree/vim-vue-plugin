@@ -108,6 +108,8 @@ if has("patch-7.4-1142")
   else
     syntax iskeyword @,48-57,_,192-255,$,-
   endif
+else
+  setlocal iskeyword+=-
 endif
 
 
