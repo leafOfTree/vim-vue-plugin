@@ -11,7 +11,6 @@ if exists("b:current_syntax") && b:current_syntax == 'vue'
   finish
 endif
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Config {{{
@@ -105,9 +104,9 @@ endif
 " Patch 7.4.1142
 if has("patch-7.4-1142")
   if has("win32")
-    syntax iskeyword @,48-57,_,128-167,224-235,$
+    syntax iskeyword @,48-57,_,128-167,224-235,$,-
   else
-    syntax iskeyword @,48-57,_,192-255,$
+    syntax iskeyword @,48-57,_,192-255,$,-
   endif
 endif
 
@@ -125,6 +124,9 @@ if s:use_sass || s:use_less
         \ end="}" 
 endif
 "}}}
+
+" Number with minus
+syntax match javaScriptNumber "\<-\=\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" containedin=@htmlJavaScript
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "

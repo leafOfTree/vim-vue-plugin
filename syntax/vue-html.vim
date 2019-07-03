@@ -52,15 +52,14 @@ syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image)>'
 syntax cluster simpleJavascriptExpression contains=javaScriptStringS,javaScriptStringD,javascriptNumber,javaScriptRepeat,javaScriptOperator
 
 " JavaScript syntax
-if hlexists('javaScriptStringS') == 0
-  syntax region  javaScriptStringS	
-        \ start=+'+  skip=+\\\\\|\\'+  end=+'\|$+	contained
-  syntax region  javaScriptStringD	
-        \ start=+"+  skip=+\\\\\|\\"+  end=+"\|$+	contained
-  syntax match   javaScriptNumber "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" contained
-  syntax keyword javaScriptRepeat in contained
-  syntax match javaScriptOperator '[\!\|\&\+\-\<\>\=\%\/\*\~\^]\{1}' contained
-endif
+syntax region javaScriptStringS	
+      \ start=+'+  skip=+\\\\\|\\'+  end=+'\|$+	contained
+syntax region javaScriptStringD	
+      \ start=+"+  skip=+\\\\\|\\"+  end=+"\|$+	contained
+syntax match javaScriptNumber "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" contained
+syntax match javaScriptNumber "\<-\=\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>" contained
+syntax match javaScriptOperator "[-!|&+<>=%/*~^]" contained
+syntax keyword javaScriptOperator delete instanceof typeof void new in of contained
 
 highlight default link VueAttr htmlTag
 if s:highlight_vue_attr
@@ -76,9 +75,10 @@ highlight default link VueInject Constant
 highlight default link VueBrace Type
 highlight default link VueComponentName htmlTagName
 highlight default link VueCustomTag htmlTagName
-highlight default link javaScriptRepeat	Statement
 highlight default link javaScriptStringS String
+highlight default link javaScriptStringD String
 highlight default link javaScriptNumber	Constant
+highlight default link javaScriptOperator	Operator
 
 "}}}
 " vim: fdm=marker
