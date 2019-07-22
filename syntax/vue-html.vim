@@ -14,6 +14,7 @@ let s:highlight_vue_attr = exists("g:vim_vue_plugin_highlight_vue_attr")
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax match VueComponentName containedin=htmlTagN '\v\C<[a-z0-9]+(-[a-z0-9]+)+>'
 syntax match VueComponentName containedin=htmlTagN '\v\C<([A-Z][a-zA-Z0-9]+)+>'
+syntax keyword VueComponentName containedin=htmlTagN component transition slot
 
 syntax match VueAttr '\v(\S)@<![v:\@][^\=\>[:blank:]]+(\=\"[^"]*\")?' 
       \ keepend
