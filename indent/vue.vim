@@ -19,7 +19,7 @@ endif
 let s:name = 'vim-vue-plugin'
 " Let <template> handled by HTML
 let s:vue_tag = '\v^\s*\<(script|style)' 
-let s:vue_end_tag = '\v^\s*\<\/(template|script|style)'
+let s:vue_end_tag = '\v^\s*\<\/(script|style)'
 let s:empty_tag = '\v\<(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)[^/]*\>' 
 let s:end_tag = '^\s*\/\?>\s*'
 "}}}
@@ -128,8 +128,10 @@ function! GetVueIndent()
   else
     call s:Log('syntax: javascript')
     if len(b:javascript_indentexpr)
+      echom 'eval'
       let ind = eval(b:javascript_indentexpr)
     else
+      echom 'cindent'
       let ind = cindent(v:lnum)
     endif
   endif
