@@ -19,9 +19,12 @@ endif
 let s:name = 'vim-vue-plugin'
 " Let <template> handled by HTML
 let s:vue_tag = '\v^\s*\<(script|style)' 
-let s:vue_end_tag = '\v^\s*\<\/(script|style)'
-let s:empty_tag = '\v\<(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)[^/]*\>' 
-let s:end_tag = '^\s*\/\?>\s*'
+let s:vue_tag_end = '\v^\s*\<\/(script|style)'
+let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)'
+let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>' 
+let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$' 
+let s:empty_tag_end = '\v^\s*[^\<\>]*\\?\>\s*' 
+let s:tag_end = '\v^\s*\/?\>\s*'
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -104,17 +107,24 @@ function! GetVueIndent()
     call s:Log('syntax: xml')
     let ind = XmlIndentGet(v:lnum, 0)
     if prevline =~? s:empty_tag
-      call s:Log('prev line is empty tag')
+      call s:Log('prev line is an empty tag')
       let ind = ind - &sw
     endif
 
     " Align '/>' and '>' with '<' for multiline tags.
-    if curline =~? s:end_tag 
+    if curline =~? s:tag_end 
       let ind = ind - &sw
     endif
     " Then correct the indentation of any element following '/>' or '>'.
-    if prevline =~? s:end_tag
+    if prevline =~? s:tag_end
       let ind = ind + &sw
+
+      "Decrease indent if prevlines are a multiline empty tag
+      let [start, end] = s:PrevMultilineEmptyTag(v:lnum)
+      if end == prevlnum
+        call s:Log('prev line is a multiline empty tag')
+        let ind = ind - &sw
+      endif
     endif
   elseif s:SynPug(prevsyn)
     call s:Log('syntax: pug')
@@ -134,8 +144,8 @@ function! GetVueIndent()
     endif
   endif
 
-  if curline =~? s:vue_tag || curline =~? s:vue_end_tag 
-        \|| prevline =~? s:vue_end_tag
+  if curline =~? s:vue_tag || curline =~? s:vue_tag_end 
+        \|| prevline =~? s:vue_tag_end
     call s:Log('current line is vue (end) tag or prev line is vue end tag')
     let ind = 0
   elseif s:has_init_indent
@@ -178,6 +188,28 @@ function! s:SynVueScope(syn)
   return a:syn =~? '\v^(vueStyle)|(vueScript)'
 endfunction
 
+function! s:PrevMultilineEmptyTag(lnum)
+  let lnum = a:lnum
+  let lnums = [0, 0]
+  while lnum > 0
+    let line = getline(lnum)
+    if line =~? s:empty_tag_end
+      let lnums[1] = lnum
+    endif
+    if line =~? s:empty_tag_start
+      let lnums[0] = lnum
+      return lnums
+    endif
+    let lnum = lnum - 1
+  endwhile
+endfunction
+
+function! s:Log(msg)
+  if s:debug
+    echom '['.s:name.']['.v:lnum.'] '.a:msg
+  endif
+endfunction
+
 function! GetVueTag()
   let lnum = getcurpos()[1]
   let cursyns = s:SynsEOL(lnum)
@@ -194,12 +226,6 @@ function! GetVueTag()
   endif
 
   return tag
-endfunction
-
-function! s:Log(msg)
-  if s:debug
-    echom '['.s:name.']['.v:lnum.'] '.a:msg
-  endif
 endfunction
 "}}}
 
