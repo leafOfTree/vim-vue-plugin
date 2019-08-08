@@ -23,7 +23,7 @@ let s:vue_tag_end = '\v^\s*\<\/(script|style)'
 let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)'
 let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>' 
 let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$' 
-let s:empty_tag_end = '\v^\s*[^\<\>]*\\?\>\s*' 
+let s:empty_tag_end = '\v^\s*[^\<\>\/]*\>\s*' 
 let s:tag_end = '\v^\s*\/?\>\s*'
 "}}}
 
