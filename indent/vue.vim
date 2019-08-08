@@ -100,10 +100,7 @@ function! GetVueIndent()
   let cursyns = s:SynsEOL(v:lnum)
   let cursyn = get(cursyns, 0)
 
-  if s:SynPug(prevsyn)
-    call s:Log('syntax: pug')
-    let ind = GetPugIndent()
-  elseif s:SynHTML(prevsyn)
+  if s:SynHTML(prevsyn)
     call s:Log('syntax: xml')
     let ind = XmlIndentGet(v:lnum, 0)
     if prevline =~? s:empty_tag
@@ -119,6 +116,9 @@ function! GetVueIndent()
     if prevline =~? s:end_tag
       let ind = ind + &sw
     endif
+  elseif s:SynPug(prevsyn)
+    call s:Log('syntax: pug')
+    let ind = GetPugIndent()
   elseif s:SynSASS(prevsyn)
     call s:Log('syntax: sass')
     let ind = GetSassIndent()
@@ -128,10 +128,8 @@ function! GetVueIndent()
   else
     call s:Log('syntax: javascript')
     if len(b:javascript_indentexpr)
-      echom 'eval'
       let ind = eval(b:javascript_indentexpr)
     else
-      echom 'cindent'
       let ind = cindent(v:lnum)
     endif
   endif
