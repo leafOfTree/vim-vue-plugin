@@ -65,9 +65,9 @@ Ex:
 
 ## Context based behavior
 
-As there are more than one language in `.vue` file, the different behavior like mapping or completion may be expected under the different tag.
+As there are more than one language in `.vue` file, the different behaviors like mapping or completion may be expected under different tags.
 
-This plugin provides a Function to get the tag the cursor is in.
+This plugin provides a function to get the tag where the cursor is in.
 
 - `GetVueTag() => String` Return value is 'template', 'script' or 'style'.
 
