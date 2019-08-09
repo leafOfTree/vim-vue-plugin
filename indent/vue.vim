@@ -97,11 +97,11 @@ function! GetVueIndent()
   let prevlnum = prevnonblank(v:lnum-1)
   let prevline = getline(prevlnum)
   let prevsyns = s:SynsEOL(prevlnum)
-  let prevsyn = get(prevsyns, 0)
+  let prevsyn = get(prevsyns, 0, '')
 
   let curline = getline(v:lnum)
   let cursyns = s:SynsEOL(v:lnum)
-  let cursyn = get(cursyns, 0)
+  let cursyn = get(cursyns, 0, '')
 
   if s:SynHTML(prevsyn)
     call s:Log('syntax: xml')
@@ -213,7 +213,7 @@ endfunction
 function! GetVueTag()
   let lnum = getcurpos()[1]
   let cursyns = s:SynsEOL(lnum)
-  let first_syn = get(cursyns, 0)
+  let first_syn = get(cursyns, 0, '')
 
   if first_syn =~ '.*VueTemplate'
     let tag = 'template'
