@@ -36,7 +36,7 @@ syntax region VueExpression
       \ start="{{"
       \ end="}}"
 syntax region VueExpression 
-      \ containedin=vueTemplate,VueValue,htmlString,htmlValue
+      \ containedin=htmlVueTemplate,pugVueTemplate,VueValue,htmlString,htmlValue
       \ contains=@simpleJavascriptExpression
       \ matchgroup=VueBrace
       \ start="{{"

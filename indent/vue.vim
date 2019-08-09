@@ -149,7 +149,7 @@ function! GetVueIndent()
     call s:Log('current line is vue (end) tag or prev line is vue end tag')
     let ind = 0
   elseif s:has_init_indent
-    if s:SynVueScope(cursyn) && ind == 0
+    if s:SynVueScriptOrStyle(cursyn) && ind == 0
       call s:Log('add initial indent')
       let ind = &sw
     endif
@@ -169,23 +169,23 @@ function! s:SynsEOL(lnum)
 endfunction
 
 function! s:SynHTML(syn)
-  return a:syn =~? '\v^(vueTemplate)'
+  return a:syn =~? '\v^(htmlVueTemplate)'
 endfunction
 
 function! s:SynPug(syn)
-  return a:syn =~? '\v^(vueTemplatePug)'
+  return a:syn =~? '\v^(pugVueTemplate)'
 endfunction
 
 function! s:SynSASS(syn)
-  return a:syn =~? '\v^(vueStyleSASS)'
+  return a:syn =~? '\v^(sassVueStyle)'
 endfunction
 
 function! s:SynCSS(syn)
-  return a:syn =~? '\v^(vueStyle)'
+  return a:syn =~? '\v^(cssVueStyle)'
 endfunction
 
-function! s:SynVueScope(syn)
-  return a:syn =~? '\v^(vueStyle)|(vueScript)'
+function! s:SynVueScriptOrStyle(syn)
+  return a:syn =~? '\v(vueStyle)|(vueScript)'
 endfunction
 
 function! s:PrevMultilineEmptyTag(lnum)
@@ -215,11 +215,11 @@ function! GetVueTag()
   let cursyns = s:SynsEOL(lnum)
   let first_syn = get(cursyns, 0)
 
-  if first_syn =~ 'vueTemplate.*'
+  if first_syn =~ '.*VueTemplate'
     let tag = 'template'
   elseif first_syn =~ 'vueScript.*'
     let tag = 'script'
-  elseif first_syn =~ 'vueStyle.*'
+  elseif first_syn =~ '.*vueStyle'
     let tag = 'style'
   else
     let tag = ''
