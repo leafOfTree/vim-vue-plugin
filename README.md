@@ -31,10 +31,11 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 
 Supports
 
-- Vue directive.
+- Vue directives.
 - Pug with [vim-pug][4] (see Configuration).
 - Less with or without [vim-less][9] (see Configuration).
 - Sass/Scss (see Configuration).
+- [vim-emmet][10] HTML/CSS/JavaScript filetype detection (Aug 9, 2019).
 - `.wpy` files from [WePY][6].
 
 ## Configuration
@@ -106,3 +107,4 @@ This plugin is under [The Unlicense][8].
 [7]: https://github.com/junegunn/vim-plug
 [8]: https://choosealicense.com/licenses/unlicense/
 [9]: https://github.com/groenewege/vim-less
+[10]: https://github.com/mattn/emmet-vim
