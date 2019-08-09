@@ -147,7 +147,7 @@ syntax region pugVueTemplate
       \ end=+</template>+ 
       \ keepend contains=@PugSyntax,vueTag
 
-syntax region vueScript 
+syntax region javascriptVueScript 
       \ start=+<script\(\s.\{-}\)\?>+ 
       \ end=+</script>+ 
       \ keepend contains=@htmlJavaScript,jsImport,jsExport,vueTag

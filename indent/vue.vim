@@ -185,7 +185,7 @@ function! s:SynCSS(syn)
 endfunction
 
 function! s:SynVueScriptOrStyle(syn)
-  return a:syn =~? '\v(vueStyle)|(vueScript)'
+  return a:syn =~? '\v(VueStyle)|(VueScript)'
 endfunction
 
 function! s:PrevMultilineEmptyTag(lnum)
@@ -217,9 +217,9 @@ function! GetVueTag()
 
   if first_syn =~ '.*VueTemplate'
     let tag = 'template'
-  elseif first_syn =~ 'vueScript.*'
+  elseif first_syn =~ '.*VueScript'
     let tag = 'script'
-  elseif first_syn =~ '.*vueStyle'
+  elseif first_syn =~ '.*VueStyle'
     let tag = 'style'
   else
     let tag = ''
