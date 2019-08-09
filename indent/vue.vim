@@ -169,19 +169,19 @@ function! s:SynsEOL(lnum)
 endfunction
 
 function! s:SynHTML(syn)
-  return a:syn =~? '\v^(htmlVueTemplate)'
+  return a:syn ==? 'htmlVueTemplate'
 endfunction
 
 function! s:SynPug(syn)
-  return a:syn =~? '\v^(pugVueTemplate)'
+  return a:syn ==? 'pugVueTemplate'
 endfunction
 
 function! s:SynSASS(syn)
-  return a:syn =~? '\v^(sassVueStyle)'
+  return a:syn ==? 'sassVueStyle'
 endfunction
 
 function! s:SynCSS(syn)
-  return a:syn =~? '\v^(cssVueStyle)'
+  return a:syn ==? 'cssVueStyle'
 endfunction
 
 function! s:SynVueScriptOrStyle(syn)
