@@ -64,7 +64,7 @@ call s:LoadSyntax('@HTMLSyntax', 'html')
 " Load vue-html syntax
 runtime syntax/vue-html.vim
 
-" Avoid overload
+" Avoid overload. 'syntax/html.vim' defines htmlCss and htmlJavaScript
 if hlexists('cssTagName') == 0
   call s:LoadSyntax('@htmlCss', 'css')
 endif
@@ -127,7 +127,7 @@ if s:use_sass || s:use_less
 endif
 
 " Number with minus
-syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' containedin=@htmlJavaScript
+syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' containedin=@javascriptVueScript
 
 " html5 data-*
 syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
