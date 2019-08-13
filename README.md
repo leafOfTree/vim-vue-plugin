@@ -90,7 +90,7 @@ endfunction
 
 ### vim-emmet
 
-Currently vim-emmet works without extra configure, but it depends on how vim-emmet gets `filetype` and may change in the future. Feel free to report an issue if any problem appears.
+Currently vim-emmet works regarding your HTML/CSS/JavaScript emmet settings, but it depends on how vim-emmet gets `filetype` and may change in the future. Feel free to report an issue if any problem appears.
 
 ## Acknowledgments & Refs
 
