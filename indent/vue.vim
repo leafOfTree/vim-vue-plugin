@@ -18,7 +18,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:name = 'vim-vue-plugin'
 " Let <template> handled by HTML
-let s:vue_tag = '\v^\s*\<(script|style)' 
+let s:vue_tag_start = '\v^\s*\<(script|style)' 
 let s:vue_tag_end = '\v^\s*\<\/(script|style)'
 let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)'
 let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>' 
@@ -144,7 +144,7 @@ function! GetVueIndent()
     endif
   endif
 
-  if curline =~? s:vue_tag || curline =~? s:vue_tag_end 
+  if curline =~? s:vue_tag_start || curline =~? s:vue_tag_end 
         \|| prevline =~? s:vue_tag_end
     call s:Log('current line is vue (end) tag or prev line is vue end tag')
     let ind = 0
@@ -153,7 +153,7 @@ function! GetVueIndent()
       call s:Log('add initial indent')
       let ind = &sw
     endif
-  elseif prevline =~? s:vue_tag
+  elseif prevline =~? s:vue_tag_start
     call s:Log('prev line is vue tag')
     let ind = 0
   endif
