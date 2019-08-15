@@ -62,8 +62,7 @@ function! GetVueFold(lnum)
   " Vue tag
   if this_line =~ s:vue_tag_start
     return '>1'
-  endif
-  if this_line =~ s:vue_tag_end
+  elseif this_line =~ s:vue_tag_end
     return '<1'
   endif
 
@@ -74,7 +73,7 @@ function! GetVueFold(lnum)
   if a:lnum > 1
     let prev_indent = s:IndentLevel(a:lnum - 1)
 
-    if this_line =~ s:block_end && (this_indent < prev_indent)
+    if (this_line =~ s:block_end) && (this_indent < prev_indent)
       return prev_indent
     endif
   endif
