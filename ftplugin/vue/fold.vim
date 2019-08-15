@@ -54,10 +54,12 @@ function! GetVueFold(lnum)
     let prev_line = getline(a:lnum - 1)
   endif
 
-  " Handle empty or comment lines
+  " Empty lines
   if this_line =~ s:empty_line
     return -1
   endif
+
+  " Vue tag
   if this_line =~ s:vue_tag_start
     return '>1'
   endif
