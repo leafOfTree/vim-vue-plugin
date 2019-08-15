@@ -35,18 +35,18 @@ let s:vue_tag_end = '\v^\s*\<\/(script|style|template)'
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  see :h fold-expr
-"  value			    meaning
-"  0			        the line is not in a fold
-"  1, 2, ..		    the line is in a fold with this level
-"  -1			        the fold level is undefined, use the fold level of a
-"			            line before or after this line, whichever is the
-"			            lowest.
-"  "="			      use fold level from the previous line
-"  "a1", "a2", ..	add one, two, .. to the fold level of the previous
-"			            line, use the result for the current line
-"  "s1", "s2", ..	subtract one, two, .. from the fold level of the
-"  ">1", ">2", ..	a fold with this level starts at this line
-"  "<1", "<2", ..	a fold with this level ends at this line
+"  value             meaning
+"  0                 the line is not in a fold
+"  1, 2, ..          the line is in a fold with this level
+"  -1                the fold level is undefined, use the fold level of a
+"                    line before or after this line, whichever is the
+"                    lowest.
+"  "="               use fold level from the previous line
+"  "a1", "a2", ..    add one, two, .. to the fold level of the previous
+"			               line, use the result for the current line
+"  "s1", "s2", ..    subtract one, two, .. from the fold level of the
+"  ">1", ">2", ..    a fold with this level starts at this line
+"  "<1", "<2", ..    a fold with this level ends at this line
 function! GetVueFold(lnum)
   let this_line = getline(a:lnum)
   let next_line = getline(a:lnum + 1)
