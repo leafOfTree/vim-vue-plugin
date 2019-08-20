@@ -96,9 +96,9 @@ Currently vim-emmet works regarding your HTML/CSS/JavaScript emmet settings, but
 
 ## Acknowledgments & Refs
 
-[mxw/vim-jsx][1]
+- [mxw/vim-jsx][1]
 
-[Single File Components][3]
+- [Single File Components][3]
 
 ## License
 
