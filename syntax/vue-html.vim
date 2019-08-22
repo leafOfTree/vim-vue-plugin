@@ -50,7 +50,7 @@ syntax match VueAttr '\v(\S)@<!wx[^\=]+(\=\"[^"]*\")?'
 syntax match VueKey contained '\vwx[^\=]+'
 syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image)>'
 
-syntax cluster simpleJavascriptExpression contains=javaScriptStringS,javaScriptStringD,javascriptNumber,javaScriptRepeat,javaScriptOperator
+syntax cluster simpleJavascriptExpression contains=javaScriptStringS,javaScriptStringD,javascriptNumber,javaScriptOperator
 
 " JavaScript syntax
 syntax region javaScriptStringS	
@@ -79,6 +79,5 @@ highlight default link javaScriptStringS String
 highlight default link javaScriptStringD String
 highlight default link javaScriptNumber	Constant
 highlight default link javaScriptOperator	Operator
-
 "}}}
 " vim: fdm=marker

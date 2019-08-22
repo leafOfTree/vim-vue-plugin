@@ -116,7 +116,7 @@ endif
 " Clear htmlHead that may cause highlighting out of bounds
 syntax clear htmlHead
 
-" Redefine syn-region to color correctly.
+" Redefine syn-region to color <style> correctly.
 if s:use_sass || s:use_less
   syntax region lessDefinition transparent matchgroup=cssBraces contains=@LessSyntax
         \ start="{" 
