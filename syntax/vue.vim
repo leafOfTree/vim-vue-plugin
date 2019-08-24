@@ -112,7 +112,6 @@ else
   setlocal iskeyword+=-
 endif
 
-
 " Clear htmlHead that may cause highlighting out of bounds
 syntax clear htmlHead
 
