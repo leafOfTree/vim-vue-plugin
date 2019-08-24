@@ -141,40 +141,40 @@ syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 syntax region htmlVueTemplate 
       \ start=+<template\(\s.\{-}\)\?>+ 
       \ end=+</template>\ze\n\(^$\n\)*<script>+ 
-      \ keepend
+      \ keepend transparent
       \ contains=@HTMLSyntax
 syntax region htmlVueTemplate 
       \ start=+<template\(\s.\{-}\)\?>+ 
       \ end=+^</template>+ 
-      \ keepend
+      \ keepend transparent
       \ contains=@HTMLSyntax
 
 syntax region pugVueTemplate 
       \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
       \ end=+</template>+ 
-      \ keepend contains=@PugSyntax,vueTag
+      \ keepend transparent contains=@PugSyntax,vueTag
 
 syntax region javascriptVueScript 
       \ start=+<script\(\s.\{-}\)\?>+ 
       \ end=+</script>+ 
-      \ keepend contains=@htmlJavaScript,jsImport,jsExport,vueTag
+      \ keepend transparent contains=@htmlJavaScript,jsImport,jsExport,vueTag
 
 syntax region cssVueStyle 
       \ start=+<style\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
-      \ keepend contains=@htmlCss,vueTag
+      \ keepend transparent contains=@htmlCss,vueTag
 syntax region lessVueStyle 
       \ start=+<style lang="less"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
-      \ keepend contains=@LessSyntax,vueTag
+      \ keepend transparent contains=@LessSyntax,vueTag
 syntax region sassVueStyle 
       \ start=+<style lang="sass"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
-      \ keepend contains=@SassSyntax,vueTag
+      \ keepend transparent contains=@SassSyntax,vueTag
 syntax region scssVueStyle 
       \ start=+<style lang="scss"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
-      \ keepend contains=@SassSyntax,vueTag
+      \ keepend transparent contains=@SassSyntax,vueTag
 
 syntax region vueTag 
       \ start=+^<[^/]+ end=+>+ 
