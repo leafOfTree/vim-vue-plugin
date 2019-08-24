@@ -94,7 +94,7 @@ setlocal indentexpr=GetVueIndent()
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! GetVueIndent()
-  let prevlnum = prevnonblank(v:lnum-1)
+  let prevlnum = prevnonblank(v:lnum - 1)
   let prevline = getline(prevlnum)
   let prevsyns = s:SynsEOL(prevlnum)
   let prevsyn = get(prevsyns, 0, '')
@@ -153,9 +153,13 @@ function! GetVueIndent()
       call s:Log('add initial indent')
       let ind = &sw
     endif
-  elseif prevline =~? s:vue_tag_start
-    call s:Log('prev line is vue tag')
-    let ind = 0
+  else
+    let prevlnum_noncomment = s:PrevNonBlacnkNonComment(v:lnum)
+    let prevline_noncomment = getline(prevlnum_noncomment)
+    if prevline_noncomment =~? s:vue_tag_start
+      call s:Log('prev line is vue tag')
+      let ind = 0
+    endif
   endif
 
   call s:Log('indent: '.ind)
@@ -202,6 +206,27 @@ function! s:PrevMultilineEmptyTag(lnum)
     endif
     let lnum = lnum - 1
   endwhile
+endfunction
+
+function! s:PrevNonBlacnkNonComment(lnum)
+  let curline = getline(lnum)
+  let cursyns = s:SynsEOL(a:lnum)
+  let cursyn = get(cursyns, 1, '')
+  if cursyn =~? 'comment' && !empty(curline)
+    return prevnonblank(a:lnum - 1)
+  endif
+
+  let lnum = a:lnum - 1
+  let prevlnum = prevnonblank(lnum)
+  let prevsyns = s:SynsEOL(prevlnum)
+  let prevsyn = get(prevsyns, 1, '')
+  while prevsyn =~? 'comment' && lnum > 1
+    let lnum = lnum - 1
+    let prevlnum = prevnonblank(lnum)
+    let prevsyns = s:SynsEOL(prevlnum)
+    let prevsyn = get(prevsyns, 1, '')
+  endwhile
+  return prevlnum
 endfunction
 
 function! s:Log(msg)
