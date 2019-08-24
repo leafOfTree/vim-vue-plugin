@@ -58,27 +58,6 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Load pre-processors syntax {{{
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" If pug is enabled, load vim-pug syntax
-if s:use_pug
-  call s:LoadFullSyntax('@PugSyntax', 'pug')
-endif
-
-" If sass is enabled, load sass syntax 
-if s:use_sass
-  call s:LoadSyntax('@SassSyntax', 'sass')
-endif
-
-" If less is enabled, load less syntax 
-if s:use_less
-  call s:LoadSyntax('@LessSyntax', 'less')
-endif
-"}}}
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
 " Load main syntax {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -96,6 +75,27 @@ endif
 " Avoid overload
 if hlexists('javaScriptComment') == 0
   call s:LoadSyntax('@htmlJavaScript', 'javascript')
+endif
+"}}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Load pre-processors syntax {{{
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" If pug is enabled, load vim-pug syntax
+if s:use_pug
+  call s:LoadFullSyntax('@PugSyntax', 'pug')
+endif
+
+" If sass is enabled, load sass syntax 
+if s:use_sass
+  call s:LoadSyntax('@SassSyntax', 'sass')
+endif
+
+" If less is enabled, load less syntax 
+if s:use_less
+  call s:LoadSyntax('@LessSyntax', 'less')
 endif
 "}}}
 
@@ -119,9 +119,11 @@ endif
 syntax clear htmlHead
 
 " Redefine syn-region to color <style> correctly.
-if s:use_sass || s:use_less
+if s:use_less
   syntax region lessDefinition matchgroup=cssBraces contains=@LessSyntax contained
         \ start="{" end="}" 
+endif
+if s:use_sass
   syntax region sassDefinition matchgroup=cssBraces contains=@SassSyntax contained
         \ start="{" end="}" 
 endif
