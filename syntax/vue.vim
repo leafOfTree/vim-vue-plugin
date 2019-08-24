@@ -143,6 +143,11 @@ syntax region htmlVueTemplate
       \ end=+</template>\ze\n\(^$\n\)*<script>+ 
       \ keepend
       \ contains=@HTMLSyntax
+syntax region htmlVueTemplate 
+      \ start=+<template\(\s.\{-}\)\?>+ 
+      \ end=+^</template>+ 
+      \ keepend
+      \ contains=@HTMLSyntax
 
 syntax region pugVueTemplate 
       \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
