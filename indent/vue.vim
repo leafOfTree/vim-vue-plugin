@@ -181,7 +181,7 @@ function! s:SynPug(syn)
 endfunction
 
 function! s:SynSASS(syn)
-  return a:syn ==? 'sassVueStyle'
+  return a:syn ==? 'cssSassVueStyle'
 endfunction
 
 function! s:SynCSS(syn)

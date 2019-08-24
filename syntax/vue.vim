@@ -43,7 +43,10 @@ function! s:LoadDefaultSyntax(group, type)
   unlet! b:current_syntax
   let syntaxPaths = ['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']
   for path in syntaxPaths
-    execute 'silent! syntax include '.a:group.' '.path.'/syntax/'.a:type.'.vim'
+    let file = expand(path).'/syntax/'.a:type.'.vim'
+    if filereadable(file)
+      execute 'syntax include '.a:group.' '.file
+    endif
   endfor
 endfunction
 
@@ -117,12 +120,10 @@ syntax clear htmlHead
 
 " Redefine syn-region to color <style> correctly.
 if s:use_sass || s:use_less
-  syntax region lessDefinition transparent matchgroup=cssBraces contains=@LessSyntax
-        \ start="{" 
-        \ end="}" 
-  syntax region sassDefinition transparent matchgroup=cssBraces contains=@SassSyntax
-        \ start="{" 
-        \ end="}" 
+  syntax region lessDefinition matchgroup=cssBraces contains=@LessSyntax contained
+        \ start="{" end="}" 
+  syntax region sassDefinition matchgroup=cssBraces contains=@SassSyntax contained
+        \ start="{" end="}" 
 endif
 
 " Number with minus
@@ -137,6 +138,7 @@ syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" All start with html/javascript/css for vim-emmet type detection
 syntax region htmlVueTemplate 
       \ start=+<template\(\s.\{-}\)\?>+ 
       \ end=+</template>\ze\n\(^$\n\)*<script>+ 
@@ -162,15 +164,15 @@ syntax region cssVueStyle
       \ start=+<style\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@htmlCss,vueTag
-syntax region lessVueStyle 
+syntax region cssLessVueStyle 
       \ start=+<style lang="less"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@LessSyntax,vueTag
-syntax region sassVueStyle 
+syntax region cssSassVueStyle 
       \ start=+<style lang="sass"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
-syntax region scssVueStyle 
+syntax region cssScssVueStyle 
       \ start=+<style lang="scss"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
