@@ -140,8 +140,10 @@ syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax region htmlVueTemplate 
       \ start=+<template\(\s.\{-}\)\?>+ 
-      \ end=+^</template>+ 
-      \ keepend contains=@HTMLSyntax
+      \ end=+</template>\ze\n\(^$\n\)*<script>+ 
+      \ keepend
+      \ contains=@HTMLSyntax
+
 syntax region pugVueTemplate 
       \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
       \ end=+</template>+ 
