@@ -55,6 +55,27 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" Load pre-processors syntax {{{
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" If pug is enabled, load vim-pug syntax
+if s:use_pug
+  call s:LoadFullSyntax('@PugSyntax', 'pug')
+endif
+
+" If sass is enabled, load sass syntax 
+if s:use_sass
+  call s:LoadSyntax('@SassSyntax', 'sass')
+endif
+
+" If less is enabled, load less syntax 
+if s:use_less
+  call s:LoadSyntax('@LessSyntax', 'less')
+endif
+"}}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Load main syntax {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -72,27 +93,6 @@ endif
 " Avoid overload
 if hlexists('javaScriptComment') == 0
   call s:LoadSyntax('@htmlJavaScript', 'javascript')
-endif
-"}}}
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Load pre-processors syntax {{{
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" If pug is enabled, load vim-pug syntax
-if s:use_pug
-  call s:LoadFullSyntax('@PugSyntax', 'pug')
-endif
-
-" If sass is enabled, load sass syntax 
-if s:use_sass
-  call s:LoadSyntax('@SassSyntax', 'sass')
-endif
-
-" If less is enabled, load less syntax 
-if s:use_less
-  call s:LoadSyntax('@LessSyntax', 'less')
 endif
 "}}}
 
