@@ -11,7 +11,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 - Use [vim-pathogen][5]
 
         cd ~/.vim/bundle && \
-        git clone https://github.com/leafOfTree/vim-vue-plugin
+        git clone https://github.com/leafOfTree/vim-vue-plugin --depth 1
 
 - Use [vim-plug][7]
 
@@ -111,5 +111,4 @@ This plugin is under [The Unlicense][8].
 [6]: https://tencent.github.io/wepy
 [7]: https://github.com/junegunn/vim-plug
 [8]: https://choosealicense.com/licenses/unlicense/
-[9]: https://github.com/groenewege/vim-less
 [10]: https://github.com/mattn/emmet-vim
