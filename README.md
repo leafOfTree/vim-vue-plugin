@@ -33,8 +33,7 @@ Supports
 
 - Vue directives.
 - Pug with [vim-pug][4] (see Configuration).
-- Less with or without [vim-less][9] (see Configuration).
-- Sass/Scss (see Configuration).
+- Less/Sass/Scss (see Configuration).
 - [vim-emmet][10] HTML/CSS/JavaScript filetype detection (Aug 9, 2019).
 - A builtin foldexpr fold method.
 - `.wpy` files from [WePY][6].
