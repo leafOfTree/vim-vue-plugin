@@ -34,7 +34,7 @@ Supports
 - Vue directives.
 - Pug with [vim-pug][4] (see Configuration).
 - Less/Sass/Scss (see Configuration).
-- [vim-emmet][10] HTML/CSS/JavaScript filetype detection (Aug 9, 2019).
+- [vim-emmet][10] HTML/CSS/JavaScript filetype detection.
 - A builtin foldexpr fold method.
 - `.wpy` files from [WePY][6].
 
