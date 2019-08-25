@@ -132,8 +132,8 @@ function! GetVueIndent()
   elseif s:SynSASS(prevsyn)
     call s:Log('syntax: sass')
     let ind = GetSassIndent()
-  elseif s:SynCSS(prevsyn)
-    call s:Log('syntax: css')
+  elseif s:SynStyle(prevsyn)
+    call s:Log('syntax: style')
     let ind = GetCSSIndent()
   else
     call s:Log('syntax: javascript')
@@ -184,8 +184,8 @@ function! s:SynSASS(syn)
   return a:syn ==? 'cssSassVueStyle'
 endfunction
 
-function! s:SynCSS(syn)
-  return a:syn ==? 'cssVueStyle'
+function! s:SynStyle(syn)
+  return a:syn =~? 'VueStyle'
 endfunction
 
 function! s:SynVueScriptOrStyle(syn)
