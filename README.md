@@ -34,8 +34,8 @@ Supports
 - Vue directives.
 - Pug with [vim-pug][4] (see Configuration).
 - Less/Sass/Scss (see Configuration).
-- [vim-emmet][10] HTML/CSS/JavaScript filetype detection.
-- A builtin foldexpr fold method.
+- A builtin 'expr' foldmethod (see Configuration).
+- [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
 - `.wpy` files from [WePY][6].
 
 ## Configuration
@@ -54,12 +54,14 @@ Ex:
 | `g:vim_vue_plugin_use_sass`           | Enable sass/scss syntax for `<style lang="sass">`(or scss).                                            | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
-| `g:vim_vue_plugin_use_foldexpr`       | Enable builtin foldexpr fold method.                                                                   | 1 |
+| `g:vim_vue_plugin_use_foldexpr`       | Enable builtin foldexpr fold method.                                                                   | 0 |
 | `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
 
 \*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
 
-**Note**: `filetype` used to be set to `javascript.vue`, which caused `javascript` syntax to be loaded multiple times and a significant delay. Now it is `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
+### Note
+- `filetype` used to be set to `javascript.vue`, which caused `javascript` syntax to be loaded multiple times and a significant delay. Now it is `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
+- `g:vim_vue_plugin_use_foldexpr` default value used to be `1`, but there are other foldmethod choices. So it's changed to `0`.
 
 ## Screenshot
 
@@ -89,9 +91,9 @@ function! InsertColon()
 endfunction
 ```
 
-### vim-emmet
+### emmet-vim
 
-Currently vim-emmet works regarding your HTML/CSS/JavaScript emmet settings, but it depends on how vim-emmet gets `filetype` and may change in the future. Feel free to report an issue if any problem appears.
+Currently emmet-vim works regarding your HTML/CSS/JavaScript emmet settings, but it depends on how emmet-vim gets `filetype` and may change in the future. Feel free to report an issue if any problem appears.
 
 ## Acknowledgments & Refs
 

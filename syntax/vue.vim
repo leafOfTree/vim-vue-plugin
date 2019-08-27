@@ -141,40 +141,40 @@ syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " All start with html/javascript/css for vim-emmet type detection
-syntax region htmlVueTemplate 
+syntax region htmlVueTemplate fold
       \ start=+<template\(\s.\{-}\)\?>+ 
       \ end=+</template>\ze\n\(^$\n\)*<script>+ 
       \ keepend
       \ contains=@HTMLSyntax
-syntax region htmlVueTemplate 
+syntax region htmlVueTemplate fold
       \ start=+<template\(\s.\{-}\)\?>+ 
       \ end=+^</template>+ 
       \ keepend
       \ contains=@HTMLSyntax
 
-syntax region pugVueTemplate 
+syntax region pugVueTemplate fold
       \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
       \ end=+</template>+ 
       \ keepend contains=@PugSyntax,vueTag
 
-syntax region javascriptVueScript 
+syntax region javascriptVueScript fold 
       \ start=+<script\(\s.\{-}\)\?>+ 
       \ end=+</script>+ 
       \ keepend contains=@htmlJavaScript,jsImport,jsExport,vueTag
 
-syntax region cssVueStyle 
+syntax region cssVueStyle fold
       \ start=+<style\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@htmlCss,vueTag
-syntax region cssLessVueStyle 
+syntax region cssLessVueStyle fold
       \ start=+<style lang="less"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@LessSyntax,vueTag
-syntax region cssSassVueStyle 
+syntax region cssSassVueStyle fold
       \ start=+<style lang="sass"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
-syntax region cssScssVueStyle 
+syntax region cssScssVueStyle fold
       \ start=+<style lang="scss"\(\s.\{-}\)\?>+ 
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
