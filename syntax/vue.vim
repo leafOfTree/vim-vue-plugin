@@ -140,17 +140,16 @@ syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" All start with html/javascript/css for vim-emmet type detection
-syntax region htmlVueTemplate fold
-      \ start=+<template\(\s.\{-}\)\?>+ 
-      \ end=+</template>\ze\n\(^$\n\)*<script>+ 
-      \ keepend
-      \ contains=@HTMLSyntax
+" All start with html/javascript/css for emmet-vim type detection
 syntax region htmlVueTemplate fold
       \ start=+<template\(\s.\{-}\)\?>+ 
       \ end=+^</template>+ 
-      \ keepend
-      \ contains=@HTMLSyntax
+      \ keepend contains=@HTMLSyntax
+" When code is not well indented
+syntax region htmlVueTemplate fold
+      \ start=+<template\(\s.\{-}\)\?>+ 
+      \ end=+</template>\ze\n\(^$\n\)*<script>+ 
+      \ keepend contains=@HTMLSyntax
 
 syntax region pugVueTemplate fold
       \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
@@ -179,9 +178,9 @@ syntax region cssScssVueStyle fold
       \ end=+</style>+ 
       \ keepend contains=@SassSyntax,vueTag
 
-syntax region vueTag 
+syntax region vueTag fold
       \ start=+^<[^/]+ end=+>+ 
-      \ contained contains=htmlTagN,htmlString,htmlArg fold
+      \ contained contains=htmlTagN,htmlString,htmlArg
 syntax region vueTag 
       \ start=+^</+ end=+>+ 
       \ contained contains=htmlTagN,htmlString,htmlArg
