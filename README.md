@@ -59,9 +59,10 @@ Ex:
 
 \*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
 
-### Note
+**Note**
+
 - `filetype` used to be set to `javascript.vue`, which caused `javascript` syntax to be loaded multiple times and a significant delay. Now it is `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
-- `g:vim_vue_plugin_use_foldexpr` default value used to be `1`, but there are other foldmethod choices. So it's changed to `0`.
+- `g:vim_vue_plugin_use_foldexpr` default value used to be `1`. But there are other foldmethod choices, so it's changed to `0`.
 
 ## Screenshot
 
