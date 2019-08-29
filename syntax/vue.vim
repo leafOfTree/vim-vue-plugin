@@ -109,42 +109,6 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Syntax patch {{{
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Patch 7.4.1142
-if has("patch-7.4-1142")
-  if has("win32")
-    syntax iskeyword @,48-57,_,128-167,224-235,$,-
-  else
-    syntax iskeyword @,48-57,_,192-255,$,-
-  endif
-else
-  setlocal iskeyword+=-
-endif
-
-" Clear htmlHead that may cause highlighting out of bounds
-syntax clear htmlHead
-
-" Redefine syn-region to color <style> correctly.
-if s:use_less
-  syntax region lessDefinition matchgroup=cssBraces contains=@LessSyntax contained
-        \ start="{" end="}" 
-endif
-if s:use_sass
-  syntax region sassDefinition matchgroup=cssBraces contains=@SassSyntax contained
-        \ start="{" end="}" 
-endif
-
-" Number with minus
-syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' containedin=@javascriptVueScript
-
-" html5 data-*
-syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
-"}}}
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -198,6 +162,52 @@ syntax region vueTag
       \ contained contains=htmlTagN,htmlString,htmlArg
 
 highlight def link vueTag htmlTag
+"}}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Syntax patch {{{
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Patch 7.4.1142
+if has("patch-7.4-1142")
+  if has("win32")
+    syntax iskeyword @,48-57,_,128-167,224-235,$,-
+  else
+    syntax iskeyword @,48-57,_,192-255,$,-
+  endif
+else
+  setlocal iskeyword+=-
+endif
+
+" Style
+" Redefine syn-region to color <style> correctly.
+if s:use_less
+  syntax region lessDefinition matchgroup=cssBraces contains=@LessSyntax contained
+        \ start="{" end="}" 
+endif
+if s:use_sass
+  syntax region sassDefinition matchgroup=cssBraces contains=@SassSyntax contained
+        \ start="{" end="}" 
+endif
+
+" Coffee
+if s:use_coffee
+  silent! syntax clear coffeeConstant
+  syn match coffeeConstant /\<\u\C[A-Z0-9_]\+\>/ display 
+        \ containedin=@coffeeIdentifier
+endif
+
+" JavaScript
+" Number with minus
+syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' containedin=@javascriptVueScript display
+
+" HTML
+" Clear htmlHead that may cause highlighting out of bounds
+silent! syntax clear htmlHead
+
+" html5 data-*
+syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 "}}}
 
 let b:current_syntax = 'vue'

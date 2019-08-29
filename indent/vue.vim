@@ -38,6 +38,9 @@ let s:use_pug = exists("g:vim_vue_plugin_use_pug")
       \ && g:vim_vue_plugin_use_pug == 1
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
+let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
+      \ && g:vim_vue_plugin_use_coffee == 1
+
 let s:has_init_indent = 0
 if !exists("g:vim_vue_plugin_has_init_indent")
   let ext = expand("%:e")
@@ -72,6 +75,11 @@ endif
 if s:use_sass
   unlet! b:did_indent
   runtime! indent/sass.vim
+endif
+
+if s:use_coffee
+  unlet! b:did_indent
+  runtime! indent/coffee.vim
 endif
 "}}}
 
@@ -129,6 +137,9 @@ function! GetVueIndent()
   elseif s:SynPug(prevsyn)
     call s:Log('syntax: pug')
     let ind = GetPugIndent()
+  elseif s:SynCoffee(prevsyn)
+    call s:Log('syntax: coffee')
+    let ind = GetCoffeeIndent(v:lnum)
   elseif s:SynSASS(prevsyn)
     call s:Log('syntax: sass')
     let ind = GetSassIndent()
@@ -178,6 +189,10 @@ endfunction
 
 function! s:SynPug(syn)
   return a:syn ==? 'pugVueTemplate'
+endfunction
+
+function! s:SynCoffee(syn)
+  return a:syn ==? 'coffeeVueScript'
 endfunction
 
 function! s:SynSASS(syn)
