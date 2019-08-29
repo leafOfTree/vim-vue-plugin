@@ -24,6 +24,8 @@ let s:use_less = exists("g:vim_vue_plugin_use_less")
       \ && g:vim_vue_plugin_use_less == 1
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
+let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
+      \ && g:vim_vue_plugin_use_coffee == 1
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -88,14 +90,20 @@ if s:use_pug
   call s:LoadFullSyntax('@PugSyntax', 'pug')
 endif
 
+" If less is enabled, load less syntax 
+if s:use_less
+  call s:LoadSyntax('@LessSyntax', 'less')
+endif
+
 " If sass is enabled, load sass syntax 
 if s:use_sass
   call s:LoadSyntax('@SassSyntax', 'sass')
 endif
 
-" If less is enabled, load less syntax 
-if s:use_less
-  call s:LoadSyntax('@LessSyntax', 'less')
+" If CoffeeScript is enabled, load the syntax. Keep name consistent with
+" vim-coffee-script/after/html.vim
+if s:use_coffee
+  call s:LoadFullSyntax('@htmlCoffeeScript', 'coffee')
 endif
 "}}}
 
@@ -140,7 +148,7 @@ syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" All start with html/javascript/css for emmet-vim type detection
+" All start with html/javascript/css for emmet-vim in-file type detection
 syntax region htmlVueTemplate fold
       \ start=+<template\(\s.\{-}\)\?>+ 
       \ end=+^</template>+ 
@@ -160,6 +168,10 @@ syntax region javascriptVueScript fold
       \ start=+<script\(\s.\{-}\)\?>+ 
       \ end=+</script>+ 
       \ keepend contains=@htmlJavaScript,jsImport,jsExport,vueTag
+syntax region coffeeVueScript fold 
+      \ start=+<script lang="coffee"\(\s.\{-}\)\?>+ 
+      \ end=+</script>+ 
+      \ keepend contains=@htmlCoffeeScript,jsImport,jsExport,vueTag
 
 syntax region cssVueStyle fold
       \ start=+<style\(\s.\{-}\)\?>+ 
