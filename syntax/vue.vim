@@ -194,7 +194,7 @@ endif
 " Coffee
 if s:use_coffee
   silent! syntax clear coffeeConstant
-  syn match coffeeConstant /\<\u\C[A-Z0-9_]\+\>/ display 
+  syn match coffeeConstant '\v<\u\C[A-Z0-9_]+>' display 
         \ containedin=@coffeeIdentifier
 endif
 
