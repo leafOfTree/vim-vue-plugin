@@ -185,13 +185,13 @@ endif
 if s:use_less
   syntax clear lessDefinition
   syntax region cssLessDefinition matchgroup=cssBraces contains=@LessSyntax 
-        \ containedin=cssLessVueStyle
+        \ contained containedin=cssLessVueStyle
         \ start="{" end="}" 
 endif
 if s:use_sass
   syntax clear sassDefinition
   syntax region cssSassDefinition matchgroup=cssBraces contains=@SassSyntax 
-        \ containedin=cssSassVueStyle,cssScssVueStyle
+        \ contained containedin=cssSassVueStyle,cssScssVueStyle
         \ start="{" end="}" 
 endif
 
@@ -204,7 +204,8 @@ endif
 
 " JavaScript
 " Number with minus
-syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' containedin=@javascriptVueScript display
+syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' 
+      \ containedin=@javascriptVueScript display
 
 " HTML
 " Clear htmlHead that may cause highlighting out of bounds
