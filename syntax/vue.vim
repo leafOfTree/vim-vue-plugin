@@ -114,51 +114,51 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " All start with html/javascript/css for emmet-vim in-file type detection
 syntax region htmlVueTemplate fold
-      \ start=+<template\(\s.\{-}\)\?>+ 
-      \ end=+^</template>+ 
+      \ start=+<template[^>]*>+
+      \ end=+^</template>+
       \ keepend contains=@HTMLSyntax
 " When code is not well indented
 syntax region htmlVueTemplate fold
-      \ start=+<template\(\s.\{-}\)\?>+ 
-      \ end=+</template>\ze\n\(^$\n\)*<script>+ 
+      \ start=+<template[^>]*>+
+      \ end=+</template>\ze\n\(^$\n\)*<script>+
       \ keepend contains=@HTMLSyntax
 
 syntax region pugVueTemplate fold
-      \ start=+<template lang="pug"\(\s.\{-}\)\?>+ 
-      \ end=+</template>+ 
+      \ start=+<template lang="pug"[^>]*>+
+      \ end=+</template>+
       \ keepend contains=@PugSyntax,vueTag
 
 syntax region javascriptVueScript fold 
-      \ start=+<script\(\s.\{-}\)\?>+ 
-      \ end=+</script>+ 
+      \ start=+<script[^>]*>+
+      \ end=+</script>+
       \ keepend contains=@htmlJavaScript,jsImport,jsExport,vueTag
 syntax region coffeeVueScript fold 
-      \ start=+<script lang="coffee"\(\s.\{-}\)\?>+ 
-      \ end=+</script>+ 
+      \ start=+<script lang="coffee"[^>]*>+
+      \ end=+</script>+
       \ keepend contains=@htmlCoffeeScript,jsImport,jsExport,vueTag
 
 syntax region cssVueStyle fold
-      \ start=+<style\(\s.\{-}\)\?>+ 
-      \ end=+</style>+ 
+      \ start=+<style[^>]*>+
+      \ end=+</style>+
       \ keepend contains=@htmlCss,vueTag
 syntax region cssLessVueStyle fold
-      \ start=+<style lang="less"\(\s.\{-}\)\?>+ 
-      \ end=+</style>+ 
+      \ start=+<style[^>]*lang="less"[^>]*>+
+      \ end=+</style>+
       \ keepend contains=@LessSyntax,vueTag
 syntax region cssSassVueStyle fold
-      \ start=+<style lang="sass"\(\s.\{-}\)\?>+ 
-      \ end=+</style>+ 
+      \ start=+<style[^>]*lang="sass"[^>]*>+
+      \ end=+</style>+
       \ keepend contains=@SassSyntax,vueTag
 syntax region cssScssVueStyle fold
-      \ start=+<style lang="scss"\(\s.\{-}\)\?>+ 
-      \ end=+</style>+ 
+      \ start=+<style[^>]*lang="scss"[^>]*>+
+      \ end=+</style>+
       \ keepend contains=@SassSyntax,vueTag
 
 syntax region vueTag fold
-      \ start=+^<[^/]+ end=+>+ 
+      \ start=+^<[^/]+ end=+>+
       \ contained contains=htmlTagN,htmlString,htmlArg
 syntax region vueTag 
-      \ start=+^</+ end=+>+ 
+      \ start=+^</+ end=+>+
       \ contained contains=htmlTagN,htmlString,htmlArg
 
 highlight def link vueTag htmlTag
