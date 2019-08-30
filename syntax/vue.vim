@@ -183,11 +183,15 @@ endif
 " Style
 " Redefine syn-region to color <style> correctly.
 if s:use_less
-  syntax region lessDefinition matchgroup=cssBraces contains=@LessSyntax contained
+  syntax clear lessDefinition
+  syntax region cssLessDefinition matchgroup=cssBraces contains=@LessSyntax 
+        \ containedin=cssLessVueStyle
         \ start="{" end="}" 
 endif
 if s:use_sass
-  syntax region sassDefinition matchgroup=cssBraces contains=@SassSyntax contained
+  syntax clear sassDefinition
+  syntax region cssSassDefinition matchgroup=cssBraces contains=@SassSyntax 
+        \ containedin=cssSassVueStyle,cssScssVueStyle
         \ start="{" end="}" 
 endif
 
