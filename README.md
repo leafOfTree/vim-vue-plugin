@@ -35,7 +35,7 @@ Supports
 - Pug with [vim-pug][4] (see Configuration).
 - Less/Sass/Scss (see Configuration).
 - Coffee with [vim-coffee-script][11] (see Configuration).
-- A builtin 'expr' foldmethod (see Configuration).
+- A builtin `expr` foldmethod (see Configuration).
 - [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
 - `.wpy` files from [WePY][6].
 
