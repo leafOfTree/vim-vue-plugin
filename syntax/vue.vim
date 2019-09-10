@@ -11,6 +11,8 @@ if exists("b:current_syntax") && b:current_syntax == 'vue'
   finish
 endif
 
+" For advanced users, this variable can be used to avoid overload
+let b:current_main_syntax = 'vue'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Config {{{
@@ -64,10 +66,6 @@ function! s:SetCurrentSyntax(type)
   if a:type == 'coffee'
     syntax cluster coffeeJS contains=@htmlJavaScript
     let b:current_syntax = 'vue'
-  elseif a:type == 'less' || a:type == 'sass'
-    " For advanced user, this variable can be used to avoid overload
-    let b:current_main_syntax = 'vue'
-    unlet! b:current_syntax
   else
     unlet! b:current_syntax
   endif
