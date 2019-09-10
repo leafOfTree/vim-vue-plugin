@@ -98,6 +98,19 @@ endfunction
 
 Currently emmet-vim works regarding your HTML/CSS/JavaScript emmet settings, but it depends on how emmet-vim gets `filetype` and may change in the future. Feel free to report an issue if any problem appears.
 
+## Avoid overload
+
+Since there are many sub languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as loading condition if you'd like to manually find and modify the syntax files causing overload.
+
+For example, the builtin `sass.vim` and `less.vim` in vim8.1 will always load `css.vim` which this plugin already loads. It can be optimized like
+
+```diff
+- runtime! syntax/css.vim
++ if !exists("b:current_loading_main_syntax")
++   runtime! syntax/css.vim
++ endif
+```
+
 ## Acknowledgments & Refs
 
 - [mxw/vim-jsx][1]

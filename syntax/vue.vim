@@ -12,7 +12,7 @@ if exists("b:current_syntax") && b:current_syntax == 'vue'
 endif
 
 " For advanced users, this variable can be used to avoid overload
-let b:current_main_syntax = 'vue'
+let b:current_loading_main_syntax = 'vue'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Config {{{
