@@ -44,7 +44,7 @@ function! s:LoadSyntax(group, type)
 endfunction
 
 function! s:LoadDefaultSyntax(group, type)
-  call s:SetCurrentSyntax(a:type)
+  unlet! b:current_syntax
 
   let syntaxPaths = ['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']
   for path in syntaxPaths
