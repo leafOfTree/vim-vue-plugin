@@ -181,7 +181,8 @@ else
 endif
 
 " Style
-" Redefine syn-region to color <style> correctly.
+" Redefine (less|sass)Definition to highlight <style> correctly and 
+" enable emmet-vim css type.
 if s:use_less
   syntax clear lessDefinition
   syntax region cssLessDefinition matchgroup=cssBraces contains=@LessSyntax 
@@ -194,6 +195,12 @@ if s:use_sass
         \ contained containedin=cssSassVueStyle,cssScssVueStyle
         \ start="{" end="}" 
 endif
+
+" Highlight css unit correctly
+syntax clear cssUnitDecorators
+syntax match cssUnitDecorator 
+      \ /\(#\|-\|+\|%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px\|ch\|rem\|vh\|vw\|vmin\|vmax\|dpi\|dppx\|dpcm\|Hz\|kHz\|s\|ms\|deg\|grad\|rad\)\ze\(;\|$\)/
+      \ containedin=cssAttrRegion,sassCssAttribute,lessCssAttribute
 
 " Coffee
 if s:use_coffee
