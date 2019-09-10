@@ -57,15 +57,17 @@ endif
 " Load indent method {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use lib/indent/ files for compatibility
+unlet! b:did_indent
+runtime lib/indent/xml.vim
+
+unlet! b:did_indent
+runtime lib/indent/css.vim
+
+" Use normal indent files
 unlet! b:did_indent
 runtime! indent/javascript.vim
 let b:javascript_indentexpr = &indentexpr
-
-unlet! b:did_indent
-runtime! indent/xml.vim
-
-unlet! b:did_indent
-runtime! indent/css.vim
 
 if s:use_pug
   unlet! b:did_indent
