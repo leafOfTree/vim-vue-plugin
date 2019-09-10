@@ -42,7 +42,8 @@ function! s:LoadSyntax(group, type)
 endfunction
 
 function! s:LoadDefaultSyntax(group, type)
-  unlet! b:current_syntax
+  call s:SetCurrentSyntax(a:type)
+
   let syntaxPaths = ['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']
   for path in syntaxPaths
     let file = expand(path).'/syntax/'.a:type.'.vim'
@@ -53,8 +54,23 @@ function! s:LoadDefaultSyntax(group, type)
 endfunction
 
 function! s:LoadFullSyntax(group, type)
-  unlet! b:current_syntax
+  call s:SetCurrentSyntax(a:type)
+
   execute 'syntax include '.a:group.' syntax/'.a:type.'.vim'
+endfunction
+
+" Settings to avoid syntax overload
+function! s:SetCurrentSyntax(type)
+  if a:type == 'coffee'
+    syntax cluster coffeeJS contains=@htmlJavaScript
+    let b:current_syntax = 'vue'
+  elseif a:type == 'less' || a:type == 'sass'
+    " For advanced user, this variable can be used to avoid overload
+    let b:current_main_syntax = 'vue'
+    unlet! b:current_syntax
+  else
+    unlet! b:current_syntax
+  endif
 endfunction
 "}}}
 
@@ -76,6 +92,7 @@ endif
 
 " Avoid overload
 if hlexists('javaScriptComment') == 0
+  echom 'load javascript cluster'
   call s:LoadSyntax('@htmlJavaScript', 'javascript')
 endif
 "}}}
