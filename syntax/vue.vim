@@ -217,6 +217,7 @@ endif
 syntax clear cssUnitDecorators
 syntax match cssUnitDecorator 
       \ /\(#\|-\|+\|%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px\|ch\|rem\|vh\|vw\|vmin\|vmax\|dpi\|dppx\|dpcm\|Hz\|kHz\|s\|ms\|deg\|grad\|rad\)\ze\(;\|$\)/
+      \ contained
       \ containedin=cssAttrRegion,sassCssAttribute,lessCssAttribute
 
 " Coffee
