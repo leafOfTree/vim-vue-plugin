@@ -20,6 +20,7 @@ let s:name = 'vim-vue-plugin'
 " Let <template> handled by HTML
 let s:vue_tag_start = '\v^\s*\<(script|style)' 
 let s:vue_tag_end = '\v^\s*\<\/(script|style)'
+let s:vue_template_tag_end = '\v^\s*\<\/template'
 let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)'
 let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>' 
 let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$' 
@@ -159,6 +160,7 @@ function! GetVueIndent()
 
   if curline =~? s:vue_tag_start || curline =~? s:vue_tag_end 
         \|| prevline =~? s:vue_tag_end
+        \|| (curline =~ s:vue_template_tag_end && s:SynPug(prevsyn))
     call s:Log('current line is vue (end) tag or prev line is vue end tag')
     let ind = 0
   elseif s:has_init_indent
