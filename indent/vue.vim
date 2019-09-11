@@ -93,7 +93,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 setlocal sw=2 ts=2
 " JavaScript indentkeys
-setlocal indentkeys=0{,0},0),0],0\,,!^F,o,O,e
+setlocal indentkeys=0{,0},0),0],0\,,!^F,o,O,e,:
 " XML indentkeys
 setlocal indentkeys+=*<Return>,<>>,<<>,/
 setlocal indentexpr=GetVueIndent()
