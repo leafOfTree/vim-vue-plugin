@@ -108,11 +108,13 @@ endif
 " If less is enabled, load less syntax 
 if s:use_less
   call s:LoadSyntax('@LessSyntax', 'less')
+  runtime! after/syntax/less.vim
 endif
 
 " If sass is enabled, load sass syntax 
 if s:use_sass
   call s:LoadSyntax('@SassSyntax', 'sass')
+  runtime! after/syntax/sass.vim
 endif
 
 " If CoffeeScript is enabled, load the syntax. Keep name consistent with
