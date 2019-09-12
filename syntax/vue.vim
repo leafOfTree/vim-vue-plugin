@@ -213,11 +213,16 @@ if s:use_sass
         \ start="{" end="}" 
 endif
 
-" Highlight css unit correctly
+" Avoid css syntax interference
 syntax clear cssUnitDecorators
-syntax match cssUnitDecorator 
+syntax match cssUnitDecorators2 
       \ /\(#\|-\|+\|%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px\|ch\|rem\|vh\|vw\|vmin\|vmax\|dpi\|dppx\|dpcm\|Hz\|kHz\|s\|ms\|deg\|grad\|rad\)\ze\(;\|$\)/
       \ contained
+      \ containedin=cssAttrRegion,sassCssAttribute,lessCssAttribute
+
+syntax clear cssKeyFrameProp
+syn match cssKeyFrameProp2 /\d*%\|from\|to/ 
+      \ contained nextgroup=cssDefinition
       \ containedin=cssAttrRegion,sassCssAttribute,lessCssAttribute
 
 " Coffee
