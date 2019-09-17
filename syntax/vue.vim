@@ -178,7 +178,9 @@ syntax region vueTag
       \ start=+^</+ end=+>+
       \ contained contains=htmlTagN,htmlString,htmlArg
 
-highlight def link vueTag htmlTag
+highlight default link vueTag htmlTag
+highlight default link cssUnitDecorators2 Number
+highlight default link cssKeyFrameProp2 Constant
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
