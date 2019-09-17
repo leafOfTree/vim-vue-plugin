@@ -35,7 +35,7 @@ Supports
 - Pug with [vim-pug][4] (see Configuration).
 - Less/Sass/Scss (see Configuration).
 - Coffee with [vim-coffee-script][11] (see Configuration).
-- A builtin `expr` foldmethod (see Configuration).
+- A builtin `foldexpr` foldmethod (see Configuration).
 - [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
 - `.wpy` files from [WePY][6].
 
@@ -56,7 +56,7 @@ Ex:
 | `g:vim_vue_plugin_use_sass`           | Enable scss syntax for `<style lang="scss">`(or sass fo lang="sass").                                  | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
-| `g:vim_vue_plugin_use_foldexpr`       | Enable `foldexpr` fold method.                                                                   | 0 |
+| `g:vim_vue_plugin_use_foldexpr`       | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
 | `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
 
 \*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
