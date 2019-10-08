@@ -90,7 +90,7 @@ endif
 
 " Avoid overload
 if hlexists('javaScriptComment') == 0
-  echom 'load javascript cluster'
+  call vue#Log('load javascript cluster')
   call s:LoadSyntax('@htmlJavaScript', 'javascript')
 endif
 "}}}
