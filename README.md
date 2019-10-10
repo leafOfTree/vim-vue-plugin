@@ -1,26 +1,28 @@
 # vim-vue-plugin
 
-Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1].
+Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1]. 
+
+[![Build Status][12]](https://travis-ci.com/leafOfTree/test)
 
 ## Install
 
-- Use [VundleVim][2]
+- [VundleVim][2]
 
         Plugin 'leafOfTree/vim-vue-plugin'
 
-- Use [vim-pathogen][5]
+- [vim-pathogen][5]
 
         cd ~/.vim/bundle && \
         git clone https://github.com/leafOfTree/vim-vue-plugin --depth 1
 
-- Use [vim-plug][7]
+- [vim-plug][7]
 
         Plug 'leafOfTree/vim-vue-plugin'
         :PlugInstall
 
-- Or manually, clone this plugin, drop it in custom `path/to/this_plugin`, and add it to `rtp` in vimrc
+- Or manually, clone this plugin to `path/to/this_plugin`, and add it to `rtp` in vimrc
 
-        set rpt+=path/to/this_plugin
+        set rtp+=path/to/this_plugin
 
 The plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or a pull request.
 
@@ -32,18 +34,18 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 Supports
 
 - Vue directives.
-- Pug with [vim-pug][4] (see Configuration).
-- Less/Sass/Scss (see Configuration).
-- Coffee with [vim-coffee-script][11] (see Configuration).
-- A builtin `foldexpr` foldmethod (see Configuration).
+- Pug with [vim-pug][4].^
+- Less/Sass/Scss.^
+- Coffee with [vim-coffee-script][11].^
+- A builtin `foldexpr` foldmethod.^
 - [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
 - `.wpy` files from [WePY][6].
 
+^: see Configuration for details.
+
 ## Configuration
 
-Set global variable to `1` to enable or `0` to disable.
-
-Ex:
+Set global variable to `1` to enable or `0` to disable. Ex:
 
     let g:vim_vue_plugin_load_full_syntax = 1
 
@@ -53,7 +55,7 @@ Ex:
 | `g:vim_vue_plugin_use_pug`\*          | Enable `vim-pug` pug syntax for `<template lang="pug">`.                                               | 0 |
 | `g:vim_vue_plugin_use_coffee`         | Enable coffee syntax for `<script lang="coffee">`.                                                     | 0 |
 | `g:vim_vue_plugin_use_less`           | Enable less syntax for `<style lang="less">`.                                                          | 0 |
-| `g:vim_vue_plugin_use_sass`           | Enable scss syntax for `<style lang="scss">`(or sass fo lang="sass").                                  | 0 |
+| `g:vim_vue_plugin_use_sass`           | Enable scss syntax for `<style lang="scss">`(or sass fo `lang="sass"`).                                  | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
 | `g:vim_vue_plugin_use_foldexpr`       | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
@@ -117,6 +119,12 @@ For example, the builtin syntax `sass.vim` and `less.vim` in vim8.1 runtime and 
 
 - [Single File Components][3]
 
+## See also
+
+- [vim-svelte-plugin][9] 
+
+    [Svelte][13] is a compilation web framework which shares a similar syntax to Vue.
+
 ## License
 
 This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files are extracted from vim runtime.
@@ -129,5 +137,8 @@ This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files a
 [6]: https://tencent.github.io/wepy
 [7]: https://github.com/junegunn/vim-plug
 [8]: https://choosealicense.com/licenses/unlicense/
+[9]: https://github.com/leafOfTree/vim-svelte-plugin
 [10]: https://github.com/mattn/emmet-vim
 [11]: https://github.com/kchmck/vim-coffee-script
+[12]: https://travis-ci.com/leafOfTree/test.svg?branch=vim-vue-plugin
+[13]: https://svelte.dev/
