@@ -2,7 +2,7 @@
 
 Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1]. 
 
-[![Build Status][12]](https://travis-ci.com/leafOfTree/test)
+[![Build Status][12]](https://travis-ci.com/leafOfTree/vim-vue-plugin)
 
 ## Install
 
@@ -55,7 +55,7 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 | `g:vim_vue_plugin_use_pug`\*          | Enable `vim-pug` pug syntax for `<template lang="pug">`.                                               | 0 |
 | `g:vim_vue_plugin_use_coffee`         | Enable coffee syntax for `<script lang="coffee">`.                                                     | 0 |
 | `g:vim_vue_plugin_use_less`           | Enable less syntax for `<style lang="less">`.                                                          | 0 |
-| `g:vim_vue_plugin_use_sass`           | Enable scss syntax for `<style lang="scss">`(or sass fo `lang="sass"`).                                  | 0 |
+| `g:vim_vue_plugin_use_sass`           | Enable scss syntax for `<style lang="scss">`(or sass fo `lang="sass"`).                                | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
 | `g:vim_vue_plugin_use_foldexpr`       | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
@@ -140,5 +140,5 @@ This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files a
 [9]: https://github.com/leafOfTree/vim-svelte-plugin
 [10]: https://github.com/mattn/emmet-vim
 [11]: https://github.com/kchmck/vim-coffee-script
-[12]: https://travis-ci.com/leafOfTree/test.svg?branch=vim-vue-plugin
+[12]: https://travis-ci.com/leafOfTree/vim-vue-plugin.svg?branch=master
 [13]: https://svelte.dev/
