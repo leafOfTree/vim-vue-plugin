@@ -134,30 +134,33 @@ syntax region htmlVueTemplate fold
       \ start=+<template[^>]*>+
       \ end=+^</template>+
       \ keepend contains=@HTMLSyntax
-" When code is not well indented
+" When template code is not well indented
 syntax region htmlVueTemplate fold
       \ start=+<template[^>]*>+
       \ end=+</template>\ze\n\(^$\n\)*<script>+
       \ keepend contains=@HTMLSyntax
 
-syntax region pugVueTemplate fold
-      \ start=+<template lang="pug"[^>]*>+
-      \ end=+</template>+
-      \ keepend contains=@PugSyntax,vueTag
-
 syntax region javascriptVueScript fold 
       \ start=+<script[^>]*>+
       \ end=+</script>+
       \ keepend contains=@htmlJavaScript,jsImport,jsExport,vueTag
-syntax region coffeeVueScript fold 
-      \ start=+<script lang="coffee"[^>]*>+
-      \ end=+</script>+
-      \ keepend contains=@htmlCoffeeScript,jsImport,jsExport,vueTag
 
 syntax region cssVueStyle fold
       \ start=+<style[^>]*>+
       \ end=+</style>+
       \ keepend contains=@htmlCss,vueTag
+
+" Preprocessors syntax
+syntax region pugVueTemplate fold
+      \ start=+<template[^>]*lang="pug"[^>]*>+
+      \ end=+</template>+
+      \ keepend contains=@PugSyntax,vueTag
+
+syntax region coffeeVueScript fold 
+      \ start=+<script[^>]*lang="coffee"[^>]*>+
+      \ end=+</script>+
+      \ keepend contains=@htmlCoffeeScript,jsImport,jsExport,vueTag
+
 syntax region cssLessVueStyle fold
       \ start=+<style[^>]*lang="less"[^>]*>+
       \ end=+</style>+

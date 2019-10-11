@@ -19,7 +19,7 @@ endif
 " Let <template> handled by HTML
 let s:vue_tag_start = '\v^\s*\<(script|style)' 
 let s:vue_tag_end = '\v^\s*\<\/(script|style)'
-let s:vue_template_tag_end = '\v^\s*\<\/template'
+let s:template_tag = '\v^\s*\<\/?template'
 let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)'
 let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>' 
 let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$' 
@@ -111,11 +111,11 @@ function! GetVueIndent()
   let cursyns = s:SynsEOL(v:lnum)
   let cursyn = get(cursyns, 0, '')
 
-  if s:SynHTML(prevsyn)
-    call vue#Log('syntax: xml')
+  if s:SynHTML(cursyn)
+    call vue#Log('syntax: html')
     let ind = XmlIndentGet(v:lnum, 0)
     if prevline =~? s:empty_tag
-      call vue#Log('prev line is an empty tag')
+      call vue#Log('previous line is an empty tag')
       let ind = ind - &sw
     endif
 
@@ -127,23 +127,23 @@ function! GetVueIndent()
     if prevline =~? s:tag_end
       let ind = ind + &sw
 
-      "Decrease indent if prevlines are a multiline empty tag
+      " Decrease indent if prevlines are a multiline empty tag
       let [start, end] = s:PrevMultilineEmptyTag(v:lnum)
       if end == prevlnum
-        call vue#Log('prev line is a multiline empty tag')
+        call vue#Log('previous line is a multiline empty tag')
         let ind = ind - &sw
       endif
     endif
-  elseif s:SynPug(prevsyn)
+  elseif s:SynPug(cursyn)
     call vue#Log('syntax: pug')
     let ind = GetPugIndent()
-  elseif s:SynCoffee(prevsyn)
+  elseif s:SynCoffee(cursyn)
     call vue#Log('syntax: coffee')
     let ind = GetCoffeeIndent(v:lnum)
-  elseif s:SynSASS(prevsyn)
+  elseif s:SynSASS(cursyn)
     call vue#Log('syntax: sass')
     let ind = GetSassIndent()
-  elseif s:SynStyle(prevsyn)
+  elseif s:SynStyle(cursyn)
     call vue#Log('syntax: style')
     let ind = GetCSSIndent()
   else
@@ -157,8 +157,9 @@ function! GetVueIndent()
 
   if curline =~? s:vue_tag_start || curline =~? s:vue_tag_end 
         \|| prevline =~? s:vue_tag_end
-        \|| (curline =~ s:vue_template_tag_end && s:SynPug(prevsyn))
-    call vue#Log('current line is vue (end) tag or prev line is vue end tag')
+        \|| (curline =~ s:template_tag && s:SynPug(cursyn))
+    call vue#Log('current line is vue tag or previous line is vue end tag')
+    call vue#Log('... or current line is pug template tag')
     let ind = 0
   elseif s:has_init_indent
     if s:SynVueScriptOrStyle(cursyn) && ind == 0
@@ -169,7 +170,7 @@ function! GetVueIndent()
     let prevlnum_noncomment = s:PrevNonBlacnkNonComment(v:lnum)
     let prevline_noncomment = getline(prevlnum_noncomment)
     if prevline_noncomment =~? s:vue_tag_start
-      call vue#Log('prev line is vue tag')
+      call vue#Log('previous line is vue tag start')
       let ind = 0
     endif
   endif
