@@ -175,7 +175,7 @@ syntax region cssScssVueStyle fold
       \ keepend contains=@SassSyntax,vueTag
 
 syntax region vueTag fold
-      \ start=+^<[^/]+ end=+>+
+      \ start=+^<[^/]+ end=+>+ skip=+></+
       \ contained contains=htmlTagN,htmlString,htmlArg
 syntax region vueTag 
       \ start=+^</+ end=+>+
