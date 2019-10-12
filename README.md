@@ -68,12 +68,13 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 | `g:vim_vue_plugin_use_foldexpr`       | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
 | `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
 
-\*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`. `g:vim_vue_plugin_load_full_syntax` applies to `JavaScript/HTML/CSS/SASS/LESS`.
+\*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax can be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`. 
 
 **Note**
 
 - `filetype` is set to `vue` so autocmds and other custom settings for `javascript` have to be manually enabled for `vue`.
 - `g:vim_vue_plugin_use_foldexpr` default value used to be `1`. But there are other foldmethod choices, so it's changed to `0`.
+- `g:vim_vue_plugin_load_full_syntax` applies to `JavaScript/HTML/CSS/SASS/LESS`.
 
 ## Context based behavior
 
