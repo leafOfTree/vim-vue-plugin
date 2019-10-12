@@ -45,7 +45,6 @@ endfunction
 
 function! s:LoadDefaultSyntax(group, type)
   unlet! b:current_syntax
-
   let syntaxPaths = ['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']
   for path in syntaxPaths
     let file = expand(path).'/syntax/'.a:type.'.vim'
@@ -57,7 +56,6 @@ endfunction
 
 function! s:LoadFullSyntax(group, type)
   call s:SetCurrentSyntax(a:type)
-
   execute 'syntax include '.a:group.' syntax/'.a:type.'.vim'
 endfunction
 
