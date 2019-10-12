@@ -1,6 +1,6 @@
 # vim-vue-plugin [![Build Status][12]](https://travis-ci.com/leafOfTree/vim-vue-plugin)
 
-<p style="text-align: center">
+<p align="center">
 <img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="200" />
 </p>
 
