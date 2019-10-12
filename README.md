@@ -55,7 +55,7 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 | variable                              | description                                                                                            | default                    |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------|
 | `g:vim_vue_plugin_load_full_syntax`\* | Enable: load all syntax files in `runtimepath` to enable related syntax plugins.<br> Disable: only in `$VIMRUNTIME/syntax`, `~/.vim/syntax` and `$VIM/vimfiles/syntax` | 0 |
-| `g:vim_vue_plugin_use_pug`\*          | Enable `vim-pug` pug syntax for `<template lang="pug">`.                                               | 0 |
+| `g:vim_vue_plugin_use_pug`\*          | Enable pug syntax for `<template lang="pug">`.                                                         | 0 |
 | `g:vim_vue_plugin_use_coffee`         | Enable coffee syntax for `<script lang="coffee">`.                                                     | 0 |
 | `g:vim_vue_plugin_use_less`           | Enable less syntax for `<style lang="less">`.                                                          | 0 |
 | `g:vim_vue_plugin_use_sass`           | Enable scss syntax for `<style lang="scss">`(or sass fo `lang="sass"`).                                | 0 |
@@ -64,7 +64,7 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 | `g:vim_vue_plugin_use_foldexpr`       | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
 | `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
 
-\*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`.
+\*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax could be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`. `g:vim_vue_plugin_load_full_syntax` applies to `JavaScript/HTML/CSS/SASS/LESS`.
 
 **Note**
 
