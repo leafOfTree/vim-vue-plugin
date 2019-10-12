@@ -1,6 +1,11 @@
 # vim-vue-plugin [![Build Status][12]](https://travis-ci.com/leafOfTree/vim-vue-plugin)
 
+<p style="text-align: center">
+<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="200" />
+</p>
+
 Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1].
+
 
 ## Install
 
@@ -32,9 +37,7 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 Supports
 
 - Vue directives.
-- Pug with [vim-pug][4].^
-- Less/Sass/Scss.^
-- Coffee with [vim-coffee-script][11].^
+- Less/Sass/Scss, Pug with [vim-pug][4], Coffee with [vim-coffee-script][11].^
 - A builtin `foldexpr` foldmethod.^
 - [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
 - `.wpy` files from [WePY][6].
@@ -68,7 +71,6 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 
 ## Screenshot
 
-<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="600" />
 
 ## Context based behavior
 
