@@ -1,7 +1,9 @@
 # vim-vue-plugin [![Build Status][12]](https://travis-ci.com/leafOfTree/vim-vue-plugin)
 
 <p align="center">
+<a href="https://github.com/altercation/vim-colors-solarized">
 <img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="200" />
+</a>
 </p>
 
 Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1].
@@ -69,16 +71,13 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 - `filetype` used to be set to `javascript.vue`, which caused `javascript` syntax to be loaded multiple times and a significant delay. Now it is `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
 - `g:vim_vue_plugin_use_foldexpr` default value used to be `1`. But there are other foldmethod choices, so it's changed to `0`.
 
-## Screenshot
-
-
 ## Context based behavior
 
 As there are more than one language in `.vue` file, the different behaviors like mapping or completion may be expected under different tags.
 
 This plugin provides a function to get the tag where the cursor is in.
 
-- `GetVueTag() => String` Return value is 'template', 'script' or 'style'.
+- `GetVueTag() => String` Return value is `'template'`, `'script'` or `'style'`.
 
 ### Example
 
