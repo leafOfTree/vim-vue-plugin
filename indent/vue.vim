@@ -162,7 +162,7 @@ function! GetVueIndent()
     call vue#Log('... or current line is pug template tag')
     let ind = 0
   elseif s:has_init_indent
-    if s:SynVueScriptOrStyle(cursyn) && ind == 0
+    if s:SynVueScriptOrStyle(cursyn) && ind < 1
       call vue#Log('add initial indent')
       let ind = &sw
     endif
