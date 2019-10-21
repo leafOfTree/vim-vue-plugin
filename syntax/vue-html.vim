@@ -23,8 +23,9 @@ syntax match VueAttr '\v(\S)@<![v:\@][^\=\>[:blank:]]+(\=\"[^"]*\")?'
 
 syntax match VueKey contained '\v[v:\@][^\=\>[:blank:]]+'
 syntax region VueQuote contained 
-      \ start='"' end='"' contains=VueValue
-syntax match VueValue contained '\v\"\zs[^"]*\ze\"'
+      \ start='"' end='"' 
+      \ contains=VueValue
+syntax match VueValue contained '\v\"\zs[^"]+\ze\"'
       \ contains=VueInject,@simpleJavascriptExpression
 
 syntax match VueInject contained '\v\$\w*'
