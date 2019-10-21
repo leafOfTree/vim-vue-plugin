@@ -249,13 +249,13 @@ endfunction
 function! GetVueTag()
   let lnum = getcurpos()[1]
   let cursyns = s:SynsEOL(lnum)
-  let first_syn = get(cursyns, 0, '')
+  let syn = get(cursyns, 0, '')
 
-  if first_syn =~ '.*VueTemplate'
+  if syn =~ 'VueTemplate'
     let tag = 'template'
-  elseif first_syn =~ '.*VueScript'
+  elseif syn =~ 'VueScript'
     let tag = 'script'
-  elseif first_syn =~ '.*VueStyle'
+  elseif syn =~ 'VueStyle'
     let tag = 'style'
   else
     let tag = ''
