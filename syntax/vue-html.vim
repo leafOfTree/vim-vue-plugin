@@ -25,8 +25,6 @@ syntax match VueKey contained '\v[v:\@][^\=\>[:blank:]]+'
 syntax region VueQuote contained 
       \ start='"' end='"' 
       \ contains=VueValue
-syntax match VueValue contained '\v\"\zs[^"]+\ze\"'
-      \ contains=VueInject,@simpleJavascriptExpression
 
 syntax match VueInject contained '\v\$\w*'
 
@@ -65,10 +63,13 @@ syntax keyword javaScriptOperator delete instanceof typeof void new in of contai
 
 highlight default link VueAttr htmlTag
 if s:highlight_vue_attr
+  syntax match VueValue contained '\v\"\zs[^"]+\ze\"'
+        \ contains=VueInject,@simpleJavascriptExpression
   highlight default link VueKey Type
   highlight default link VueQuote VueAttr
   highlight default link VueValue None
 else
+  syntax match VueValue contained '\v\"\zs[^"]+\ze\"'
   highlight default link VueKey htmlArg
   highlight default link VueQuote String
   highlight default link VueValue String
