@@ -75,13 +75,14 @@ endfunction
 " Load main syntax {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load syntax/*.vim to syntax group
+" Load syntax/html.vim to syntax group, which loads full JavaScript and CSS
+" syntax. It defines group htmlJavaScript and htmlCss.
 call s:LoadSyntax('@HTMLSyntax', 'html')
 
 " Load vue-html syntax
 runtime syntax/vue-html.vim
 
-" Avoid overload. 'syntax/html.vim' defines htmlCss and htmlJavaScript
+" Avoid overload.
 if hlexists('cssTagName') == 0
   call s:LoadSyntax('@htmlCss', 'css')
 endif
