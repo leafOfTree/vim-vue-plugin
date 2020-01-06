@@ -63,6 +63,8 @@ endfunction
 function! s:SetCurrentSyntax(type)
   if a:type == 'coffee'
     syntax cluster coffeeJS contains=@htmlJavaScript
+
+    " Avoid overload of `javascript.vim`
     let b:current_syntax = 'vue'
   else
     unlet! b:current_syntax
