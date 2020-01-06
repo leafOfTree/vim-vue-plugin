@@ -108,7 +108,7 @@ Currently emmet-vim works regarding your HTML/CSS/JavaScript emmet settings, but
 
 Since there are many sub languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as loading condition if you'd like to manually find and modify the syntax files causing overload.
 
-For example, the builtin syntax `sass.vim` and `less.vim` in vim8.1 runtime and `pug.vim` in vim-pug/syntax always loads `css.vim` which this plugin already loads. It can be optimized like
+For example, the builtin syntax `sass.vim` and `less.vim` in vim8.1 runtime and `pug.vim` in vim-pug/syntax always load `css.vim` which this plugin already loads. It can be optimized like
 
 ```diff
 - runtime! syntax/css.vim
