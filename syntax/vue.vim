@@ -28,6 +28,8 @@ let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
 let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
       \ && g:vim_vue_plugin_use_coffee == 1
+let s:use_typescript = exists("g:vim_vue_plugin_use_typescript")
+      \ && g:vim_vue_plugin_use_typescript == 1
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -123,6 +125,11 @@ endif
 if s:use_coffee
   call s:LoadFullSyntax('@htmlCoffeeScript', 'coffee')
 endif
+
+" If TypeScript is enabled, load the syntax.
+if s:use_typescript
+  call s:LoadFullSyntax('@TypeScript', 'typescript')
+endif
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,6 +168,11 @@ syntax region coffeeVueScript fold
       \ start=+<script[^>]*lang="coffee"[^>]*>+
       \ end=+</script>+
       \ keepend contains=@htmlCoffeeScript,jsImport,jsExport,vueTag
+
+syntax region typescriptVueScript fold
+      \ start=+<script[^>]*lang="ts"[^>]*>+
+      \ end=+</script>+
+      \ keepend contains=@TypeScript,vueTag
 
 syntax region cssLessVueStyle fold
       \ start=+<style[^>]*lang="less"[^>]*>+
