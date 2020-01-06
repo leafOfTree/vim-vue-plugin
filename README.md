@@ -73,7 +73,7 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 **Note**
 
 - `filetype` is set to `vue` so autocmds and other custom settings for `javascript` have to be manually enabled for `vue`.
-- `g:vim_vue_plugin_load_full_syntax` currently applies to `HTML/SASS/LESS`.
+- `g:vim_vue_plugin_load_full_syntax` currently applies to `HTML/Sass/Less`.
 
 ## Context based behavior
 
