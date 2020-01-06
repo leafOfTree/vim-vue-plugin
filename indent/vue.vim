@@ -38,6 +38,8 @@ let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
 let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
       \ && g:vim_vue_plugin_use_coffee == 1
+let s:use_typescript = exists("g:vim_vue_plugin_use_typescript")
+      \ && g:vim_vue_plugin_use_typescript == 1
 
 let s:has_init_indent = 0
 if !exists("g:vim_vue_plugin_has_init_indent")
@@ -80,6 +82,11 @@ endif
 if s:use_coffee
   unlet! b:did_indent
   runtime! indent/coffee.vim
+endif
+
+if s:use_typescript
+  unlet! b:did_indent
+  runtime! indent/typescript.vim
 endif
 "}}}
 
@@ -140,6 +147,9 @@ function! GetVueIndent()
   elseif s:SynCoffee(cursyn)
     call vue#Log('syntax: coffee')
     let ind = GetCoffeeIndent(v:lnum)
+  elseif s:SynTypeScript(cursyn)
+    call vue#Log('syntax: typescript')
+    let ind = GetTypescriptIndent()
   elseif s:SynSASS(cursyn)
     call vue#Log('syntax: sass')
     let ind = GetSassIndent()
@@ -195,6 +205,10 @@ endfunction
 
 function! s:SynCoffee(syn)
   return a:syn ==? 'coffeeVueScript'
+endfunction
+
+function! s:SynTypeScript(syn)
+  return a:syn ==? 'typescriptVueScript'
 endfunction
 
 function! s:SynSASS(syn)
