@@ -10,9 +10,9 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 ## Installation
 
-&nbsp; <details>
+<details>
 
-&nbsp; <summary><a>How to install</a></summary>
+<summary><a>How to install</a></summary>
 
 - [VundleVim][2]
 
