@@ -43,7 +43,7 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 Supports
 
 - Vue directives.
-- Less/Sass/Scss, Pug with [vim-pug][4], Coffee with [vim-coffee-script][11], TypeScript with [typescript-vim][14].^
+- Less/Sass/Scss, Pug with [vim-pug][4], Coffee with [vim-coffee-script][11], TypeScript with [typescript-vim][14] or [yats.vim][15].^
 - A builtin `foldexpr` foldmethod.^
 - [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
 - `.wpy` files from [WePY][6].
@@ -147,3 +147,4 @@ This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files a
 [12]: https://travis-ci.com/leafOfTree/vim-vue-plugin.svg?branch=master
 [13]: https://svelte.dev/
 [14]: https://github.com/leafgarland/typescript-vim
+[15]: https://github.com/HerringtonDarkholme/yats.vim
