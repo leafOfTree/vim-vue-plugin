@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/altercation/vim-colors-solarized">
-<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="200" />
+<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="240" />
 </a>
 </p>
 
