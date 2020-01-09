@@ -73,6 +73,7 @@ let b:javascript_indentexpr = &indentexpr
 if s:use_pug
   unlet! b:did_indent
   runtime! indent/pug.vim
+  setlocal formatoptions-=r
 endif
 
 if s:use_sass
