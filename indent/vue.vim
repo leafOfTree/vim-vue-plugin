@@ -23,7 +23,8 @@ let s:template_tag = '\v^\s*\<\/?template'
 let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|keygen|link|meta|param|source|track|wbr)'
 let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>' 
 let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$' 
-let s:empty_tag_end = '\v^\s*[^\<\>\/]*\>\s*' 
+let s:empty_tag_end = '\v^\s*[^\<\>\/]*\/?\>\s*' 
+let s:tag_start = '\v^\s*\<\w*'
 let s:tag_end = '\v^\s*\/?\>\s*'
 "}}}
 
@@ -138,7 +139,7 @@ function! GetVueIndent()
       let [start, end] = s:PrevMultilineEmptyTag(v:lnum)
       if end == prevlnum
         call vue#Log('previous line is a multiline empty tag')
-        let ind = ind - &sw
+        let ind = indent(v:lnum - 1)
       endif
     endif
   elseif s:SynPug(cursyn)
@@ -224,17 +225,23 @@ function! s:SynVueScriptOrStyle(syn)
 endfunction
 
 function! s:PrevMultilineEmptyTag(lnum)
-  let lnum = a:lnum
+  let lnum = a:lnum - 1
   let lnums = [0, 0]
   while lnum > 0
     let line = getline(lnum)
     if line =~? s:empty_tag_end
       let lnums[1] = lnum
     endif
-    if line =~? s:empty_tag_start
-      let lnums[0] = lnum
-      return lnums
+
+    if line =~? s:tag_start
+      if line =~? s:empty_tag_start
+        let lnums[0] = lnum
+        return lnums
+      else
+        return [0, 0]
+      endif
     endif
+
     let lnum = lnum - 1
   endwhile
 endfunction
