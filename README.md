@@ -49,7 +49,7 @@ Supports
 - [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
 - `.wpy` files from [WePY][6].
 
-^: see Configuration for details. Relative plugins need to be downloaded.
+^: see Configuration for details. Relative plugins need to be installed.
 
 ## Configuration
 
