@@ -16,12 +16,12 @@ syntax match VueComponentName containedin=htmlTagN '\v\C<[a-z0-9]+(-[a-z0-9]+)+>
 syntax match VueComponentName containedin=htmlTagN '\v\C<([A-Z][a-zA-Z0-9]+)+>'
 syntax keyword VueComponentName containedin=htmlTagN component transition slot
 
-syntax match VueAttr '\v(\S)@<![v:\@][^\=\>[:blank:]]+(\=\"[^"]*\")?' 
+syntax match VueAttr '\v(\S)@<![v:\@][^\=\/>[:blank:]]+(\=\"[^"]*\")?' 
       \ keepend
       \ containedin=htmlTag 
       \ contains=VueKey,VueQuote
 
-syntax match VueKey contained '\v[v:\@][^\=\>[:blank:]]+'
+syntax match VueKey contained '\v[v:\@][^\=\/>[:blank:]]+'
 syntax region VueQuote contained 
       \ start='"' end='"' 
       \ contains=VueValue
