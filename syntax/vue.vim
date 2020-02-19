@@ -145,7 +145,7 @@ syntax region htmlVueTemplate fold
 " When template code is not well indented
 syntax region htmlVueTemplate fold
       \ start=+<template[^>]*>+
-      \ end=+</template>\ze\n\(^$\n\)*<script>+
+      \ end=+</template>\ze\n\(^$\n\)*<\(script\|style\)+
       \ keepend contains=@HTMLSyntax
 
 syntax region javascriptVueScript fold 
