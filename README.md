@@ -35,7 +35,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 <br />
 </details>
 
-This plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or a pull request.
+This plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or pull request.
 
 ## How it works
 
