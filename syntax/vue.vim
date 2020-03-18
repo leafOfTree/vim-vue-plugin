@@ -160,12 +160,12 @@ syntax region cssVueStyle fold
 
 " Preprocessors syntax
 syntax region pugVueTemplate fold
-      \ start=+<template[^>]*lang="pug"[^>]*>+
+      \ start=+<template[^>]*lang=["']pug["'][^>]*>+
       \ end=+</template>+
       \ keepend contains=@PugSyntax,vueTag
 
 syntax region coffeeVueScript fold 
-      \ start=+<script[^>]*lang="coffee"[^>]*>+
+      \ start=+<script[^>]*lang=["']coffee["'][^>]*>+
       \ end=+</script>+
       \ keepend contains=@htmlCoffeeScript,jsImport,jsExport,vueTag
 
@@ -175,15 +175,15 @@ syntax region typescriptVueScript fold
       \ keepend contains=@TypeScript,vueTag
 
 syntax region cssLessVueStyle fold
-      \ start=+<style[^>]*lang="less"[^>]*>+
+      \ start=+<style[^>]*lang=["']less["'][^>]*>+
       \ end=+</style>+
       \ keepend contains=@LessSyntax,vueTag
 syntax region cssSassVueStyle fold
-      \ start=+<style[^>]*lang="sass"[^>]*>+
+      \ start=+<style[^>]*lang=["']sass["'][^>]*>+
       \ end=+</style>+
       \ keepend contains=@SassSyntax,vueTag
 syntax region cssScssVueStyle fold
-      \ start=+<style[^>]*lang="scss"[^>]*>+
+      \ start=+<style[^>]*lang=["']scss["'][^>]*>+
       \ end=+</style>+
       \ keepend contains=@SassSyntax,vueTag
 
