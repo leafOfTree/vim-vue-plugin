@@ -1,7 +1,9 @@
 if exists("b:did_ftplugin") | finish | endif
 let b:did_ftplugin = 1
 
-setlocal matchpairs+=<:>
+if !has('nvim')
+  setlocal matchpairs+=<:>
+endif
 
 if exists("loaded_matchit")
   let b:match_ignorecase = 1
