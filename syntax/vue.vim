@@ -153,6 +153,7 @@ syntax region javascriptVueScript fold
       \ end=+</script>+
       \ keepend contains=@htmlJavaScript,jsImport,jsExport,vueTag
 
+
 syntax region cssVueStyle fold
       \ start=+<style[^>]*>+
       \ end=+</style>+
@@ -170,7 +171,7 @@ syntax region coffeeVueScript fold
       \ keepend contains=@htmlCoffeeScript,jsImport,jsExport,vueTag
 
 syntax region typescriptVueScript fold
-      \ start=+<script[^>]*lang="ts"[^>]*>+
+      \ start=+<script[^>]*lang=["']ts["'][^>]*>+
       \ end=+</script>+
       \ keepend contains=@TypeScript,vueTag
 
@@ -192,11 +193,12 @@ syntax region vueTag fold
       \ contained contains=htmlTagN,htmlString,htmlArg
 syntax region vueTag 
       \ start=+^</+ end=+>+
-      \ contained contains=htmlTagN,htmlString,htmlArg
+      \ contains=htmlTagN,htmlString,htmlArg
 
 highlight default link vueTag htmlTag
 highlight default link cssUnitDecorators2 Number
 highlight default link cssKeyFrameProp2 Constant
+
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -262,6 +264,26 @@ silent! syntax clear htmlHead
 
 " html5 data-*
 syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
+"}}}
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Syntax sync {{{
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax sync clear
+syntax sync minlines=10
+syntax sync match vueHighlight groupthere NONE "</\(script\|template\|style\)"
+syntax sync match scriptHighlight groupthere javascriptVueScript "<script"
+syntax sync match scriptHighlight groupthere coffeeVueScript "<script[^>]*lang=["']coffee["'][^>]*>"
+syntax sync match scriptHighlight groupthere typescriptVueScript "<script[^>]*lang=["']ts["'][^>]*>"
+syntax sync match templateHighlight groupthere htmlVueTemplate "<template"
+syntax sync match templateHighlight groupthere pugVueTemplate "<template[^>]*lang=["']pug["'][^>]*>"
+syntax sync match styleHighlight groupthere cssVueStyle "<style"
+syntax sync match styleHighlight groupthere cssLessVueStyle "<style[^>]*lang=["']less["'][^>]*>"
+syntax sync match styleHighlight groupthere cssSassVueStyle "<style[^>]*lang=["']sass["'][^>]*>"
+syntax sync match styleHighlight groupthere cssScssVueStyle "<style[^>]*lang=["']scss["'][^>]*>"
 "}}}
 
 let b:current_syntax = 'vue'
