@@ -106,6 +106,7 @@ endif
 " If pug is enabled, load vim-pug syntax
 if s:use_pug
   call s:LoadFullSyntax('@PugSyntax', 'pug')
+  syn cluster htmlJavascript remove=javascriptParenthesisBlock
 endif
 
 " If less is enabled, load less syntax 
