@@ -267,7 +267,6 @@ silent! syntax clear htmlHead
 syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 "}}}
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax sync {{{
