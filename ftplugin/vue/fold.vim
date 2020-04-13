@@ -69,23 +69,34 @@ function! GetVueFold(lnum)
   endif
 
   " Fold by indent
+  if a:lnum > 1
+    let prev_indent = s:IndentLevel(a:lnum - 1)
+  else
+    let prev_indent = 0
+  endif
   let this_indent = s:IndentLevel(a:lnum)
   let next_indent = s:IndentLevel(s:NextNonBlankLine(a:lnum))
 
-  if a:lnum > 1
-    let prev_indent = s:IndentLevel(a:lnum - 1)
-
-    if this_indent < prev_indent
-      return prev_indent
+  if GetVueTag(a:lnum) == 'script'
+    " Handle closing '}'
+    if this_line =~ '\v^\s*},?\s*$'
+      return '<'.prev_indent
     endif
-  endif
 
-  if this_indent >= next_indent 
+    " --this
+    " ----next
+    if this_indent < next_indent
+      return '>'.next_indent
+    endif
+
+    " ----this
+    " --next
+    if this_indent >= next_indent 
+      return this_indent
+    endif
+  else
+    " Template or style
     return this_indent
-  endif
-
-  if this_indent < next_indent
-    return '>'.next_indent
   endif
 endfunction
 
