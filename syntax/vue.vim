@@ -58,6 +58,8 @@ function! s:LoadDefaultSyntax(group, type)
   endfor
 endfunction
 
+" Load all syntax files in 'runtimepath'
+" Useful if there is no default syntax file provided by vim
 function! s:LoadFullSyntax(group, type)
   call s:SetCurrentSyntax(a:type)
   execute 'syntax include '.a:group.' syntax/'.a:type.'.vim'
