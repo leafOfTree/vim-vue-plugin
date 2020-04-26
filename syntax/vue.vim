@@ -125,7 +125,7 @@ endif
 
 " If stylus is enabled, load stylus syntax 
 if s:use_stylus
-  call s:LoadSyntax('@StylusSyntax', 'stylus')
+  call s:LoadFullSyntax('@StylusSyntax', 'stylus')
   runtime! after/syntax/stylus.vim
 endif
 
