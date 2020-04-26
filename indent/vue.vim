@@ -37,6 +37,8 @@ let s:use_pug = exists("g:vim_vue_plugin_use_pug")
       \ && g:vim_vue_plugin_use_pug == 1
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
+let s:use_stylus = exists("g:vim_vue_plugin_use_stylus")
+      \ && g:vim_vue_plugin_use_stylus == 1
 let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
       \ && g:vim_vue_plugin_use_coffee == 1
 let s:use_typescript = exists("g:vim_vue_plugin_use_typescript")
@@ -80,6 +82,11 @@ endif
 if s:use_sass
   unlet! b:did_indent
   runtime! indent/sass.vim
+endif
+
+if s:use_stylus
+  unlet! b:did_indent
+  runtime! indent/stylus.vim
 endif
 
 if s:use_coffee
@@ -156,6 +163,9 @@ function! GetVueIndent()
   elseif s:SynSASS(cursyn)
     call vue#Log('syntax: sass')
     let ind = GetSassIndent()
+  elseif s:SynStylus(cursyn)
+    call vue#Log('syntax: stylus')
+    let ind = GetStylusIndent()
   elseif s:SynStyle(cursyn)
     call vue#Log('syntax: style')
     let ind = GetCSSIndent()
@@ -216,6 +226,10 @@ endfunction
 
 function! s:SynSASS(syn)
   return a:syn ==? 'cssSassVueStyle'
+endfunction
+
+function! s:SynStylus(syn)
+  return a:syn ==? 'cssStylusVueStyle'
 endfunction
 
 function! s:SynStyle(syn)

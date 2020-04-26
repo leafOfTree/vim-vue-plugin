@@ -26,6 +26,8 @@ let s:use_less = exists("g:vim_vue_plugin_use_less")
       \ && g:vim_vue_plugin_use_less == 1
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
+let s:use_stylus = exists("g:vim_vue_plugin_use_stylus")
+      \ && g:vim_vue_plugin_use_stylus == 1
 let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
       \ && g:vim_vue_plugin_use_coffee == 1
 let s:use_typescript = exists("g:vim_vue_plugin_use_typescript")
@@ -121,6 +123,12 @@ if s:use_sass
   runtime! after/syntax/sass.vim
 endif
 
+" If stylus is enabled, load stylus syntax 
+if s:use_stylus
+  call s:LoadSyntax('@StylusSyntax', 'stylus')
+  runtime! after/syntax/stylus.vim
+endif
+
 " If CoffeeScript is enabled, load the syntax. Keep name consistent with
 " vim-coffee-script/after/html.vim
 if s:use_coffee
@@ -188,6 +196,10 @@ syntax region cssScssVueStyle fold
       \ start=+<style[^>]*lang=["']scss["'][^>]*>+
       \ end=+</style>+
       \ keepend contains=@SassSyntax,vueTag
+syntax region cssStylusVueStyle fold
+      \ start=+<style[^>]*lang=["']stylus["'][^>]*>+
+      \ end=+</style>+
+      \ keepend contains=@StylusSyntax,vueTag
 
 syntax region vueTag fold
       \ start=+^<[^/]+ end=+>+ skip=+></+
@@ -219,7 +231,7 @@ else
 endif
 
 " Style
-" Redefine (less|sass)Definition to highlight <style> correctly and 
+" Redefine (less|sass|stylus)Definition to highlight <style> correctly and 
 " enable emmet-vim css type.
 if s:use_less
   silent! syntax clear lessDefinition
@@ -233,6 +245,12 @@ if s:use_sass
         \ contained containedin=cssSassVueStyle,cssScssVueStyle
         \ start="{" end="}" 
 endif
+if s:use_stylus
+  silent! syntax clear stylusDefinition
+  syntax region cssStylusDefinition matchgroup=cssBraces contains=@StylusSyntax 
+        \ contained containedin=cssStylusVueStyle
+        \ start="{" end="}" 
+endif
 
 " Avoid css syntax interference
 silent! syntax clear cssUnitDecorators
@@ -240,12 +258,12 @@ silent! syntax clear cssUnitDecorators
 syntax match cssUnitDecorators2 
       \ /\(#\|-\|+\|%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px\|ch\|rem\|vh\|vw\|vmin\|vmax\|dpi\|dppx\|dpcm\|Hz\|kHz\|s\|ms\|deg\|grad\|rad\)\ze\(;\|$\)/
       \ contained
-      \ containedin=cssAttrRegion,sassCssAttribute,lessCssAttribute
+      \ containedin=cssAttrRegion,sassCssAttribute,lessCssAttribute,stylusCssAttribute
 
 silent! syntax clear cssKeyFrameProp
 syn match cssKeyFrameProp2 /\d*%\|from\|to/ 
       \ contained nextgroup=cssDefinition
-      \ containedin=cssAttrRegion,sassCssAttribute,lessCssAttribute
+      \ containedin=cssAttrRegion,sassCssAttribute,lessCssAttribute,stylusCssAttribute
 
 " Coffee
 if s:use_coffee
@@ -284,6 +302,7 @@ syntax sync match styleHighlight groupthere cssVueStyle "<style"
 syntax sync match styleHighlight groupthere cssLessVueStyle "<style[^>]*lang=["']less["'][^>]*>"
 syntax sync match styleHighlight groupthere cssSassVueStyle "<style[^>]*lang=["']sass["'][^>]*>"
 syntax sync match styleHighlight groupthere cssScssVueStyle "<style[^>]*lang=["']scss["'][^>]*>"
+syntax sync match styleHighlight groupthere cssStylusVueStyle "<style[^>]*lang=["']stylus["'][^>]*>"
 "}}}
 
 let b:current_syntax = 'vue'
