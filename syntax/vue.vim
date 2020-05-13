@@ -190,7 +190,7 @@ syntax region cssLessVueStyle fold
       \ start=+<style[^>]*lang=["']less["'][^>]*>+
       \ end=+</style>+
       \ keepend contains=@LessSyntax,vueTag
-syntax region cssSassVueStyle fold
+syntax region sassVueStyle fold
       \ start=+<style[^>]*lang=["']sass["'][^>]*>+
       \ end=+</style>+
       \ keepend contains=@SassSyntax,vueTag
@@ -244,7 +244,7 @@ endif
 if s:use_sass
   silent! syntax clear sassDefinition
   syntax region cssSassDefinition matchgroup=cssBraces contains=@SassSyntax 
-        \ contained containedin=cssSassVueStyle,cssScssVueStyle
+        \ contained containedin=sassVueStyle,cssScssVueStyle
         \ start="{" end="}" 
 endif
 if s:use_stylus
@@ -302,7 +302,7 @@ syntax sync match templateHighlight groupthere htmlVueTemplate "<template"
 syntax sync match templateHighlight groupthere pugVueTemplate "<template[^>]*lang=["']pug["'][^>]*>"
 syntax sync match styleHighlight groupthere cssVueStyle "<style"
 syntax sync match styleHighlight groupthere cssLessVueStyle "<style[^>]*lang=["']less["'][^>]*>"
-syntax sync match styleHighlight groupthere cssSassVueStyle "<style[^>]*lang=["']sass["'][^>]*>"
+syntax sync match styleHighlight groupthere sassVueStyle "<style[^>]*lang=["']sass["'][^>]*>"
 syntax sync match styleHighlight groupthere cssScssVueStyle "<style[^>]*lang=["']scss["'][^>]*>"
 syntax sync match styleHighlight groupthere cssStylusVueStyle "<style[^>]*lang=["']stylus["'][^>]*>"
 "}}}
