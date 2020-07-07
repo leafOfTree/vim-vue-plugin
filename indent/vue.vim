@@ -225,7 +225,7 @@ function! s:SynTypeScript(syn)
 endfunction
 
 function! s:SynSASS(syn)
-  return a:syn ==? 'cssSassVueStyle'
+  return a:syn ==? 'sassVueStyle'
 endfunction
 
 function! s:SynStylus(syn)
