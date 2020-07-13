@@ -64,7 +64,7 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 | `g:vim_vue_plugin_use_coffee`         | Enable coffee syntax for `<script lang="coffee">`.                                                     | 0 |
 | `g:vim_vue_plugin_use_typescript`     | Enable typescript syntax for `<script lang="ts">`.                                                     | 0 |
 | `g:vim_vue_plugin_use_less`           | Enable less syntax for `<style lang="less">`.                                                          | 0 |
-| `g:vim_vue_plugin_use_sass`           | Enable scss syntax for `<style lang="scss">`(or sass fo `lang="sass"`).                                | 0 |
+| `g:vim_vue_plugin_use_sass`           | Enable scss/sass syntax for `<style lang="scss|sass">`.                               | 0 |
 | `g:vim_vue_plugin_use_stylus`         | Enable stylus syntax for `<style lang="stylus">`.                                                      | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
