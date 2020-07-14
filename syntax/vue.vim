@@ -206,6 +206,15 @@ syntax region cssScssVueStyle fold
       \ start=+<style[^>]*lang=["']scss["'][^>]*>+
       \ end=+</style>+
       \ keepend contains=@ScssSyntax,vueTag
+
+" Backward compatiable for `use_sass` option
+if s:use_sass && !s:use_scss
+  syntax region cssScssVueStyle fold
+        \ start=+<style[^>]*lang=["']scss["'][^>]*>+
+        \ end=+</style>+
+        \ keepend contains=@SassSyntax,vueTag
+endif
+
 syntax region cssStylusVueStyle fold
       \ start=+<style[^>]*lang=["']stylus["'][^>]*>+
       \ end=+</style>+
