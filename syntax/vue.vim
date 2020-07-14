@@ -26,6 +26,8 @@ let s:use_less = exists("g:vim_vue_plugin_use_less")
       \ && g:vim_vue_plugin_use_less == 1
 let s:use_sass = exists("g:vim_vue_plugin_use_sass")
       \ && g:vim_vue_plugin_use_sass == 1
+let s:use_scss = exists("g:vim_vue_plugin_use_scss")
+      \ && g:vim_vue_plugin_use_scss == 1
 let s:use_stylus = exists("g:vim_vue_plugin_use_stylus")
       \ && g:vim_vue_plugin_use_stylus == 1
 let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
@@ -125,6 +127,12 @@ if s:use_sass
   runtime! after/syntax/sass.vim
 endif
 
+" If scss is enabled, load sass syntax 
+if s:use_scss
+  call s:LoadSyntax('@ScssSyntax', 'scss')
+  runtime! after/syntax/scss.vim
+endif
+
 " If stylus is enabled, load stylus syntax 
 if s:use_stylus
   call s:LoadFullSyntax('@StylusSyntax', 'stylus')
@@ -197,7 +205,7 @@ syntax region sassVueStyle fold
 syntax region cssScssVueStyle fold
       \ start=+<style[^>]*lang=["']scss["'][^>]*>+
       \ end=+</style>+
-      \ keepend contains=@SassSyntax,vueTag
+      \ keepend contains=@ScssSyntax,vueTag
 syntax region cssStylusVueStyle fold
       \ start=+<style[^>]*lang=["']stylus["'][^>]*>+
       \ end=+</style>+
@@ -237,26 +245,37 @@ endif
 " enable emmet-vim css type.
 if s:use_less
   silent! syntax clear lessDefinition
-  syntax region cssLessDefinition matchgroup=cssBraces contains=@LessSyntax 
+  syntax region cssLessDefinition matchgroup=cssBraces 
+        \ contains=@LessSyntax,cssLessDefinition 
         \ contained containedin=cssLessVueStyle
         \ start="{" end="}" 
 endif
 if s:use_sass
   silent! syntax clear sassDefinition
-  syntax region cssSassDefinition matchgroup=cssBraces contains=@SassSyntax 
-        \ contained containedin=sassVueStyle,cssScssVueStyle
+  syntax region sassDefinition matchgroup=cssBraces 
+        \ contains=@SassSyntax,sassDefinition 
+        \ contained containedin=sassVueStyle
+        \ start="{" end="}" 
+endif
+" Active if not loading https://github.com/cakebaker/scss-syntax.vim
+if s:use_scss && hlexists('scssNestedProperty') == 0
+  silent! syntax clear scssDefinition
+  syntax region cssScssDefinition transparent matchgroup=cssBraces 
+        \ contains=@ScssSyntax,cssScssDefinition
+        \ contained containedin=cssScssVueStyle
         \ start="{" end="}" 
 endif
 if s:use_stylus
   silent! syntax clear stylusDefinition
-  syntax region cssStylusDefinition matchgroup=cssBraces contains=@StylusSyntax 
+  syntax region cssStylusDefinition matchgroup=cssBraces 
+        \ contains=@StylusSyntax,cssStylusDefinition
         \ contained containedin=cssStylusVueStyle
         \ start="{" end="}" 
 endif
 
 " Avoid css syntax interference
-silent! syntax clear cssUnitDecorators
 " Have to use a different name
+silent! syntax clear cssUnitDecorators
 syntax match cssUnitDecorators2 
       \ /\(#\|-\|+\|%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px\|ch\|rem\|vh\|vw\|vmin\|vmax\|dpi\|dppx\|dpcm\|Hz\|kHz\|s\|ms\|deg\|grad\|rad\)\ze\(;\|$\)/
       \ contained
