@@ -1,3 +1,4 @@
 theme: jekyll-theme-cayman
 markdown: CommonMarkGhPages
-extensions: ["table"]
+commonmark: 
+  extensions: ["table"]
