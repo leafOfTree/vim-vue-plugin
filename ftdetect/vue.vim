@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.vue,*.wpy set filetype=vue 
+autocmd BufNewFile,BufRead *.vue,*.wpy setf vue
