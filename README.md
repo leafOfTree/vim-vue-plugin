@@ -69,6 +69,7 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 | `g:vim_vue_plugin_use_stylus`         | Enable stylus syntax for `<style lang="stylus">`.                                                      | 0 |
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0 for `.vue`. 1 for `.wpy` |
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
+| `g:vim_vue_plugin_highlight_vue_keyword` | Highlight vue keyword like `data`, `methods`, ...                       | 0 |
 | `g:vim_vue_plugin_use_foldexpr`       | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
 | `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
 
@@ -76,8 +77,8 @@ Set global variable to `1` to enable or `0` to disable. Ex:
 
 **Note**
 
-- `filetype` is set to `vue` so autocmds and other custom settings for `javascript` have to be manually enabled for `vue`.
-- `g:vim_vue_plugin_load_full_syntax` currently applies to `HTML/Sass/Less`.
+- `g:vim_vue_plugin_load_full_syntax` applies to other `HTML/Sass/Less` plugins.
+- `filetype` is set to `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
 
 ## Context based behavior
 

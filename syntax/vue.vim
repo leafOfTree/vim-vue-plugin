@@ -102,6 +102,9 @@ if hlexists('javaScriptComment') == 0
   call vue#Log('load javascript cluster')
   call s:LoadSyntax('@htmlJavaScript', 'javascript')
 endif
+
+" Load vue-javascript syntax
+runtime syntax/vue-javascript.vim
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
