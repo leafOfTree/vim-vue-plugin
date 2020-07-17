@@ -142,7 +142,7 @@ This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files a
 [3]: https://vuejs.org/v2/guide/single-file-components.html
 [4]: https://github.com/digitaltoad/vim-pug
 [5]: https://github.com/tpope/vim-pathogen
-[6]: https://tencent.github.io/wepy
+[6]: https://github.com/Tencent/wepy
 [7]: https://github.com/junegunn/vim-plug
 [8]: https://choosealicense.com/licenses/unlicense/
 [9]: https://github.com/leafOfTree/vim-svelte-plugin
