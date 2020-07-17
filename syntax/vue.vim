@@ -18,22 +18,14 @@ let b:current_loading_main_syntax = 'vue'
 " Config {{{
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:load_full_syntax = exists("g:vim_vue_plugin_load_full_syntax")
-      \ && g:vim_vue_plugin_load_full_syntax == 1
-let s:use_pug = exists("g:vim_vue_plugin_use_pug")
-      \ && g:vim_vue_plugin_use_pug == 1
-let s:use_less = exists("g:vim_vue_plugin_use_less")
-      \ && g:vim_vue_plugin_use_less == 1
-let s:use_sass = exists("g:vim_vue_plugin_use_sass")
-      \ && g:vim_vue_plugin_use_sass == 1
-let s:use_scss = exists("g:vim_vue_plugin_use_scss")
-      \ && g:vim_vue_plugin_use_scss == 1
-let s:use_stylus = exists("g:vim_vue_plugin_use_stylus")
-      \ && g:vim_vue_plugin_use_stylus == 1
-let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
-      \ && g:vim_vue_plugin_use_coffee == 1
-let s:use_typescript = exists("g:vim_vue_plugin_use_typescript")
-      \ && g:vim_vue_plugin_use_typescript == 1
+let s:load_full_syntax = vue#GetConfig("load_full_syntax", 0)
+let s:use_pug = vue#GetConfig("use_pug", 0)
+let s:use_less = vue#GetConfig("use_less", 0)
+let s:use_sass = vue#GetConfig("use_sass", 0)
+let s:use_scss = vue#GetConfig("use_scss", 0)
+let s:use_stylus = vue#GetConfig("use_stylus", 0)
+let s:use_coffee = vue#GetConfig("use_coffee", 0)
+let s:use_typescript = vue#GetConfig("use_typescript", 0)
 "}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

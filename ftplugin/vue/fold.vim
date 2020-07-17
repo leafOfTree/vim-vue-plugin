@@ -3,8 +3,7 @@
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:use_foldexpr = exists("g:vim_vue_plugin_use_foldexpr")
-      \ && g:vim_vue_plugin_use_foldexpr == 1
+let s:use_foldexpr = vue#GetConfig("use_foldexpr", 0)
 "}}}
 
 if !s:use_foldexpr | finish | endif

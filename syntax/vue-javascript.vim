@@ -3,8 +3,7 @@
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:highlight_vue_keyword = exists("g:vim_vue_plugin_highlight_vue_keyword")
-      \ && g:vim_vue_plugin_highlight_vue_keyword == 1
+let s:highlight_vue_keyword = vue#GetConfig("highlight_vue_keyword", 0)
 
 if !s:highlight_vue_keyword | finish | endif
 "}}}

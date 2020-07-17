@@ -33,18 +33,12 @@ let s:tag_end = '\v^\s*\/?\>\s*'
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:use_pug = exists("g:vim_vue_plugin_use_pug")
-      \ && g:vim_vue_plugin_use_pug == 1
-let s:use_sass = exists("g:vim_vue_plugin_use_sass")
-      \ && g:vim_vue_plugin_use_sass == 1
-let s:use_scss = exists("g:vim_vue_plugin_use_scss")
-      \ && g:vim_vue_plugin_use_scss == 1
-let s:use_stylus = exists("g:vim_vue_plugin_use_stylus")
-      \ && g:vim_vue_plugin_use_stylus == 1
-let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
-      \ && g:vim_vue_plugin_use_coffee == 1
-let s:use_typescript = exists("g:vim_vue_plugin_use_typescript")
-      \ && g:vim_vue_plugin_use_typescript == 1
+let s:use_pug = vue#GetConfig("use_pug", 0)
+let s:use_sass = vue#GetConfig("use_sass", 0)
+let s:use_scss = vue#GetConfig("use_scss", 0)
+let s:use_stylus = vue#GetConfig("use_stylus", 0)
+let s:use_coffee = vue#GetConfig("use_coffee", 0)
+let s:use_typescript = vue#GetConfig("use_typescript", 0)
 
 let s:has_init_indent = 0
 if !exists("g:vim_vue_plugin_has_init_indent")

@@ -3,8 +3,7 @@
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:highlight_vue_attr = exists("g:vim_vue_plugin_highlight_vue_attr")
-      \ && g:vim_vue_plugin_highlight_vue_attr == 1
+let s:highlight_vue_attr = vue#GetConfig("highlight_vue_attr", 0)
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

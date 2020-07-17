@@ -7,3 +7,8 @@ function! vue#Log(msg)
     echom '['.s:name.']['.v:lnum.'] '.a:msg
   endif
 endfunction
+
+function! vue#GetConfig(name, default)
+  let name = 'g:vim_vue_plugin_'.a:name
+  return exists(name) ? eval(name) : a:default
+endfunction
