@@ -1,19 +1,19 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Config {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:highlight_vue_keyword = exists("g:vim_vue_plugin_highlight_vue_keyword")
       \ && g:vim_vue_plugin_highlight_vue_keyword == 1
 
 if !s:highlight_vue_keyword | finish | endif
 "}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax highlight {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed'
 
 let s:vue_keywords_regexp = join(split(s:vue_keywords, ' '), '|')
@@ -33,3 +33,4 @@ highlight default link vueObjectKey Constant
 highlight default link vueObjectFuncName Constant
 highlight default link vueObjectFuncKey Constant
 "}}}
+" vim: fdm=marker
