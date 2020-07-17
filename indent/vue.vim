@@ -26,6 +26,7 @@ let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$'
 let s:empty_tag_end = '\v^\s*[^\<\>\/]*\/?\>\s*' 
 let s:tag_start = '\v^\s*\<\w*'
 let s:tag_end = '\v^\s*\/?\>\s*'
+let s:full_tag_end = '\v^\s*\<\/'
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -149,7 +150,11 @@ function! GetVueIndent()
       let [start, end] = s:PrevMultilineEmptyTag(v:lnum)
       if end == prevlnum
         call vue#Log('previous line is a multiline empty tag')
-        let ind = indent(v:lnum - 1)
+        if curline =~? s:full_tag_end 
+          let ind = indent(v:lnum - 1) - &sw
+        else
+          let ind = indent(v:lnum - 1)
+        endif
       endif
     endif
   elseif s:SynPug(cursyn)
