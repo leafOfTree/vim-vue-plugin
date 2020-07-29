@@ -28,8 +28,9 @@ execute 'syntax match vueObjectFuncKey /\v<('.s:vue_keywords_regexp.')\ze\s*:\s*
       \.' containedin=jsObject,javascriptVueScript'
       \.' skipwhite skipempty nextgroup=jsFuncArgs'
 
-highlight default link vueObjectKey Constant
-highlight default link vueObjectFuncName Constant
-highlight default link vueObjectFuncKey Constant
+highlight default link vueObjectKey vueObjectKeyword
+highlight default link vueObjectFuncName vueObjectKeyword
+highlight default link vueObjectFuncKey vueObjectKeyword
+highlight default link vueObjectKeyword Type
 "}}}
 " vim: fdm=marker
