@@ -316,7 +316,7 @@ syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax sync clear
-syntax sync minlines=10
+syntax sync minlines=100
 syntax sync match vueHighlight groupthere NONE "</\(script\|template\|style\)"
 syntax sync match scriptHighlight groupthere javascriptVueScript "<script"
 syntax sync match scriptHighlight groupthere coffeeVueScript "<script[^>]*lang=["']coffee["'][^>]*>"
