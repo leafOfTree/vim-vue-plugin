@@ -55,7 +55,9 @@ Supports
 
 Set global variable to `1` to enable or `0` to disable. Ex:
 
-    let g:vim_vue_plugin_load_full_syntax = 1
+```vim
+let g:vim_vue_plugin_load_full_syntax = 1
+```
 
 | variable                              | description                                                                                            | default                    |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------|
