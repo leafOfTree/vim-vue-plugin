@@ -282,7 +282,7 @@ function! s:PrevMultilineEmptyTag(lnum)
 endfunction
 
 function! s:PrevNonBlacnkNonComment(lnum)
-  let curline = getline(lnum)
+  let curline = getline(a:lnum)
   let cursyns = s:SynsEOL(a:lnum)
   let cursyn = get(cursyns, 1, '')
   if cursyn =~? 'comment' && !empty(curline)
