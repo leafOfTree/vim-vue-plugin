@@ -6,6 +6,9 @@
 let s:highlight_vue_keyword = vue#GetConfig("highlight_vue_keyword", 0)
 
 if !s:highlight_vue_keyword | finish | endif
+
+let s:has_init_indent = vue#GetConfig("has_init_indent",
+      \ expand("%:e") == 'wpy' ? 1 : 0)
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -15,7 +18,10 @@ if !s:highlight_vue_keyword | finish | endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed'
 
-let s:vue_keywords_regexp = '\v<('.join(split(s:vue_keywords, ' '), '|').')\ze'
+let s:indent = &sw * (1 + s:has_init_indent)
+let s:vue_keywords_regexp = '\v^\s{'.s:indent.'}<('
+      \.join(split(s:vue_keywords, ' '), '|')
+      \.')\ze'
 execute 'syntax match vueObjectKey /'.s:vue_keywords_regexp.'\s*:/'
       \.' containedin=jsObject,javascriptVueScript'
       \.' skipwhite skipempty nextgroup=jsObjectValue'

@@ -40,16 +40,8 @@ let s:use_scss = vue#GetConfig("use_scss", 0)
 let s:use_stylus = vue#GetConfig("use_stylus", 0)
 let s:use_coffee = vue#GetConfig("use_coffee", 0)
 let s:use_typescript = vue#GetConfig("use_typescript", 0)
-
-let s:has_init_indent = 0
-if !exists("g:vim_vue_plugin_has_init_indent")
-  let ext = expand("%:e")
-  if ext == 'wpy'
-    let s:has_init_indent = 1
-  endif
-elseif g:vim_vue_plugin_has_init_indent == 1
-  let s:has_init_indent = 1
-endif
+let s:has_init_indent = vue#GetConfig("has_init_indent",
+      \ expand("%:e") == 'wpy' ? 1 : 0)
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
