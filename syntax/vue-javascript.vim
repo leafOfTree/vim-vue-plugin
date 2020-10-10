@@ -18,31 +18,34 @@ let s:has_init_indent = vue#GetConfig("has_init_indent",
 let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed'
 
 let s:indent = &sw * (1 + s:has_init_indent)
-let s:vue_keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
+let s:keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
       \.join(split(s:vue_keywords, ' '), '|')
       \.')\ze'
 let contains = hlexists('jsAsyncKeyword') 
       \? 'jsAsyncKeyword' 
       \: 'javaScriptReserved' 
-let s:vue_match_func_option = ' containedin=jsObject,javascriptVueScript'
+let s:match_option = 
+      \' containedin=jsObject,javascriptVueScript'
       \.' contains='.contains
-      \.' skipwhite skipempty nextgroup=jsFuncArgs'
+      \.' skipwhite skipempty'
 
 execute 'syntax match vueObjectKey /'
-      \.s:vue_keywords_regexp
+      \.s:keywords_regexp
       \.'\s*:/'
-      \.' containedin=jsObject,javascriptVueScript'
-      \.' skipwhite skipempty nextgroup=jsObjectValue'
+      \.s:match_option
+      \.' nextgroup=jsObjectValue'
 
 execute 'syntax match vueObjectFuncName /'
-      \.s:vue_keywords_regexp
+      \.s:keywords_regexp
       \.'\_s*\(/'
-      \.s:vue_match_func_option
+      \.s:match_option
+      \.' nextgroup=jsFuncArgs'
 
 execute 'syntax match vueObjectFuncKey /'
-      \.s:vue_keywords_regexp
+      \.s:keywords_regexp
       \.'\s*:\s*function>/'
-      \.s:vue_match_func_option
+      \.s:match_option
+      \.' nextgroup=jsFuncArgs'
 
 highlight default link vueObjectKey vueObjectKeyword
 highlight default link vueObjectFuncName vueObjectKeyword
