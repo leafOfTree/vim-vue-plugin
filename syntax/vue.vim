@@ -84,13 +84,13 @@ call s:LoadSyntax('@HTMLSyntax', 'html')
 " Load vue-html syntax
 runtime syntax/vue-html.vim
 
-" Avoid overload.
-if hlexists('cssTagName') == 0
+" Avoid overload
+if !hlexists('cssTagName')
   call s:LoadSyntax('@htmlCss', 'css')
 endif
 
 " Avoid overload
-if hlexists('javaScriptComment') == 0
+if !hlexists('javaScriptComment')
   call vue#Log('load javascript cluster')
   call s:LoadSyntax('@htmlJavaScript', 'javascript')
 endif
@@ -261,8 +261,8 @@ if s:use_sass
         \ contained containedin=sassVueStyle
         \ start="{" end="}" 
 endif
-" Active if not loading https://github.com/cakebaker/scss-syntax.vim
-if s:use_scss && hlexists('scssNestedProperty') == 0
+" If not loading https://github.com/cakebaker/scss-syntax.vim
+if s:use_scss && !hlexists('scssNestedProperty')
   silent! syntax clear scssDefinition
   syntax region cssScssDefinition transparent matchgroup=cssBraces 
         \ contains=@ScssSyntax,cssScssDefinition
