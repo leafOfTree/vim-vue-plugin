@@ -293,28 +293,6 @@ function! s:PrevNonBlacnkNonComment(lnum)
   endwhile
   return prevlnum
 endfunction
-
-function! GetVueTag(...)
-  if a:0 > 0
-    let lnum = a:1
-  else
-    let lnum = getcurpos()[1]
-  endif
-  let cursyns = s:SynsEOL(lnum)
-  let syn = get(cursyns, 0, '')
-
-  if syn =~ 'VueTemplate'
-    let tag = 'template'
-  elseif syn =~ 'VueScript'
-    let tag = 'script'
-  elseif syn =~ 'VueStyle'
-    let tag = 'style'
-  else
-    let tag = ''
-  endif
-
-  return tag
-endfunction
 "}}}
 
 let b:did_indent = 1
