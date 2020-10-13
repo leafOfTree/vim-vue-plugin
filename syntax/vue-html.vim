@@ -28,7 +28,7 @@ syntax region VueQuote contained
 syntax match VueInject contained '\v\$\w*'
 
 syntax region VueExpression 
-      \ containedin=html.*
+      \ containedin=ALLBUT,htmlComment
       \ matchgroup=VueBrace
       \ transparent
       \ start="{{"
