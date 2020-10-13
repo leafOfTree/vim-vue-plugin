@@ -86,24 +86,38 @@ let g:vim_vue_plugin_load_full_syntax = 1
 
 ## Context based behavior
 
-As there are more than one language in `.vue` file, the different behaviors like mapping or completion may be expected under different tags.
+As there are more than one language in `.vue` file, the different behaviors like mapping or completion and local options, may be required under different tags or subtypes(current language type).
 
-This plugin provides a function to get the tag where the cursor is in.
+This plugin provides functions to get the tag/subtype where the cursor is in.
 
 - `GetVueTag() => String` Return value is `'template'`, `'script'` or `'style'`.
 
-### Example
+    ```vim
+    " Example
+    autocmd FileType vue inoremap <buffer><expr> : InsertColon()
+
+    function! InsertColon()
+      let tag = GetVueTag()
+      return tag == 'template' ? ':' : ': '
+    endfunction
+    ```
+
+- `GetVueSubtype() => String` Return value is one of `'html', 'javascript', 'css', 'scss', ...`
+
+You can also define an event listener function `OnChangeVueSubtype(subtype)` in your `vimrc` to get the subtype and set its local options whenever it changes.
 
 ```vim
-autocmd FileType vue inoremap <buffer><expr> : InsertColon()
-
-function! InsertColon()
-  let tag = GetVueTag()
-  
-  if tag == 'template'
-    return ':'
+" Set local options based on subtype
+function! OnChangeVueSubtype(subtype)
+  " echom 'subtype is '.a:subtype
+  if a:subtype == 'html'
+    setlocal commentstring=<!--%s-->
+    setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+  elseif a:subtype =~ 'css'
+    setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
   else
-    return ': '
+    setlocal commentstring=//%s
+    setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
   endif
 endfunction
 ```
