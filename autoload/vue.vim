@@ -43,7 +43,11 @@ endfunction
 function! GetVueSubtype()
   let lnum = line('.')
   let cursyns = s:SynsEOL(lnum)
-  let syn = get(cursyns, 0, '')
+  if !empty(cursyns)
+    let syn = get(cursyns, 0, '')
+  else
+    let syn = ''
+  endif
   let subtype = matchstr(syn, '\w\+\zeVue')
   if subtype =~ 'css\w\+'
     let subtype = subtype[3:]
