@@ -90,7 +90,7 @@ As there are more than one language in `.vue` file, the different behaviors like
 
 This plugin provides functions to get the tag/subtype where the cursor is in.
 
-- `GetVueTag() => String` Return value is `'template'`, `'script'` or `'style'`.
+- `GetVueTag() => String` Return value is one of `'template', 'script', 'style'`.
 
     ```vim
     " Example
@@ -102,14 +102,14 @@ This plugin provides functions to get the tag/subtype where the cursor is in.
     endfunction
     ```
 
-- `GetVueSubtype() => String` Return value is one of `'html', 'javascript', 'css', 'scss', ...`
+- `GetVueSubtype() => String` Return value is one of `'html', 'javascript', 'css', 'scss', ...`.
 
 You can also define an event listener function `OnChangeVueSubtype(subtype)` in your `vimrc` to get the subtype and set its local options whenever it changes.
 
 ```vim
-" Set local options based on subtype
+" Example: set local options based on subtype
 function! OnChangeVueSubtype(subtype)
-  " echom 'Subtype is '.a:subtype
+  echom 'Subtype is '.a:subtype
   if a:subtype == 'html'
     setlocal commentstring=<!--%s-->
     setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
