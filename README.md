@@ -109,7 +109,7 @@ You can also define an event listener function `OnChangeVueSubtype(subtype)` in 
 ```vim
 " Set local options based on subtype
 function! OnChangeVueSubtype(subtype)
-  " echom 'subtype is '.a:subtype
+  " echom 'Subtype is '.a:subtype
   if a:subtype == 'html'
     setlocal commentstring=<!--%s-->
     setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
