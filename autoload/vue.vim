@@ -36,18 +36,15 @@ endif
 
 function! s:SynsEOL(lnum)
   let lnum = prevnonblank(a:lnum)
-  let col = strlen(getline(lnum))
-  return map(synstack(lnum, col), 'synIDattr(v:val, "name")')
+  let cnum = strlen(getline(lnum))
+  return map(synstack(lnum, cnum), 'synIDattr(v:val, "name")')
 endfunction
 
 function! GetVueSubtype()
   let lnum = line('.')
   let cursyns = s:SynsEOL(lnum)
-  if !empty(cursyns)
-    let syn = get(cursyns, 0, '')
-  else
-    let syn = ''
-  endif
+  let syn = !empty(cursyns) ? get(cursyns, 0, '') : ''
+
   let subtype = matchstr(syn, '\w\+\zeVue')
   if subtype =~ 'css\w\+'
     let subtype = subtype[3:]
@@ -57,11 +54,7 @@ function! GetVueSubtype()
 endfunction
 
 function! GetVueTag(...)
-  if a:0 > 0
-    let lnum = a:1
-  else
-    let lnum = line('.')
-  endif
+  let lnum = a:0 > 0 ? a:1 : line('.')
   let cursyns = s:SynsEOL(lnum)
   let syn = get(cursyns, 0, '')
 
