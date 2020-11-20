@@ -13,7 +13,9 @@ if !s:use_foldexpr | finish | endif
 " Settings {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-setlocal foldmethod=expr
+if line('$') < 1000
+  setlocal foldmethod=expr
+endif
 setlocal foldexpr=GetVueFold(v:lnum)
 "}}}
 
