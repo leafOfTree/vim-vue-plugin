@@ -44,12 +44,15 @@ Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin
 Supports
 
 - Vue attribute(directive) and keyword.^
-- Less/Sass/Scss, Pug with [vim-pug][4], Coffee with [vim-coffee-script][11], TypeScript with [typescript-vim][14] or [yats.vim][15], Stylus with [vim-stylus][16].^
+- Less/Sass/Scss, Pug with [vim-pug][4], Coffee with [vim-coffee-script][11], TypeScript with [typescript-vim][14] or [yats.vim][15], Stylus with [vim-stylus][16]. ^
+
+    Relative plugins need to be installed.
+
 - A builtin `foldexpr` foldmethod.^
 - [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
 - `.wpy` files from [WePY][6].
 
-^: see Configuration for details. Relative plugins need to be installed.
+^: see Configuration for details. 
 
 ## Configuration
 
