@@ -137,12 +137,22 @@ Since there are many sub languages included, most delays come from syntax files 
 
 For example, the builtin syntax `sass.vim` and `less.vim` in vim8.1 runtime and `pug.vim` in vim-pug/syntax always load `css.vim` which this plugin already loads. It can be optimized like
 
+`$VIMRUNTIME/syntax/sass.vim`
 ```diff
 - runtime! syntax/css.vim
 + if !exists("b:current_loading_main_syntax")
 +   runtime! syntax/css.vim
 + endif
 ```
+
+`$VIMRUNTIME/syntax/vue.vim`
+```diff
+-   runtime! syntax/html.vim
++ if !exists("b:current_loading_main_syntax")
++   runtime! syntax/html.vim
++ endif
+```
+
 
 ## Acknowledgments & Refs
 
