@@ -268,6 +268,11 @@ if s:use_scss && !hlexists('scssNestedProperty')
         \ contains=@ScssSyntax,cssScssDefinition
         \ contained containedin=cssScssVueStyle
         \ start="{" end="}" 
+
+  " Extend to highlight all numbers in expression
+  syntax match cssValueNumber
+        \ /\W\zs\d\+\(\.\d\+\)\?\ze\W/
+        \ contained containedin=cssScssDefinition
 endif
 if s:use_stylus
   silent! syntax clear stylusDefinition
@@ -277,8 +282,7 @@ if s:use_stylus
         \ start="{" end="}" 
 endif
 
-" Avoid css syntax interference
-" Have to use a different name
+" Use a different name in order to avoid css syntax interference
 silent! syntax clear cssUnitDecorators
 syntax match cssUnitDecorators2 
       \ /\(#\|-\|+\|%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px\|ch\|rem\|vh\|vw\|vmin\|vmax\|dpi\|dppx\|dpcm\|Hz\|kHz\|s\|ms\|deg\|grad\|rad\)\ze\(;\|$\)/
