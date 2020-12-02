@@ -260,6 +260,11 @@ if s:use_sass
         \ contains=@SassSyntax,sassDefinition 
         \ contained containedin=sassVueStyle
         \ start="{" end="}" 
+
+  " Extend to highlight all numbers in expression
+  syntax match cssValueNumber
+        \ /\W\zs\d\+\(\.\d\+\)\?%\?\ze\W/
+        \ contained containedin=sassDefinition
 endif
 " If not loading https://github.com/cakebaker/scss-syntax.vim
 if s:use_scss && !hlexists('scssNestedProperty')
@@ -271,7 +276,7 @@ if s:use_scss && !hlexists('scssNestedProperty')
 
   " Extend to highlight all numbers in expression
   syntax match cssValueNumber
-        \ /\W\zs\d\+\(\.\d\+\)\?\ze\W/
+        \ /\W\zs\d\+\(\.\d\+\)\?%\?\ze\W/
         \ contained containedin=cssScssDefinition
 endif
 if s:use_stylus
