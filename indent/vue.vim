@@ -99,7 +99,6 @@ endif
 " Settings {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-setlocal sw=2 ts=2
 " JavaScript indentkeys
 setlocal indentkeys=0{,0},0),0],0\,,!^F,o,O,e,:
 " XML indentkeys
