@@ -40,6 +40,9 @@ syntax region VueExpression
       \ start="{{"
       \ end="}}"
 
+" Transition attributes
+syntax match htmlArg contained "\<\(enter-from-class\|enter-active-class\|enter-to-class\|leave-from-class\|leave-active-class\|leave-to-class\)\>"
+
 " Wepy directive syntax
 syntax match VueAttr '\v(\S)@<!wx[^\=]+(\=\"[^"]*\")?'
       \ containedin=htmlTag  
