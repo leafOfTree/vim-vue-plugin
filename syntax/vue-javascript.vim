@@ -15,7 +15,7 @@ let s:has_init_indent = vue#GetConfig("has_init_indent",
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed setup'
+let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed setup beforeUnmount unmounted errorCaptured renderTracked renderTriggered'
 
 let s:indent = &sw * (1 + s:has_init_indent)
 let s:keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
