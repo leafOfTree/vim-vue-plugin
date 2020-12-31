@@ -11,7 +11,8 @@ let s:highlight_vue_attr = vue#GetConfig("highlight_vue_attr", 0)
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use syn-match to highlight both transition and transition-group
+" Use syn-match in order to highlight both transition and transition-group
+" according to syn-priority
 syntax match VueComponentName containedin=htmlTagN '\v(component|slot|transition)' 
 syntax match VueComponentName containedin=htmlTagN '\v\C<[a-z0-9]+(-[a-z0-9]+)+>'
 syntax match VueComponentName containedin=htmlTagN '\v\C<([A-Z][a-zA-Z0-9]+)+>'
