@@ -35,7 +35,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 <br />
 </details>
 
-This plugin works if `filetype` is set to `vue`. Please stay up to date. Feel free to open an issue or pull request.
+This plugin works if it has set `filetype` to `vue`. Please stay up to date. Feel free to open an issue or pull request.
 
 ## How it works
 
@@ -109,23 +109,25 @@ This plugin provides functions to get the tag/subtype where the cursor is in.
 
 - `GetVueSubtype() => String` Return value is one of `'html', 'javascript', 'css', 'scss', ...`.
 
-You can also define an event listener function `OnChangeVueSubtype(subtype)` in your `vimrc` to get the subtype and set its local options whenever it changes.
+- `OnChangeVueSubtype(subtype)` An event listener that is called when subtype changes.
 
-```vim
-" Example: set local options based on subtype
-function! OnChangeVueSubtype(subtype)
-  echom 'Subtype is '.a:subtype
-  if a:subtype == 'html'
-    setlocal commentstring=<!--%s-->
-    setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
-  elseif a:subtype =~ 'css'
-    setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
-  else
-    setlocal commentstring=//%s
-    setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
-  endif
-endfunction
-```
+    You can also define an event listener function `OnChangeVueSubtype(subtype)` in your `vimrc` to get the subtype and set its local options whenever it changes.
+
+    ```vim
+    " Example: set local options based on subtype
+    function! OnChangeVueSubtype(subtype)
+      echom 'Subtype is '.a:subtype
+      if a:subtype == 'html'
+        setlocal commentstring=<!--%s-->
+        setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+      elseif a:subtype =~ 'css'
+        setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
+      else
+        setlocal commentstring=//%s
+        setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+      endif
+    endfunction
+    ```
 
 ### emmet-vim
 
