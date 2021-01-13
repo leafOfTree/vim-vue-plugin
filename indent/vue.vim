@@ -49,6 +49,9 @@ let s:has_init_indent = vue#GetConfig("has_init_indent",
 " Load indent method {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Save shiftwidth
+let s:sw = &sw
+
 " Use lib/indent/ files for compatibility
 unlet! b:did_indent
 runtime lib/indent/xml.vim
@@ -92,6 +95,9 @@ if s:use_typescript
   unlet! b:did_indent
   runtime! indent/typescript.vim
 endif
+
+" Recover shiftwidth
+let &sw = s:sw
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
