@@ -21,12 +21,18 @@ let s:indent = &sw * (1 + s:has_init_indent)
 let s:keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
       \.join(split(s:vue_keywords, ' '), '|')
       \.')\ze'
-let contains = hlexists('jsAsyncKeyword') 
+
+" Currently support https://github.com/pangloss/vim-javascript
+let s:useJavaScriptPlugin = hlexists('jsAsyncKeyword')
+let s:containedin = s:useJavaScriptPlugin
+      \? 'jsObject,jsFuncBlock,@jsExpression' 
+      \: 'javascriptVueScript' 
+let s:contains = s:useJavaScriptPlugin
       \? 'jsAsyncKeyword' 
       \: 'javaScriptReserved' 
 let s:match_option = 
-      \' containedin=jsObject,javascriptVueScript'
-      \.' contains='.contains
+      \' containedin='.s:containedin
+      \.' contains='.s:contains
       \.' skipwhite skipempty'
 
 execute 'syntax match vueObjectKey /'
@@ -47,20 +53,22 @@ execute 'syntax match vueObjectFuncKey /'
       \.s:match_option
       \.' nextgroup=jsFuncArgs'
 
-let s:vue3_keywords = 'ref reactive toRefs watch computed getCurrentInstance'.
-      \' onBeforeMount onMounted onBeforeUpdate onUpdated onBeforeUnmount onUnmounted onErrorCaptured onRenderTracked onRenderTriggered'
+let s:vue3_keywords = 'ref reactive toRefs watch computed'.
+      \' onBeforeMount onMounted onBeforeUpdate onUpdated onBeforeUnmount'.
+      \' onUnmounted onErrorCaptured onRenderTracked onRenderTriggered'.
+      \' getCurrentInstance'
 let s:vue3_keywords_regexp = '\v<('
       \.join(split(s:vue3_keywords, ' '), '|')
       \.')\ze'
 
-execute 'syntax match vueObjectFuncName /'
+execute 'syntax match vue3Keyword /'
       \.s:vue3_keywords_regexp
       \.'\_s*\(/'
       \.s:match_option
-      \.' nextgroup=jsFuncArgs'
 
 highlight default link vueObjectKey vueObjectKeyword
 highlight default link vueObjectFuncName vueObjectKeyword
+highlight default link vue3Keyword vueObjectKeyword
 highlight default link vueObjectFuncKey vueObjectKeyword
 highlight default link vueObjectKeyword Type
 "}}}

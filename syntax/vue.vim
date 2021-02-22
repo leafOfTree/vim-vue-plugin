@@ -77,12 +77,10 @@ endfunction
 " Load main syntax {{{
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load syntax/html.vim to syntax group, which loads full JavaScript and CSS
-" syntax. It defines group htmlJavaScript and htmlCss.
-call s:LoadSyntax('@HTMLSyntax', 'html')
 
-" Load vue-html syntax
-runtime syntax/vue-html.vim
+" Load syntax/html.vim to syntax group, which loads full JavaScript and CSS
+" syntax. It defines group @html, @htmlJavaScript, and @htmlCss.
+call s:LoadSyntax('@html', 'html')
 
 " Avoid overload
 if !hlexists('cssTagName')
@@ -94,6 +92,9 @@ if !hlexists('javaScriptComment')
   call vue#Log('load javascript cluster')
   call s:LoadSyntax('@htmlJavaScript', 'javascript')
 endif
+
+" Load vue-html syntax
+runtime syntax/vue-html.vim
 
 " Load vue-javascript syntax
 runtime syntax/vue-javascript.vim
@@ -155,12 +156,12 @@ endif
 syntax region htmlVueTemplate fold
       \ start=+<template[^>]*>+
       \ end=+^</template>+
-      \ keepend contains=@HTMLSyntax
+      \ keepend contains=@html
 " When template code is not well indented
 syntax region htmlVueTemplate fold
       \ start=+<template[^>]*>+
       \ end=+</template>\ze\n\(^$\n\)*<\(script\|style\)+
-      \ keepend contains=@HTMLSyntax
+      \ keepend contains=@html
 
 syntax region javascriptVueScript fold 
       \ start=+<script[^>]*>+
@@ -316,7 +317,7 @@ syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>'
 silent! syntax clear htmlHead
 
 " html5 data-*
-syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
+syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@html
 "}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
