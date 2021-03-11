@@ -13,6 +13,23 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" Config {{{
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let s:use_pug = vue#GetConfig("use_pug", 0)
+let s:use_sass = vue#GetConfig("use_sass", 0)
+let s:use_scss = vue#GetConfig("use_scss", 0)
+let s:use_stylus = vue#GetConfig("use_stylus", 0)
+let s:use_coffee = vue#GetConfig("use_coffee", 0)
+let s:use_typescript = vue#GetConfig("use_typescript", 0)
+let s:has_init_indent = vue#GetConfig("has_init_indent",
+      \ expand("%:e") == 'wpy' ? 1 : 0)
+let s:custom_blocks = vue#GetConfig("custom_blocks", {})
+let s:use_custom_blocks = !empty(s:custom_blocks)
+"}}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Variables {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -25,23 +42,9 @@ let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>'
 let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$' 
 let s:empty_tag_end = '\v^\s*[^\<\>\/]*\/?\>\s*' 
 let s:tag_start = '\v^\s*\<\w*'
-let s:tag_end = '\v^\s*\/?\>\s*'
-let s:full_tag_end = '\v^\s*\<\/'
-"}}}
+let s:tag_end = '\v^\s*\/?\>\s*' " />
+let s:full_tag_end = '\v^\s*\<\/' " </...>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Config {{{
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:use_pug = vue#GetConfig("use_pug", 0)
-let s:use_sass = vue#GetConfig("use_sass", 0)
-let s:use_scss = vue#GetConfig("use_scss", 0)
-let s:use_stylus = vue#GetConfig("use_stylus", 0)
-let s:use_coffee = vue#GetConfig("use_coffee", 0)
-let s:use_typescript = vue#GetConfig("use_typescript", 0)
-let s:has_init_indent = vue#GetConfig("has_init_indent",
-      \ expand("%:e") == 'wpy' ? 1 : 0)
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -63,6 +66,12 @@ runtime lib/indent/css.vim
 unlet! b:did_indent
 runtime! indent/javascript.vim
 let b:javascript_indentexpr = &indentexpr
+
+if s:use_custom_blocks
+  unlet! b:did_indent
+  runtime indent/vue-custom-blocks.vim
+  let s:vue_custom_blocks_tag = '<\/\?'.join(keys(s:custom_blocks), '\|')
+endif
 
 if s:use_pug
   unlet! b:did_indent
@@ -118,42 +127,21 @@ setlocal indentexpr=GetVueIndent()
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! GetVueIndent()
+  let ind = s:GetIndentBySyntax()
+  let ind = s:AdjustIndent(ind)
+  call vue#Log('indent: '.ind)
+  return ind
+endfunction
+
+function! s:GetIndentBySyntax()
   let prevlnum = prevnonblank(v:lnum - 1)
   let prevline = getline(prevlnum)
-  let prevsyns = s:SynsEOL(prevlnum)
-  let prevsyn = get(prevsyns, 0, '')
-
   let curline = getline(v:lnum)
-  let cursyns = s:SynsEOL(v:lnum)
-  let cursyn = get(cursyns, 0, '')
+  let cursyn = get(s:SynsEOL(v:lnum), 0, '')
 
   if s:SynHTML(cursyn)
     call vue#Log('syntax: html')
-    let ind = XmlIndentGet(v:lnum, 0)
-    if prevline =~? s:empty_tag
-      call vue#Log('previous line is an empty tag')
-      let ind = ind - &sw
-    endif
-
-    " Align '/>' and '>' with '<' for multiline tags.
-    if curline =~? s:tag_end 
-      let ind = ind - &sw
-    endif
-    " Then correct the indentation of any element following '/>' or '>'.
-    if prevline =~? s:tag_end
-      let ind = ind + &sw
-
-      " Decrease indent if prevlines are a multiline empty tag
-      let [start, end] = s:PrevMultilineEmptyTag(v:lnum)
-      if end == prevlnum
-        call vue#Log('previous line is a multiline empty tag')
-        if curline =~? s:full_tag_end 
-          let ind = indent(v:lnum - 1) - &sw
-        else
-          let ind = indent(v:lnum - 1)
-        endif
-      endif
-    endif
+    let ind = s:GetHTMLIndent(prevlnum, prevline, curline)
   elseif s:SynPug(cursyn)
     call vue#Log('syntax: pug')
     let ind = GetPugIndent()
@@ -181,7 +169,11 @@ function! GetVueIndent()
   elseif s:SynStyle(cursyn)
     call vue#Log('syntax: css')
     let ind = GetCSSIndent()
+  elseif s:use_custom_blocks && s:SynCustomBlocks(cursyn)
+    call vue#Log('syntax: custom blocks')
+    let ind = GetVueCustomBlocksIndent(cursyn)
   else
+    " Default to JavaScript indent
     call vue#Log('syntax: javascript')
     if len(b:javascript_indentexpr)
       let ind = eval(b:javascript_indentexpr)
@@ -189,28 +181,66 @@ function! GetVueIndent()
       let ind = cindent(v:lnum)
     endif
   endif
+  return ind
+endfunction
 
-  if curline =~? s:vue_tag_start || curline =~? s:vue_tag_end 
-        \|| prevline =~? s:vue_tag_end
-        \|| (curline =~ s:template_tag && s:SynPug(cursyn))
+function! s:AdjustIndent(ind)
+  let ind = a:ind
+  let prevline = getline(prevnonblank(v:lnum - 1))
+  let curline = getline(v:lnum)
+  let cursyn = get(s:SynsEOL(v:lnum), 0, '')
+
+  if curline =~? s:vue_tag_start 
+        \ || curline =~? s:vue_tag_end 
+        \ || prevline =~? s:vue_tag_end
+        \ || (curline =~ s:template_tag && s:SynPug(cursyn))
     call vue#Log('current line is vue tag or previous line is vue end tag')
-    call vue#Log('... or current line is pug template tag')
+    call vue#Log(', or current line is pug template tag')
     let ind = 0
-  elseif s:has_init_indent
-    if s:SynVueScriptOrStyle(cursyn) && ind < 1
+  elseif s:has_init_indent && ind < 1 && s:SynVueScriptOrStyle(cursyn) 
       call vue#Log('add initial indent')
       let ind = &sw
-    endif
-  else
-    let prevlnum_noncomment = s:PrevNonBlacnkNonComment(v:lnum)
-    let prevline_noncomment = getline(prevlnum_noncomment)
-    if prevline_noncomment =~? s:vue_tag_start
-      call vue#Log('previous line is vue tag start')
-      let ind = 0
-    endif
+  elseif getline(s:PrevNonBlacnkNonComment(v:lnum)) =~? s:vue_tag_start
+    call vue#Log('previous line is vue tag start')
+    let ind = 0
+  elseif s:use_custom_blocks && curline =~ s:vue_custom_blocks_tag
+    call vue#Log('current line is vue custom blocks tag')
+    let ind = 0
   endif
 
-  call vue#Log('indent: '.ind)
+  return ind
+endfunction
+
+function! s:GetHTMLIndent(prevlnum, prevline, curline)
+  let prevlnum = a:prevlnum
+  let prevline = a:prevline
+  let curline = a:curline
+
+  let ind = XmlIndentGet(v:lnum, 0)
+  if prevline =~? s:empty_tag
+    call vue#Log('previous line is an empty tag')
+    let ind = ind - &sw
+  endif
+
+  " Align '/>' and '>' with '<' for multiline tags.
+  if curline =~? s:tag_end 
+    let ind = ind - &sw
+  endif
+  " Then correct the indentation of any element following '/>' or '>'.
+  if prevline =~? s:tag_end
+    let ind = ind + &sw
+
+    " Decrease indent if prevlines are a multiline empty tag
+    let [start, end] = s:PrevMultilineEmptyTag(v:lnum)
+    if end == prevlnum
+      call vue#Log('previous line is a multiline empty tag')
+      if curline =~? s:full_tag_end 
+        let ind = indent(v:lnum - 1) - &sw
+      else
+        let ind = indent(v:lnum - 1)
+      endif
+    endif
+  endif
   return ind
 endfunction
 
@@ -250,6 +280,10 @@ endfunction
 
 function! s:SynStyle(syn)
   return a:syn =~? 'VueStyle'
+endfunction
+
+function! s:SynCustomBlocks(syn)
+  return a:syn =~? 'Block'
 endfunction
 
 function! s:SynVueScriptOrStyle(syn)

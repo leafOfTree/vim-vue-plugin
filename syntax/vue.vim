@@ -18,7 +18,6 @@ let b:current_loading_main_syntax = 'vue'
 " Config {{{
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:load_full_syntax = vue#GetConfig("load_full_syntax", 0)
 let s:use_pug = vue#GetConfig("use_pug", 0)
 let s:use_less = vue#GetConfig("use_less", 0)
 let s:use_sass = vue#GetConfig("use_sass", 0)
@@ -30,67 +29,23 @@ let s:use_typescript = vue#GetConfig("use_typescript", 0)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Functions {{{
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! s:LoadSyntax(group, type)
-  if s:load_full_syntax
-    call s:LoadFullSyntax(a:group, a:type)
-  else
-    call s:LoadDefaultSyntax(a:group, a:type)
-  endif
-endfunction
-
-function! s:LoadDefaultSyntax(group, type)
-  unlet! b:current_syntax
-  let syntaxPaths = ['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']
-  for path in syntaxPaths
-    let file = expand(path).'/syntax/'.a:type.'.vim'
-    if filereadable(file)
-      execute 'syntax include '.a:group.' '.file
-    endif
-  endfor
-endfunction
-
-" Load all syntax files in 'runtimepath'
-" Useful if there is no default syntax file provided by vim
-function! s:LoadFullSyntax(group, type)
-  call s:SetCurrentSyntax(a:type)
-  execute 'syntax include '.a:group.' syntax/'.a:type.'.vim'
-endfunction
-
-" Settings to avoid syntax overload
-function! s:SetCurrentSyntax(type)
-  if a:type == 'coffee'
-    syntax cluster coffeeJS contains=@htmlJavaScript
-
-    " Avoid overload of `javascript.vim`
-    let b:current_syntax = 'vue'
-  else
-    unlet! b:current_syntax
-  endif
-endfunction
-"}}}
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
 " Load main syntax {{{
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Load syntax/html.vim to syntax group, which loads full JavaScript and CSS
 " syntax. It defines group @html, @htmlJavaScript, and @htmlCss.
-call s:LoadSyntax('@html', 'html')
+call vue#LoadSyntax('@html', 'html')
 
 " Avoid overload
 if !hlexists('cssTagName')
-  call s:LoadSyntax('@htmlCss', 'css')
+  call vue#LoadSyntax('@htmlCss', 'css')
 endif
 
 " Avoid overload
 if !hlexists('javaScriptComment')
   call vue#Log('load javascript cluster')
-  call s:LoadSyntax('@htmlJavaScript', 'javascript')
+  call vue#LoadSyntax('@htmlJavaScript', 'javascript')
 endif
 
 " Load vue-html syntax
@@ -107,43 +62,43 @@ runtime syntax/vue-javascript.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " If pug is enabled, load vim-pug syntax
 if s:use_pug
-  call s:LoadFullSyntax('@PugSyntax', 'pug')
+  call vue#LoadFullSyntax('@PugSyntax', 'pug')
   syn cluster htmlJavascript remove=javascriptParenthesisBlock
 endif
 
 " If less is enabled, load less syntax 
 if s:use_less
-  call s:LoadSyntax('@LessSyntax', 'less')
+  call vue#LoadSyntax('@LessSyntax', 'less')
   runtime! after/syntax/less.vim
 endif
 
 " If sass is enabled, load sass syntax 
 if s:use_sass
-  call s:LoadSyntax('@SassSyntax', 'sass')
+  call vue#LoadSyntax('@SassSyntax', 'sass')
   runtime! after/syntax/sass.vim
 endif
 
 " If scss is enabled, load sass syntax 
 if s:use_scss
-  call s:LoadSyntax('@ScssSyntax', 'scss')
+  call vue#LoadSyntax('@ScssSyntax', 'scss')
   runtime! after/syntax/scss.vim
 endif
 
 " If stylus is enabled, load stylus syntax 
 if s:use_stylus
-  call s:LoadFullSyntax('@StylusSyntax', 'stylus')
+  call vue#LoadFullSyntax('@StylusSyntax', 'stylus')
   runtime! after/syntax/stylus.vim
 endif
 
 " If CoffeeScript is enabled, load the syntax. Keep name consistent with
 " vim-coffee-script/after/html.vim
 if s:use_coffee
-  call s:LoadFullSyntax('@htmlCoffeeScript', 'coffee')
+  call vue#LoadFullSyntax('@htmlCoffeeScript', 'coffee')
 endif
 
 " If TypeScript is enabled, load the syntax.
 if s:use_typescript
-  call s:LoadFullSyntax('@TypeScript', 'typescript')
+  call vue#LoadFullSyntax('@TypeScript', 'typescript')
 endif
 "}}}
 
@@ -226,7 +181,14 @@ syntax region vueTag
 highlight default link vueTag htmlTag
 highlight default link cssUnitDecorators2 Number
 highlight default link cssKeyFrameProp2 Constant
+"}}}
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Custom blocks {{{
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+runtime syntax/vue-custom-blocks.vim
 "}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

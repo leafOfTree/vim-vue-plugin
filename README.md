@@ -76,6 +76,7 @@ let g:vim_vue_plugin_load_full_syntax = 1
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
 | `g:vim_vue_plugin_highlight_vue_keyword` | Highlight vue keyword like `data`, `methods`, ...                       | 0 |
 | `g:vim_vue_plugin_use_foldexpr`\#     | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
+| `g:vim_vue_plugin_custom_blocks`      | Highlight custom blocks. Check the exmple bleow.                                                       | {} |
 | `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
 
 \*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax can be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`. 
@@ -88,6 +89,32 @@ let g:vim_vue_plugin_load_full_syntax = 1
 
 - `g:vim_vue_plugin_load_full_syntax` applies to other `HTML/Sass/Less` plugins.
 - `filetype` is set to `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
+
+## Custom blocks
+
+You could enable syntax highlighting in a custom block by setting `g:vim_vue_plugin_custom_blocks`. 
+
+Its structure is `{ block: filetype }` or `{ block: filetype[] }`. When providing a filetype list, you need to add `lang="..."` in the tag. Otherwise, the first one will be used.
+
+```vim
+let g:vim_vue_plugin_custom_blocks = { 
+      \'docs': 'markdown',
+      \'i18n': ['json', 'yaml', 'json5'],
+      \}
+```
+
+```vue
+<docs>
+# This is the documentation for component.
+</docs>
+
+<i18n lang="yaml">
+en:
+  hello: "Hello World!"
+ja:
+  hello: "こんにちは、世界！"
+</i18n>
+```
 
 ## Context based behavior
 
