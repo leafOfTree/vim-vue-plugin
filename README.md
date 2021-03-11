@@ -105,7 +105,7 @@ let g:vim_vue_plugin_custom_blocks = {
       \}
 ```
 
-Should highlight custom blocks in `.vue` file such as
+Should highlight custom blocks in `.vue` such as
 
 ```vue
 <docs>
