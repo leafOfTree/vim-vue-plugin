@@ -76,7 +76,7 @@ let g:vim_vue_plugin_load_full_syntax = 1
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
 | `g:vim_vue_plugin_highlight_vue_keyword` | Highlight vue keyword like `data`, `methods`, ...                       | 0 |
 | `g:vim_vue_plugin_use_foldexpr`\#     | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
-| `g:vim_vue_plugin_custom_blocks`      | Highlight custom blocks. Check the exmple bleow.                                                       | {} |
+| `g:vim_vue_plugin_custom_blocks`      | Highlight custom blocks. See details below.                                                            | {} |
 | `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
 
 \*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax can be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`. 
