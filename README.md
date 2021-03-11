@@ -92,9 +92,11 @@ let g:vim_vue_plugin_load_full_syntax = 1
 
 ## Custom blocks
 
-You could enable syntax highlighting in a custom block by setting `g:vim_vue_plugin_custom_blocks`. 
+You can enable highlighting in a custom block by setting `g:vim_vue_plugin_custom_blocks`. 
 
-Its structure is `{ block: filetype }` or `{ block: filetype[] }`. When providing a filetype list, you need to add `lang="..."` in the tag. Otherwise, the first one will be used.
+The structure is `{ block: filetype }` or `{ block: filetype[] }`. When providing a filetype list, you need to add `lang="..."` in the tag. Otherwise, the first one will be used.
+
+### Example
 
 ```vim
 let g:vim_vue_plugin_custom_blocks = { 
@@ -102,6 +104,8 @@ let g:vim_vue_plugin_custom_blocks = {
       \'i18n': ['json', 'yaml', 'json5'],
       \}
 ```
+
+Will highlight custom blocks in `.vue` file such as
 
 ```vue
 <docs>
