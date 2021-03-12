@@ -29,7 +29,7 @@ function! s:LoadSyntax()
   endfor
 endfunction
 
-function! s:SetSyntax(block, syntax, lang = 0)
+function! s:SetSyntax(block, syntax, lang)
   let block = a:block
   let syntax = a:syntax
   let lang = a:lang
@@ -50,9 +50,9 @@ function! s:Highlight()
   for [block, syntax] in items(s:custom_blocks)
     let type = type(syntax)
     if type == v:t_string
-      call s:SetSyntax(block, syntax)
+      call s:SetSyntax(block, syntax, 0)
     elseif type == v:t_list && len(syntax)
-      call s:SetSyntax(block, syntax[0])
+      call s:SetSyntax(block, syntax[0], 0)
       for syn in syntax
         call s:SetSyntax(block, syn, 1)
       endfor
