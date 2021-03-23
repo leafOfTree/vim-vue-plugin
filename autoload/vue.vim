@@ -1,19 +1,75 @@
 " Since vue#Log and vue#GetConfig are always called 
 " in syntax and indent files,
-" this file will be sourced when opening the first vue file
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" this file will be sourced on opening the first vue file
+
 function! s:GetConfig(name, default)
   let name = 'g:vim_vue_plugin_'.a:name
-  return exists(name) ? eval(name) : a:default
+  let value =  exists(name) ? eval(name) : a:default
+
+  if a:name == 'config'
+    let value = s:MergeDefaultWithConfig(value)
+  endif
+
+  return value
 endfunction
 
-let s:name = 'vim-vue-plugin'
-let s:load_full_syntax = s:GetConfig("load_full_syntax", 0)
-let s:debug = s:GetConfig("debug", 0)
+function! s:MergeDefaultWithConfig(user)
+  let default = { 
+        \'syntax': {
+        \   'script': ['javascript'],
+        \   'template': ['html'],
+        \   'style': ['css'],
+        \},
+        \'attribute': 0,
+        \'keyword': 0,
+        \'foldexpr': 0,
+        \'init_indent': expand('%:e') == 'wpy',
+        \'full_syntax': [],
+        \'debug': 0,
+        \}
+
+  let user = a:user
+  for key in keys(default)
+    if has_key(user, key)
+      let default[key] = user[key]
+    endif
+  endfor
+  return default
+endfunction
+
+function! s:CheckVersion()
+  if !exists('g:vim_vue_plugin_config')
+    let message =  'Please check README.md or https://github.com/leafOfTree/vim-vue-plugin'
+    echom '['.s:name.'] '.message
+  endif
+endfunction
+
+function! s:Main()
+  let s:name = 'vim-vue-plugin'
+  let s:config = s:GetConfig('config', {})
+  let s:full_syntax = s:config.full_syntax
+  let s:debug = s:config.debug
+
+  call s:CheckVersion()
+endfunction
 
 function! vue#Log(msg)
   if s:debug
+    echom '['.s:name.'] '.a:msg
+  endif
+endfunction
+
+function! vue#LogWithLnum(msg)
+  if s:debug
     echom '['.s:name.']['.v:lnum.'] '.a:msg
+  endif
+endfunction
+
+function! vue#Warn(msg)
+  if s:debug
+    echohl WarningMsg
+    echom '['.s:name.'] '.a:msg
+    echohl None
   endif
 endfunction
 
@@ -39,78 +95,160 @@ if exists('##CursorMoved') && exists('*OnChangeVueSubtype')
   endfunction
 endif
 
-function! s:SynsEOL(lnum)
-  let lnum = prevnonblank(a:lnum)
-  let cnum = strlen(getline(lnum))
-  return map(synstack(lnum, cnum), 'synIDattr(v:val, "name")')
+function! s:SyntaxListAtEnd(lnum)
+  let plnum = prevnonblank(a:lnum)
+  let col = strlen(getline(plnum))
+  return map(synstack(plnum, col), 'synIDattr(v:val, "name")')
+endfunction
+
+function! s:SyntaxAtEnd(lnum)
+  let syns = s:SyntaxListAtEnd(a:lnum)
+  return empty(syns) ? '' : get(syns, 0, '')
+endfunction
+
+function! vue#SyntaxSecondAtEnd(lnum)
+  let syns = s:SyntaxListAtEnd(a:lnum)
+  return get(syns, 1, '')
+endfunction
+
+function! s:GetBlockTag(lnum)
+  let syntax_name = s:SyntaxAtEnd(a:lnum)
+  let tag = tolower(matchstr(syntax_name, '\u\U\+\zeBlock'))
+  return tag
+endfunction
+
+let s:style_with_css_prefix = ['scss', 'less', 'stylus']
+
+" Adjust syntax name to support emmet-vim by adding css prefix
+function! vue#AlterSyntaxForEmmetVim(name, syntax)
+  let name = a:name
+  if count(s:style_with_css_prefix, a:syntax) == 1
+    let name = 'css'.toupper(name[0]).name[1:]
+  endif
+  return name
+endfunction
+
+" Remove css prefix
+function! s:RecoverSyntax(syntax_name, syntax)
+  let syntax = a:syntax
+  if syntax == 'css'
+    let next_syntax = tolower(matchstr(a:syntax_name, '^\U\+\zs\u\U\+'))
+    if count(s:style_with_css_prefix, next_syntax) == 1
+      let syntax = next_syntax
+    endif
+  endif
+  return syntax
+endfunction
+
+function! s:GetBlockSyntax(lnum)
+  let syntax_name = s:SyntaxAtEnd(a:lnum)
+  let syntax = matchstr(syntax_name, '^\U\+')
+  let syntax = s:RecoverSyntax(syntax_name, syntax)
+  return syntax
+endfunction
+
+function! vue#GetBlockTag(lnum)
+  return s:GetBlockTag(a:lnum)
+endfunction
+
+function! vue#GetBlockSyntax(lnum)
+  return s:GetBlockSyntax(a:lnum)
 endfunction
 
 function! GetVueSubtype()
   let lnum = line('.')
-  let cursyns = s:SynsEOL(lnum)
-  let syn = !empty(cursyns) ? get(cursyns, 0, '') : ''
-
-  let subtype = matchstr(syn, '\w\+\zeVue')
-  if subtype =~ 'css\w\+'
-    let subtype = subtype[3:]
-  endif
-  let subtype = tolower(subtype)
-  return subtype
+  let syntax = vue#GetBlockSyntax(lnum)
+  return syntax
 endfunction
 
 function! GetVueTag(...)
   let lnum = a:0 > 0 ? a:1 : line('.')
-  let cursyns = s:SynsEOL(lnum)
-  let syn = get(cursyns, 0, '')
-
-  if syn =~ 'VueTemplate'
-    let tag = 'template'
-  elseif syn =~ 'VueScript'
-    let tag = 'script'
-  elseif syn =~ 'VueStyle'
-    let tag = 'style'
-  else
-    let tag = ''
-  endif
-
-  return tag
+  return vue#GetBlockTag(lnum)
 endfunction
 
-function! vue#LoadSyntax(group, type)
-  if s:load_full_syntax
-    call vue#LoadFullSyntax(a:group, a:type)
+function! vue#LoadSyntax(group, syntax)
+  let group = a:group
+  let syntax = a:syntax
+  if count(s:full_syntax, syntax) == 1
+    call vue#LoadFullSyntax(group, syntax)
   else
-    call vue#LoadDefaultSyntax(a:group, a:type)
+    let loaded = vue#LoadDefaultSyntax(group, syntax)
+    if !loaded
+      call vue#LoadFullSyntax(group, syntax)
+    endif
   endif
 endfunction
 
-function! vue#LoadDefaultSyntax(group, type)
+function! vue#LoadDefaultSyntax(group, syntax)
   unlet! b:current_syntax
-  let syntaxPaths = ['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']
-  for path in syntaxPaths
-    let file = expand(path).'/syntax/'.a:type.'.vim'
+  let loaded = 0
+  let syntax_paths = ['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']
+  for path in syntax_paths
+    let file = expand(path).'/syntax/'.a:syntax.'.vim'
     if filereadable(file)
+      let loaded = 1
       execute 'syntax include '.a:group.' '.file
     endif
   endfor
+  if loaded
+    call vue#Log(a:syntax.': laod default')
+  else
+    call vue#Warn(a:syntax.': syntax not found in '.string(syntax_paths))
+    call vue#Warn(a:syntax.': load full instead')
+  endif
+  return loaded
 endfunction
 
 " Load all syntax files in 'runtimepath'
 " Useful if there is no default syntax file provided by vim
-function! vue#LoadFullSyntax(group, type)
-  call s:SetCurrentSyntax(a:type)
-  execute 'syntax include '.a:group.' syntax/'.a:type.'.vim'
+function! vue#LoadFullSyntax(group, syntax)
+  call vue#Log(a:syntax.': load full')
+  call s:SetCurrentSyntax(a:syntax)
+  execute 'syntax include '.a:group.' syntax/'.a:syntax.'.vim'
 endfunction
 
 " Settings to avoid syntax overload
 function! s:SetCurrentSyntax(type)
   if a:type == 'coffee'
-    syntax cluster coffeeJS contains=@htmlJavaScript
-
-    " Avoid overload of `javascript.vim`
+    " Avoid `syntax/javascript.vim` in kchmck/vim-coffee-script
     let b:current_syntax = 'vue'
+    syntax cluster coffeeJS contains=@javascript,@htmlJavaScript
   else
     unlet! b:current_syntax
   endif
 endfunction
-"}}}
+
+function! vue#GetSyntaxList(config_syntax)
+  let syntax_list = []
+  for syntax in values(a:config_syntax)
+    let type = type(syntax)
+    if type == v:t_string
+      if !count(syntax_list, syntax)
+        call add(syntax_list, syntax)
+      endif
+    elseif type == v:t_list && len(syntax)
+      for syn in syntax
+        if !count(syntax_list, syn)
+          call add(syntax_list, syn)
+        endif
+      endfor
+    else
+      echoerr '[vim-vue-plugin] syntax value type'
+            \.' must be either string or list'
+    endif
+  endfor
+
+  " Move basic syntaxes to the end of the list, so we can check
+  " if they are already loaded by other syntax.
+  " Order matters
+  for syntax in ['html', 'javascript', 'css']
+    let idx = index(syntax_list, syntax)
+    if idx >= 0
+      call remove(syntax_list, idx)
+      call add(syntax_list, syntax)
+    endif
+  endfor
+  return syntax_list
+endfunction
+
+call s:Main()

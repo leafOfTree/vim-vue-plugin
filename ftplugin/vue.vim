@@ -17,3 +17,4 @@ endif
 " indentexpr
 let b:syng_str = '^\%(.*template\)\@!.*string\|special'
 let b:syng_strcom = '^\%(.*template\)\@!.*string\|comment\|regex\|special\|doc'
+

@@ -3,11 +3,9 @@
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:highlight_vue_keyword = vue#GetConfig("highlight_vue_keyword", 0)
-if !s:highlight_vue_keyword | finish | endif
-
-let s:has_init_indent = vue#GetConfig("has_init_indent",
-      \ expand("%:e") == 'wpy' ? 1 : 0)
+let s:config = vue#GetConfig('config', {})
+let s:keyword = s:config.keyword
+let s:init_indent = s:config.init_indent
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -15,9 +13,17 @@ let s:has_init_indent = vue#GetConfig("has_init_indent",
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Number with minus
+syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' 
+      \ containedin=@javascript display
+highlight link javaScriptNumber Constant
+
+" Vue keywords
+if !s:keyword | finish | endif
+
 let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed setup beforeUnmount unmounted errorCaptured renderTracked renderTriggered'
 
-let s:indent = &sw * (1 + s:has_init_indent)
+let s:indent = &sw * (1 + s:init_indent)
 let s:keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
       \.join(split(s:vue_keywords, ' '), '|')
       \.')\ze'
@@ -26,7 +32,7 @@ let s:keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
 let s:useJavaScriptPlugin = hlexists('jsAsyncKeyword')
 let s:containedin = s:useJavaScriptPlugin
       \? 'jsObject,jsFuncBlock,@jsExpression' 
-      \: 'javascriptVueScript' 
+      \: 'javascriptScriptBlock' 
 let s:contains = s:useJavaScriptPlugin
       \? 'jsAsyncKeyword' 
       \: 'javaScriptReserved' 

@@ -3,7 +3,8 @@
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:highlight_vue_attr = vue#GetConfig("highlight_vue_attr", 0)
+let s:config = vue#GetConfig('config', {})
+let s:attribute = s:config.attribute
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -11,6 +12,15 @@ let s:highlight_vue_attr = vue#GetConfig("highlight_vue_attr", 0)
 " Syntax highlight {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clear htmlHead that may cause highlighting out of bounds
+silent! syntax clear htmlHead
+
+" html5 data-*
+syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@html
+
+" Vue ref attribute
+syntax match htmlArg 'ref' containedin=@html
+
 " Use syn-match in order to highlight both transition and transition-group
 " according to syn-priority
 syntax match VueComponentName containedin=htmlTagN '\v(component|slot|transition)' 
@@ -36,7 +46,7 @@ syntax region VueExpression
       \ start="{{"
       \ end="}}"
 syntax region VueExpression 
-      \ containedin=htmlVueTemplate,pugVueTemplate,VueValue,htmlString,htmlValue
+      \ containedin=htmlTemplateBlock,pugTemplateBlock,VueValue,htmlString,htmlValue
       \ contains=@simpleJavascriptExpression
       \ matchgroup=VueBrace
       \ start="{{"
@@ -66,7 +76,7 @@ syntax match javaScriptOperator '\v(*)@<!/(/|*)@!' contained
 syntax keyword javaScriptOperator delete instanceof typeof void new in of contained
 
 highlight default link VueAttr htmlTag
-if s:highlight_vue_attr
+if s:attribute
   syntax match VueValue contained '\v\"\zs[^"]+\ze\"'
         \ contains=VueInject,@simpleJavascriptExpression
   highlight default link VueKey Type
