@@ -10,9 +10,9 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 ## Upgrade to the latest version
 
-If you've installed `vim-vue-plugin` before, it's recommended to upgrade to the latest version. After upgrade, You will have to configure in a new way as described at [Configuration](#configuration).
+If you installed `vim-vue-plugin` before 3/29/2021, it's recommended to upgrade to the latest version. After upgrade, You will have to configure in a new way as described at [Configuration](#configuration).
 
-What's new
+What's New
 
 - Clean code and configuration
 - Improved performance
@@ -28,7 +28,7 @@ What's new
 
 - [vim-pathogen][5]
 
-        cd ~/.vim/bundle && \
+        cd ~/.vim/bundle
         git clone https://github.com/leafOfTree/vim-vue-plugin --depth 1
 
 - [vim-plug][7]
@@ -57,7 +57,7 @@ Supports
 
     Relative syntax plugins need to be installed if not provided by vim.
 
-- A builtin `foldexpr` foldmethod.
+- A built-in `foldexpr` foldmethod.
 
 - [emmet-vim][10] HTML/JavaScript/CSS/... filetype detection.
 
@@ -92,7 +92,7 @@ Now we use `g:vim_vue_plugin_config` as the only configuration variable.
 
 - `syntax`*dict* A dictionary with the following key-value pairs
 
-    - `key`*string*: a block's tagname
+    - `key`*string*: a block's tag name
     - `value`*list*: a list of syntax name for the block.
 
         - First, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
@@ -105,7 +105,7 @@ Now we use `g:vim_vue_plugin_config` as the only configuration variable.
 
 - `keyword`*0/1*: highlight Vue keyword such as `data`, `methods`, ...
 
-- `foldexpr`*0/1*: enable builtin `foldexpr` foldmethod
+- `foldexpr`*0/1*: enable built-in `foldexpr` foldmethod
 
 - `debug`*0/1*: echo debug messages in `messages` list
 
@@ -113,8 +113,29 @@ Now we use `g:vim_vue_plugin_config` as the only configuration variable.
 >
 > Please check `:h dict`, `:h list` for details about the complex data types.
 
+### Example
+
+```vim
+let g:vim_vue_plugin_config = { 
+      \'syntax': {
+      \   'template': ['html', 'pug'],
+      \   'script': ['javascript', 'typescript', 'coffee'],
+      \   'style': ['css', 'scss'],
+      \   'i18n': ['json', 'yaml'],
+      \   'route': 'json',
+      \   'docs': 'markdown',
+      \},
+      \'full_syntax': ['scss', 'html'],
+      \'attribute': 1,
+      \'keyword': 1,
+      \'foldexpr': 1,
+      \}
+```
+
+## Archive
+
 <details>
-<summary>Documentation archive - 3/25/2021</summary>
+<summary>Documentation archive - 3/29/2021</summary>
 Set global variable to `1` to enable or `0` to disable. Ex:
 
 ```vim
@@ -134,13 +155,13 @@ let g:vim_vue_plugin_load_full_syntax = 1
 | `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0+ |
 | `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
 | `g:vim_vue_plugin_highlight_vue_keyword` | Highlight vue keyword like `data`, `methods`, ...                       | 0 |
-| `g:vim_vue_plugin_use_foldexpr`\#     | Enable builtin `foldexpr` foldmethod.                                                                  | 0 |
+| `g:vim_vue_plugin_use_foldexpr`\#     | Enable built-in `foldexpr` foldmethod.                                                                  | 0 |
 | `g:vim_vue_plugin_custom_blocks`      | Highlight custom blocks. See details below.                                                            | {} |
 | `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
 
 \*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax can be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`. 
 
-\#: In the case when it's enabled, the `foldexpr` is not efficient for large files, so it's not enabled initially when the line number exceeds `1000`. You can enable it mannully by `setlocal foldmethod=expr` when required.
+\#: In the case when it's enabled, the `foldexpr` is not efficient for large files, so it's not enabled initially when the line number exceeds `1000`. You can enable it manually by `setlocal foldmethod=expr` when required.
 
 \+: 0 for `.vue` and 1 for `.wpy`
 
@@ -180,9 +201,9 @@ ja:
 ```
 </details>
 
-## Context based behavior
+## Context-based behavior
 
-As there are more than one language in `.vue` file, the different behaviors like mapping or completion and local options, may be required under different tags or subtypes(current language type).
+As there are more than one language in `.vue` file, different mapping, completion and local options may be required under different tags or subtypes(current language type).
 
 This plugin provides functions to get the tag/subtype where the cursor is in.
 
@@ -226,9 +247,9 @@ Currently emmet-vim works regarding your HTML/CSS/JavaScript emmet settings, but
 
 ## Avoid overload
 
-Since there are many sub languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as loading condition if you'd like to manually find and modify the syntax files causing overload.
+Since there are many sub-languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as loading condition if you'd like to manually find and modify the syntax files causing overload.
 
-For example, the builtin syntax `sass.vim` and `less.vim` in vim8.1 runtime and `pug.vim` in vim-pug/syntax always load `css.vim` which this plugin already loads. It can be optimized like
+For example, the built-in syntax `sass.vim` and `less.vim` in vim8.1 runtime and `pug.vim` in vim-pug/syntax always load `css.vim` which this plugin already loads. It can be optimized like
 
 `$VIMRUNTIME/syntax/sass.vim`
 ```diff
@@ -257,7 +278,7 @@ For example, the builtin syntax `sass.vim` and `less.vim` in vim8.1 runtime and 
 
 - [vim-svelte-plugin][9] 
 
-    [Svelte][13] is a compilation web framework which shares a similar syntax to Vue.
+    [Svelte][13] is a compilation web framework that shares a similar syntax to Vue.
 
 ## License
 
