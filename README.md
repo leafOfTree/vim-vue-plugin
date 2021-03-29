@@ -96,7 +96,7 @@ Now we use `g:vim_vue_plugin_config` as the only configuration variable.
     - `value`*list*: a list of syntax name for the block.
 
         - First, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
-        - The first item of `value` will be used as default syntax when no `lang="..."` appears on the block tag. 'value' can be a string if only one.
+        - The first item of `value` will be used as default syntax when no `lang="..."` appears on the block tag. `value` can be string if only one.
         - Both Vue blocks and custom blocks are supported. 
 
 - `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
@@ -106,6 +106,8 @@ Now we use `g:vim_vue_plugin_config` as the only configuration variable.
 - `keyword`*0/1*: highlight Vue keyword such as `data`, `methods`, ...
 
 - `foldexpr`*0/1*: enable built-in `foldexpr` foldmethod
+
+- `init_indent`*0/1*: enable initial one tab indent inside `script/style` tags
 
 - `debug`*0/1*: echo debug messages in `messages` list
 

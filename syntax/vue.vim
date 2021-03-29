@@ -1,3 +1,7 @@
+" Language: Vue
+" Maintainer: leaf <https://github.com/leafOfTree>
+" CREDITS: Inspired by mxw/vim-jsx.
+
 if exists('b:current_syntax') && b:current_syntax == 'vue'
   finish
 endif

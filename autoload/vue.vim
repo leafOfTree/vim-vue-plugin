@@ -39,8 +39,36 @@ endfunction
 
 function! s:CheckVersion()
   if !exists('g:vim_vue_plugin_config')
-    let message =  'Please check README.md or https://github.com/leafOfTree/vim-vue-plugin'
-    echom '['.s:name.'] '.message
+    let prev_configs = [
+          \'g:vim_vue_plugin_load_full_syntax',
+          \'g:vim_vue_plugin_use_pug',
+          \'g:vim_vue_plugin_use_coffee',
+          \'g:vim_vue_plugin_use_typescript',
+          \'g:vim_vue_plugin_use_less',
+          \'g:vim_vue_plugin_use_sass',
+          \'g:vim_vue_plugin_use_scss',
+          \'g:vim_vue_plugin_use_stylus',
+          \'g:vim_vue_plugin_has_init_indent',
+          \'g:vim_vue_plugin_highlight_vue_attr',
+          \'g:vim_vue_plugin_highlight_vue_keyword',
+          \'g:vim_vue_plugin_use_foldexpr',
+          \'g:vim_vue_plugin_custom_blocks',
+          \'g:vim_vue_plugin_debug',
+          \]
+    let has_prev_config = 0
+    for config in prev_configs
+      if exists(config)
+        let has_prev_config = 1
+        break
+      endif
+    endfor
+
+    if has_prev_config
+      let message =  'Hey, it seems that you just upgraded. Please use `g:vim_vue_plugin_config` to replace previous configs'
+      let message2 = 'For details, please check README.md ## Configuration or https://github.com/leafOfTree/vim-vue-plugin'
+      echom '['.s:name.'] '.message
+      echom '['.s:name.'] '.message2
+    endif
   endif
 endfunction
 
