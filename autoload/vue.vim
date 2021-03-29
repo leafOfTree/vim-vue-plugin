@@ -20,11 +20,11 @@ function! s:MergeDefaultWithConfig(user)
         \   'template': ['html'],
         \   'style': ['css'],
         \},
+        \'full_syntax': [],
         \'attribute': 0,
         \'keyword': 0,
         \'foldexpr': 0,
         \'init_indent': expand('%:e') == 'wpy',
-        \'full_syntax': [],
         \'debug': 0,
         \}
 
@@ -122,18 +122,18 @@ let s:style_with_css_prefix = ['scss', 'less', 'stylus']
 " Adjust syntax name to support emmet-vim by adding css prefix
 function! vue#AlterSyntaxForEmmetVim(name, syntax)
   let name = a:name
-  if count(s:style_with_css_prefix, a:syntax) == 1
+  if count(s:style_with_css_prefix, a:syntax)
     let name = 'css'.toupper(name[0]).name[1:]
   endif
   return name
 endfunction
 
 " Remove css prefix
-function! s:RecoverSyntax(syntax_name, syntax)
+function! s:RemoveCssPrefix(syntax_name, syntax)
   let syntax = a:syntax
   if syntax == 'css'
     let next_syntax = tolower(matchstr(a:syntax_name, '^\U\+\zs\u\U\+'))
-    if count(s:style_with_css_prefix, next_syntax) == 1
+    if count(s:style_with_css_prefix, next_syntax)
       let syntax = next_syntax
     endif
   endif
@@ -143,7 +143,7 @@ endfunction
 function! s:GetBlockSyntax(lnum)
   let syntax_name = s:SyntaxAtEnd(a:lnum)
   let syntax = matchstr(syntax_name, '^\U\+')
-  let syntax = s:RecoverSyntax(syntax_name, syntax)
+  let syntax = s:RemoveCssPrefix(syntax_name, syntax)
   return syntax
 endfunction
 
@@ -156,8 +156,7 @@ function! vue#GetBlockSyntax(lnum)
 endfunction
 
 function! GetVueSubtype()
-  let lnum = line('.')
-  let syntax = vue#GetBlockSyntax(lnum)
+  let syntax = vue#GetBlockSyntax(line('.'))
   return syntax
 endfunction
 
@@ -169,7 +168,7 @@ endfunction
 function! vue#LoadSyntax(group, syntax)
   let group = a:group
   let syntax = a:syntax
-  if count(s:full_syntax, syntax) == 1
+  if count(s:full_syntax, syntax)
     call vue#LoadFullSyntax(group, syntax)
   else
     let loaded = vue#LoadDefaultSyntax(group, syntax)

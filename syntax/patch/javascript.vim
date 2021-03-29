@@ -41,19 +41,19 @@ let s:match_option =
       \.' contains='.s:contains
       \.' skipwhite skipempty'
 
-execute 'syntax match vueObjectKey /'
+execute 'syntax match vueObjectKey display /'
       \.s:keywords_regexp
       \.'\s*:/'
       \.s:match_option
       \.' nextgroup=jsObjectValue'
 
-execute 'syntax match vueObjectFuncName /'
+execute 'syntax match vueObjectFuncName display /'
       \.s:keywords_regexp
       \.'\_s*\(/'
       \.s:match_option
       \.' nextgroup=jsFuncArgs'
 
-execute 'syntax match vueObjectFuncKey /'
+execute 'syntax match vueObjectFuncKey display /'
       \.s:keywords_regexp
       \.'\s*:\s*function>/'
       \.s:match_option
@@ -67,7 +67,7 @@ let s:vue3_keywords_regexp = '\v<('
       \.join(split(s:vue3_keywords, ' '), '|')
       \.')\ze'
 
-execute 'syntax match vue3Keyword /'
+execute 'syntax match vue3Keyword display /'
       \.s:vue3_keywords_regexp
       \.'\_s*\(/'
       \.s:match_option

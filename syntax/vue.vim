@@ -136,7 +136,7 @@ function! s:HighlightVueTag()
 endfunction
 
 function! s:SetSyntaxSync()
-  syntax sync fromstart
+  " syntax sync fromstart
 endfunction
 
 function! s:SetIsKeyword()
@@ -151,7 +151,7 @@ function! s:SetIsKeyword()
   endif
 endfunction
 
-function! VimVuePluginSyntaxMain(id)
+function! VimVuePluginSyntaxMain(...)
   call s:Init()
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
   call s:LoadSyntaxList(syntax_list)
@@ -161,7 +161,10 @@ function! VimVuePluginSyntaxMain(id)
   call s:HighlightVueTag()
 endfunction
 
-" call timer_start(10, 'VimVuePluginSyntaxMain')
-call VimVuePluginSyntaxMain(0)
+if exists('*timer_start')
+  call timer_start(1, 'VimVuePluginSyntaxMain')
+else
+  call VimVuePluginSyntaxMain()
+endif
 
 let b:current_syntax = 'vue'

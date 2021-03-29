@@ -199,11 +199,15 @@ function! GetVueIndent()
   return ind
 endfunction
 
-function! s:Main()
+function! VimVuePluginIndentMain(...)
   call s:Init()
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
   call s:SetIndentExpr(syntax_list)
   call s:SetVueIndent()
 endfunction
 
-call s:Main()
+if exists('*timer_start')
+  call timer_start(50, 'VimVuePluginIndentMain')
+else
+  call VimVuePluginIndentMain()
+endif
