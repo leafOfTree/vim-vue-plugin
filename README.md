@@ -53,7 +53,7 @@ Supports
 
 - Vue attribute(directive) and keyword
 
-- Blocks(both `template/script/style` and custome blocks) can use any syntax, including `less, sass, scss, stylus, coffee, typescript, pug, ...`
+- Blocks(both `template/script/style` and custom blocks) can use any syntax, including `less, sass, scss, stylus, coffee, typescript, pug, ...`
 
     Relative syntax plugins need to be installed if not provided by vim
 
