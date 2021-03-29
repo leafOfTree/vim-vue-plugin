@@ -67,31 +67,31 @@ see [Configuration](#configuration) for details
 
 ## Configuration
 
-`g:vim_vue_plugin_config` is the only configuration variable
+`g:vim_vue_plugin_config`*dict* is the only configuration
 
-- type: `dict`
-- default:
+This is the **default value**. You could copy it as a starting point
 
-    You could copy the default value as a starting point
-    ```vim
-    let g:vim_vue_plugin_config = { 
-          \'syntax': {
-          \   'script': ['javascript'],
-          \   'template': ['html'],
-          \   'style': ['css'],
-          \},
-          \'full_syntax': [],
-          \'attribute': 0,
-          \'keyword': 0,
-          \'foldexpr': 0,
-          \'init_indent': 0,
-          \'debug': 0,
-          \}
-    ```
+```vim
+let g:vim_vue_plugin_config = { 
+      \'syntax': {
+      \   'script': ['javascript'],
+      \   'template': ['html'],
+      \   'style': ['css'],
+      \},
+      \'full_syntax': [],
+      \'attribute': 0,
+      \'keyword': 0,
+      \'foldexpr': 0,
+      \'init_indent': 0,
+      \'debug': 0,
+      \}
+```
 
 ### Description
 
-- `syntax`*dict* A dictionary with the following key-value pairs
+`g:vim_vue_plugin_config` has following options
+
+- `syntax`*dict* A dictionary with following key-value pairs
 
     - `key`*string*: a block's tag name
     - `value`*list*: a list of syntax name for the block
@@ -101,6 +101,8 @@ see [Configuration](#configuration) for details
         - When no `lang="..."` appears on the block tag, the first item of `value` will be used as default. `value` can be string if only one
 
 - `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
+
+For boolean options, set `0` to enable or `1` to disable
 
 - `attribute`: highlight Vue attribute as expression instead of string
 
@@ -112,9 +114,7 @@ see [Configuration](#configuration) for details
 
 - `debug`: echo debug messages in `messages` list
 
-> For boolean option, set `0` to enable or `1` to disable
->
-> Please check `:h dict` `:h list` for details about the complex data types
+> Please check `:h dict` and `:h list` for details about the complex data types
 
 ### Example
 One possible usage
