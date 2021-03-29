@@ -6,11 +6,11 @@
 </a>
 </p>
 
-Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1].
+Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1]
 
 ## Upgrade to the latest version
 
-If you installed `vim-vue-plugin` before 3/29/2021, it's recommended to upgrade to the latest version. After upgrade, You will have to configure in a new way as described at [Configuration](#configuration).
+For those who installed `vim-vue-plugin` before 3/29/2021, it's recommended to upgrade to the latest version. After upgrade, You will need to configure in a new way as described at [Configuration](#configuration)
 
 What's New
 
@@ -43,37 +43,38 @@ What's New
 <br />
 </details>
 
-This plugin is effective if it has set `filetype` to `vue`. Please stay up to date. Feel free to open an issue or pull request.
+This plugin is effective if it has set `filetype` to `vue`. Please stay up to date. Feel free to open an issue or pull request
 
 ## How it works
 
-`vim-vue-plugin` will try to load multiple syntax and indent files for `.vue` and enable them to work together.
+`vim-vue-plugin` will try to load multiple syntax and indent files for `.vue` and enable them to work together
 
 Supports
 
-- Vue attribute(directive) and keyword.
+- Vue attribute(directive) and keyword
 
 - Blocks(both `template/script/style` and custome blocks) can use any syntax, including `less, sass, scss, stylus, coffee, typescript, pug, ...`
 
-    Relative syntax plugins need to be installed if not provided by vim.
+    Relative syntax plugins need to be installed if not provided by vim
 
-- A built-in `foldexpr` foldmethod.
+- A built-in `foldexpr` foldmethod
 
-- [emmet-vim][10] HTML/JavaScript/CSS/... filetype detection.
+- [emmet-vim][10] HTML/JavaScript/CSS/... filetype detection
 
-- `.wpy` files from [WePY][6].
+- `.wpy` files from [WePY][6]
 
-see [Configuration](#configuration) for details. 
+see [Configuration](#configuration) for details
 
 ## Configuration
 
-Now we use `g:vim_vue_plugin_config` as the only configuration variable.
+`g:vim_vue_plugin_config` is the only configuration variable
 
 - type: `dict`
 - default:
 
+    You could copy the default value as a starting point
     ```vim
-    let default = { 
+    let g:vim_vue_plugin_config = { 
           \'syntax': {
           \   'script': ['javascript'],
           \   'template': ['html'],
@@ -93,27 +94,27 @@ Now we use `g:vim_vue_plugin_config` as the only configuration variable.
 - `syntax`*dict* A dictionary with the following key-value pairs
 
     - `key`*string*: a block's tag name
-    - `value`*list*: a list of syntax name for the block.
+    - `value`*list*: a list of syntax name for the block
 
         - First, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
-        - The first item of `value` will be used as default syntax when no `lang="..."` appears on the block tag. `value` can be string if only one.
-        - Both Vue blocks and custom blocks are supported. 
+        - Syntax is decided by `lang="..."` on the block tag
+        - When no `lang="..."` appears on the block tag, the first item of `value` will be used as default. `value` can be string if only one
 
 - `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
 
-- `attribute`*0/1*: highlight Vue attribute as expression instead of string
+- `attribute`: highlight Vue attribute as expression instead of string
 
-- `keyword`*0/1*: highlight Vue keyword such as `data`, `methods`, ...
+- `keyword`: highlight Vue keyword such as `data`, `methods`, ...
 
-- `foldexpr`*0/1*: enable built-in `foldexpr` foldmethod
+- `foldexpr`: enable built-in `foldexpr` foldmethod
 
-- `init_indent`*0/1*: enable initial one tab indent inside `script/style` tags
+- `init_indent`: enable initial one tab indent inside `script/style` tags
 
-- `debug`*0/1*: echo debug messages in `messages` list
+- `debug`: echo debug messages in `messages` list
 
-> For `0/1` value, set `0` to enable or `1` to disable
+> For boolean option, set `0` to enable or `1` to disable
 >
-> Please check `:h dict`, `:h list` for details about the complex data types.
+> Please check `:h dict` `:h list` for details about the complex data types
 
 ### Example
 One possible usage
