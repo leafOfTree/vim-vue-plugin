@@ -8,10 +8,18 @@
 
 Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1].
 
+## Upgrade to the latest version
+
+If you've installed `vim-vue-plugin` before, it's recommended to upgrade to the latest version. After upgrade, You will have to configure in a new way as described at [Configuration](#configuration).
+
+What's new
+
+- Clean code and configuration
+- Improved performance
+
 ## Installation
 
 <details>
-
 <summary><a>How to install</a></summary>
 
 - [VundleVim][2]
@@ -35,27 +43,78 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 <br />
 </details>
 
-This plugin works if it has set `filetype` to `vue`. Please stay up to date. Feel free to open an issue or pull request.
+This plugin is effective if it has set `filetype` to `vue`. Please stay up to date. Feel free to open an issue or pull request.
 
 ## How it works
 
-Since `.vue` is a combination of CSS, HTML and JavaScript, so is `vim-vue-plugin`. (Like XML and JavaScript for `.jsx`).
+`vim-vue-plugin` will try to load multiple syntax and indent files for `.vue` and enable them to work together.
 
 Supports
 
-- Vue attribute(directive) and keyword.^
-- Less/Sass/Scss, Pug with [vim-pug][4], Coffee with [vim-coffee-script][11], TypeScript with [typescript-vim][14] or [yats.vim][15], Stylus with [vim-stylus][16]. ^
+- Vue attribute(directive) and keyword.
 
-    Relative plugins need to be installed.
+- Blocks(both `template/script/style` and custome blocks) can use any syntax, including `less, sass, scss, stylus, coffee, typescript, pug, ...`
 
-- A builtin `foldexpr` foldmethod.^
-- [emmet-vim][10] HTML/CSS/JavaScript filetype detection.
+    Relative syntax plugins need to be installed if not provided by vim.
+
+- A builtin `foldexpr` foldmethod.
+
+- [emmet-vim][10] HTML/JavaScript/CSS/... filetype detection.
+
 - `.wpy` files from [WePY][6].
 
-^: see Configuration for details. 
+see [Configuration](#configuration) for details. 
 
 ## Configuration
 
+Now we use `g:vim_vue_plugin_config` as the only configuration variable.
+
+- type: `dict`
+- default:
+
+    ```vim
+    let default = { 
+          \'syntax': {
+          \   'script': ['javascript'],
+          \   'template': ['html'],
+          \   'style': ['css'],
+          \},
+          \'full_syntax': [],
+          \'attribute': 0,
+          \'keyword': 0,
+          \'foldexpr': 0,
+          \'init_indent': 0,
+          \'debug': 0,
+          \}
+    ```
+
+### Description
+
+- `syntax`*dict* A dictionary with the following key-value pairs
+
+    - `key`*string*: a block's tagname
+    - `value`*list*: a list of syntax name for the block.
+
+        - First, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
+        - The first item of `value` will be used as default syntax when no `lang="..."` appears on the block tag. 'value' can be a string if only one.
+        - Both Vue blocks and custom blocks are supported. 
+
+- `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
+
+- `attribute`*0/1*: highlight Vue attribute as expression instead of string
+
+- `keyword`*0/1*: highlight Vue keyword such as `data`, `methods`, ...
+
+- `foldexpr`*0/1*: enable builtin `foldexpr` foldmethod
+
+- `debug`*0/1*: echo debug messages in `messages` list
+
+> For `0/1` value, set `0` to enable or `1` to disable
+>
+> Please check `:h dict`, `:h list` for details about the complex data types.
+
+<details>
+<summary>Documentation archive - 3/25/2021</summary>
 Set global variable to `1` to enable or `0` to disable. Ex:
 
 ```vim
@@ -119,6 +178,7 @@ ja:
   hello: "こんにちは、世界！"
 </i18n>
 ```
+</details>
 
 ## Context based behavior
 
