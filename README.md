@@ -116,13 +116,14 @@ Now we use `g:vim_vue_plugin_config` as the only configuration variable.
 > Please check `:h dict`, `:h list` for details about the complex data types.
 
 ### Example
+One possible usage
 
 ```vim
 let g:vim_vue_plugin_config = { 
       \'syntax': {
       \   'template': ['html', 'pug'],
       \   'script': ['javascript', 'typescript', 'coffee'],
-      \   'style': ['css', 'scss'],
+      \   'style': ['scss'],
       \   'i18n': ['json', 'yaml'],
       \   'route': 'json',
       \   'docs': 'markdown',
@@ -225,7 +226,7 @@ This plugin provides functions to get the tag/subtype where the cursor is in.
 
 - `OnChangeVueSubtype(subtype)` An event listener that is called when subtype changes.
 
-    You can also define an event listener function `OnChangeVueSubtype(subtype)` in your `vimrc` to get the subtype and set its local options whenever it changes.
+    You can define it in your `vimrc` to set local options once the subtype changes.
 
     ```vim
     " Example: set local options based on subtype
