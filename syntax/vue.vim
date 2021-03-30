@@ -9,6 +9,8 @@ endif
 " <sfile> is replaced with the file name of the sourced file
 let s:patch_path = expand('<sfile>:p:h').'/patch'
 
+let s:test = exists('g:vim_vue_plugin_test')
+
 function! s:Init()
   """ Configs
   let s:config = vue#GetConfig('config', {})
@@ -165,7 +167,7 @@ function! VimVuePluginSyntaxMain(...)
   call s:HighlightVueTag()
 endfunction
 
-if exists('*timer_start')
+if exists('*timer_start') && !s:test
   call timer_start(1, 'VimVuePluginSyntaxMain')
 else
   call VimVuePluginSyntaxMain()

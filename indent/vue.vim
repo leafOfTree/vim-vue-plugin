@@ -4,6 +4,8 @@
 
 if exists('b:did_indent') | finish |endif
 
+let s:test = exists('g:vim_vue_plugin_test')
+
 function! s:Init()
   """ Configs
   let s:config = vue#GetConfig('config', {})
@@ -76,13 +78,14 @@ function! s:GetBlockIndent(syntax)
   return ind
 endfunction
 
-function! s:GetIndentByContext()
+function! s:GetIndentByContext(syntax)
   let ind = -1
   let prevline = getline(s:PrevNonBlankNonComment(v:lnum))
   let curline = getline(v:lnum)
 
   " 0 for blocks except template as it can be nested
-  if curline =~ s:block_tag && curline !~ s:template_tag
+  if curline =~ s:block_tag && 
+        \ (curline !~ s:template_tag || a:syntax == 'pug')
       let ind = 0
     endif
   endif
@@ -188,9 +191,9 @@ function! s:AdjustHTMLIndent(ind)
 endfunction
 
 function! GetVueIndent()
-  let ind = s:GetIndentByContext()
+  let syntax = vue#GetBlockSyntax(v:lnum)
+  let ind = s:GetIndentByContext(syntax)
   if ind == -1
-    let syntax = vue#GetBlockSyntax(v:lnum)
     let ind = s:GetBlockIndent(syntax)
     let ind = s:AdjustBlockIndent(syntax, ind)
     call vue#LogWithLnum('syntax '.syntax.', ind '.ind)
@@ -210,7 +213,7 @@ function! VimVuePluginIndentMain(...)
   call s:SetVueIndent()
 endfunction
 
-if exists('*timer_start')
+if exists('*timer_start') && !s:test
   call timer_start(50, 'VimVuePluginIndentMain')
 else
   call VimVuePluginIndentMain()
