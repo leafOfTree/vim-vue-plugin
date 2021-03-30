@@ -10,7 +10,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 ## Upgrade to the latest version
 
-For those who installed `vim-vue-plugin` before 3/29/2021, it's recommended to upgrade to the latest version. After upgrade, You will need to configure in a new way as described at [Configuration](#configuration)
+If you installed `vim-vue-plugin` before 3/29/2021, it's recommended to upgrade to the latest version. After upgrade, You will need to configure in a new way as described at [Configuration](#configuration)
 
 What's New
 
@@ -117,7 +117,6 @@ For boolean options, set `0` to enable or `1` to disable
 > Please check `:h dict` and `:h list` for details about the complex data types
 
 ### Example
-One possible usage
 
 ```vim
 let g:vim_vue_plugin_config = { 
