@@ -81,14 +81,14 @@ function! s:GetIndentByContext()
   let prevline = getline(s:PrevNonBlankNonComment(v:lnum))
   let curline = getline(v:lnum)
 
-  if curline =~ s:block_tag
-    let ind = 0
-  endif
-
-  if prevline =~ s:block_tag
-    if prevline !~ s:template_tag
+  " 0 for blocks except template as it can be nested
+  if curline =~ s:block_tag && curline !~ s:template_tag
       let ind = 0
     endif
+  endif
+
+  if prevline =~ s:block_tag && prevline !~ s:template_tag
+      let ind = 0
   endif
 
   return ind

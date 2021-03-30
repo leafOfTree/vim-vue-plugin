@@ -106,7 +106,7 @@ function! s:SetSyntax(block, syntax, lang)
   let syntax_lang_name = s:GetSyntaxLangName(syntax)
   let syntax_lang = lang ? 'lang=["'']'.syntax_lang_name.'["''][^>]*' : ''
   let start = '<'.block.'[^>]*'.syntax_lang.'>'
-  let end = '</'.block.'>'
+  let end = '^\s*</'.block.'>'
   let syntax_group = s:GetGroupNameForHighlight(syntax)
 
   execute 'syntax region '.name.' fold '
