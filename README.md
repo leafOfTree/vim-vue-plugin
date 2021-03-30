@@ -59,7 +59,7 @@ Supports
 
 - A built-in `foldexpr` foldmethod
 
-- [emmet-vim][10] HTML/JavaScript/CSS/... filetype detection
+- [emmet-vim][10] html/javascript/css/... filetype detection
 
 - `.wpy` files from [WePY][6]
 
@@ -74,8 +74,8 @@ This is the **default value**. You could copy it as a starting point
 ```vim
 let g:vim_vue_plugin_config = { 
       \'syntax': {
-      \   'script': ['javascript'],
       \   'template': ['html'],
+      \   'script': ['javascript'],
       \   'style': ['css'],
       \},
       \'full_syntax': [],
