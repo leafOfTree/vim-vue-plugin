@@ -135,7 +135,7 @@ let g:vim_vue_plugin_config = {
       \}
 ```
 
-## Archive
+### Archive
 
 <details>
 <summary>Documentation archive - 3/29/2021</summary>
