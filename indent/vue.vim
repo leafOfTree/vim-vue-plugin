@@ -78,20 +78,23 @@ function! s:GetBlockIndent(syntax)
   return ind
 endfunction
 
-function! s:GetIndentByContext(syntax)
+function! s:GetIndentByContext(tag, syntax)
   let ind = -1
   let prevline = getline(s:PrevNonBlankNonComment(v:lnum))
   let curline = getline(v:lnum)
 
-  " 0 for blocks except template as it can be nested
-  if curline =~ s:block_tag && 
-        \ (curline !~ s:template_tag || a:syntax == 'pug')
+  " When not in <template>, set block tags indent to 0
+  if a:tag != 'template'
+    if curline =~ s:block_tag || prevline =~ s:block_tag
       let ind = 0
     endif
-  endif
-
-  if prevline =~ s:block_tag && prevline !~ s:template_tag
-      let ind = 0
+  else
+    " When 'pug' syntax in <template>, set current line
+    if a:syntax == 'pug'
+      if curline =~ s:block_tag
+        let ind = 0
+      endif
+    endif
   endif
 
   return ind
@@ -191,8 +194,9 @@ function! s:AdjustHTMLIndent(ind)
 endfunction
 
 function! GetVueIndent()
+  let tag = vue#GetBlockTag(v:lnum)
   let syntax = vue#GetBlockSyntax(v:lnum)
-  let ind = s:GetIndentByContext(syntax)
+  let ind = s:GetIndentByContext(tag, syntax)
   if ind == -1
     let ind = s:GetBlockIndent(syntax)
     let ind = s:AdjustBlockIndent(syntax, ind)
@@ -201,7 +205,6 @@ function! GetVueIndent()
     call vue#LogWithLnum('context, ind '.ind)
   endif
 
-  let tag = vue#GetBlockTag(v:lnum)
   let ind = s:CheckInitIndent(tag, ind)
   return ind
 endfunction
