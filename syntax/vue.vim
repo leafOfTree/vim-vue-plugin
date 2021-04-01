@@ -1,6 +1,6 @@
 " Language: Vue
 " Maintainer: leaf <https://github.com/leafOfTree>
-" CREDITS: Inspired by mxw/vim-jsx.
+" Credits: Inspired by mxw/vim-jsx.
 
 if exists('b:current_syntax') && b:current_syntax == 'vue'
   finish
@@ -167,7 +167,7 @@ function! VimVuePluginSyntaxMain(...)
   call s:HighlightVueTag()
 endfunction
 
-if exists('*timer_start') && !s:test
+if exists('*timer_start') && !exists('SessionLoad') && !s:test
   call timer_start(1, 'VimVuePluginSyntaxMain')
 else
   call VimVuePluginSyntaxMain()

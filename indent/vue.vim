@@ -1,6 +1,6 @@
 " Language: Vue
 " Maintainer: leaf <https://github.com/leafOfTree>
-" CREDITS: Inspired by mxw/vim-jsx.
+" Credits: Inspired by mxw/vim-jsx.
 
 if exists('b:did_indent') | finish |endif
 
@@ -216,8 +216,10 @@ function! VimVuePluginIndentMain(...)
   call s:SetVueIndent()
 endfunction
 
-if exists('*timer_start') && !s:test
+if exists('*timer_start') && !exists('SessionLoad') && !s:test
   call timer_start(50, 'VimVuePluginIndentMain')
 else
   call VimVuePluginIndentMain()
 endif
+
+let b:did_indent = 1
