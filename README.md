@@ -38,7 +38,14 @@ What's New
 
 - Or manually, clone this plugin to `path/to/this_plugin`, and add it to `rtp` in vimrc
 
-        set rtp+=path/to/this_plugin
+    ```vim
+    set rtp+=path/to/this_plugin
+
+    " If filetype is not set to 'vue', try
+    filetype off
+    set rtp+=path/to/this_plugin
+    filetype plugin indent on
+    ```
 
 <br />
 </details>
