@@ -24,17 +24,23 @@ What's New
 
 - [VundleVim][2]
 
-        Plugin 'leafOfTree/vim-vue-plugin'
+    ```vim
+    Plugin 'leafOfTree/vim-vue-plugin'
+    ```
 
 - [vim-pathogen][5]
 
-        cd ~/.vim/bundle
-        git clone https://github.com/leafOfTree/vim-vue-plugin --depth 1
+    ```
+    cd ~/.vim/bundle
+    git clone https://github.com/leafOfTree/vim-vue-plugin --depth 1
+    ```
 
 - [vim-plug][7]
 
-        Plug 'leafOfTree/vim-vue-plugin'
-        :PlugInstall
+    ```vim
+    Plug 'leafOfTree/vim-vue-plugin'
+    :PlugInstall
+    ```
 
 - Or manually, clone this plugin to `path/to/this_plugin`, and add it to `rtp` in vimrc
 
