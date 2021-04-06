@@ -3,10 +3,11 @@
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:use_foldexpr = vue#GetConfig("use_foldexpr", 0)
+let s:config = vue#GetConfig('config', {})
+let s:enable_foldexpr = s:config.foldexpr
 "}}}
 
-if !s:use_foldexpr | finish | endif
+if !s:enable_foldexpr | finish | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -25,9 +26,8 @@ setlocal foldexpr=GetVueFold(v:lnum)
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:empty_line = '\v^\s*$'
-let s:block_end = '\v^\s*}|]|\)'
-let s:vue_tag_start = '\v^\s*\<(script|style|template)' 
-let s:vue_tag_end = '\v^\s*\<\/(script|style|template)' 
+let s:vue_tag_start = '\v^\s*\<\w+'
+let s:vue_tag_end = '\v^\s*\<\/\w+'
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -78,6 +78,7 @@ function! GetVueFold(lnum)
   let this_indent = s:IndentLevel(a:lnum)
   let next_indent = s:IndentLevel(s:NextNonBlankLine(a:lnum))
 
+  " Handle <script> block specially
   if GetVueTag(a:lnum) == 'script'
     " Handle closing '}'
     if this_line =~ '\v^\s*},?\s*$'
@@ -96,7 +97,7 @@ function! GetVueFold(lnum)
       return this_indent
     endif
   else
-    " Template or style
+    " Handle other blocks
     return this_indent
   endif
 endfunction
