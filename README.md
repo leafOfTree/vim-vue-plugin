@@ -64,11 +64,12 @@ This plugin is effective if it has set `filetype` to `vue`. Please stay up to da
 
 Supports
 
-- Vue attribute(directive) and keyword
 
-- Blocks(both `template/script/style` and custom blocks) can use any syntax, including `less, sass, scss, stylus, coffee, typescript, pug, ...`
+- Blocks (both `template/script/style` and custom blocks) with any syntax, including `less, sass, scss, stylus, coffee, typescript, pug, ...`
 
     Relative syntax plugins need to be installed if not provided by vim
+
+- Vue attribute and keyword highlight
 
 - A built-in `foldexpr` foldmethod
 
@@ -118,9 +119,9 @@ For boolean options, set `0` to enable or `1` to disable
 
 - `foldexpr`: enable built-in `foldexpr` foldmethod
 
-- `init_indent`: enable initial one tab indent inside `script/style` tags. `0` for `.vue` and `1` for `.wpy` by default
-
 - `debug`: echo debug messages in `messages` list
+
+- `init_indent`: add initial one tab indent inside `script/style` tags. `0` for `.vue` and `1` for `.wpy` by default
 
 > Please check `:h dict` and `:h list` for details about the complex data types
 
