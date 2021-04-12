@@ -72,11 +72,7 @@ Supports
 
 - A built-in `foldexpr` foldmethod
 
-- [emmet-vim][10] html/javascript/css/... filetype detection
-
-- `.wpy` files from [WePY][6]
-
-see [Configuration](#configuration) for details
+- [emmet-vim][10] `html, javascript, css, ...` filetype detection
 
 ## Configuration
 
@@ -95,7 +91,6 @@ let g:vim_vue_plugin_config = {
       \'attribute': 0,
       \'keyword': 0,
       \'foldexpr': 0,
-      \'init_indent': 0,
       \'debug': 0,
       \}
 ```
@@ -123,7 +118,7 @@ For boolean options, set `0` to enable or `1` to disable
 
 - `foldexpr`: enable built-in `foldexpr` foldmethod
 
-- `init_indent`: enable initial one tab indent inside `script/style` tags
+- `init_indent`: enable initial one tab indent inside `script/style` tags. `0` for `.vue` and `1` for `.wpy` by default
 
 - `debug`: echo debug messages in `messages` list
 
@@ -140,6 +135,7 @@ let g:vim_vue_plugin_config = {
       \   'i18n': ['json', 'yaml'],
       \   'route': 'json',
       \   'docs': 'markdown',
+      \   'page-query': 'graphql',
       \},
       \'full_syntax': ['scss', 'html'],
       \'attribute': 1,
