@@ -75,6 +75,8 @@ Supports
 
 - [emmet-vim][10] `html, javascript, css, ...` filetype detection
 
+- Context-based behavior, such as to get current tag or syntax, and set local options like `commentstring`
+
 ## Configuration
 
 `g:vim_vue_plugin_config`*dict* is the only configuration
