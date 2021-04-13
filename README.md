@@ -109,7 +109,7 @@ let g:vim_vue_plugin_config = {
 
         - First, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
         - Syntax is decided by `lang="..."` on the block tag
-        - When no `lang="..."` appears on the block tag, the first item of `value` will be used as default. `value` can be string if only one
+        - When no valid `lang="..."` appears on the block tag, the first item of `value` will be used as default. `value` can be string if only one
 
 - `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
 
