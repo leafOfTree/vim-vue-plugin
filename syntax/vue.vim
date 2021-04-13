@@ -142,7 +142,7 @@ function! s:HighlightVueTag()
 endfunction
 
 function! s:SetSyntaxSync()
-  " syntax sync fromstart
+  syntax sync fromstart
 endfunction
 
 function! s:SetIsKeyword()
