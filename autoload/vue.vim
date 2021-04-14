@@ -196,7 +196,9 @@ endfunction
 function! vue#LoadSyntax(group, syntax)
   let group = a:group
   let syntax = a:syntax
-  if count(s:full_syntax, syntax)
+  let full_syntax_type = type(s:full_syntax)
+  if (full_syntax_type == v:t_list && count(s:full_syntax, syntax))
+        \ || (full_syntax_type == v:t_string && s:full_syntax == syntax)
     call vue#LoadFullSyntax(group, syntax)
   else
     let loaded = vue#LoadDefaultSyntax(group, syntax)
