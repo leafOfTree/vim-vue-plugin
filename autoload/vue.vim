@@ -265,17 +265,25 @@ function! vue#GetSyntaxList(config_syntax)
     endif
   endfor
 
-  " Move basic syntaxes to the end of the list, so we can check
+  call s:ModifySyntaxOrder(syntax_list)
+
+  return syntax_list
+endfunction
+
+function! s:ModifySyntaxOrder(syntax_list)
+  let syntax_list = a:syntax_list
+
+  " Move basic syntax to the end of the list, so we can check
   " if they are already loaded by other syntax.
   " Order matters
-  for syntax in ['html', 'javascript', 'css']
+  let load_last = ['html', 'javascript', 'css']
+  for syntax in load_last
     let idx = index(syntax_list, syntax)
     if idx >= 0
       call remove(syntax_list, idx)
       call add(syntax_list, syntax)
     endif
   endfor
-  return syntax_list
 endfunction
 
 call s:Main()

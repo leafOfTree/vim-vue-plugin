@@ -2,13 +2,15 @@
 " Maintainer: leaf <https://github.com/leafOfTree>
 " Credits: Inspired by mxw/vim-jsx.
 
-if exists('b:current_syntax') && b:current_syntax == 'vue'
-  finish
+if !exists('main_syntax')
+  if exists('b:current_syntax') && b:current_syntax == 'vue'
+    finish
+  endif
+  let main_syntax = 'vue'
 endif
 
 " <sfile> is replaced with the file name of the sourced file
 let s:patch_path = expand('<sfile>:p:h').'/patch'
-
 let s:test = exists('g:vim_vue_plugin_test')
 
 function! s:Init()
@@ -99,15 +101,19 @@ function! s:GetSyntaxLangName(syntax)
   return syntax
 endfunction
 
-function! s:SetSyntax(block, syntax, lang)
+function! s:SetSyntax(block, syntax, has_lang)
   let block = a:block
   let syntax = a:syntax
-  let lang = a:lang
+  let has_lang = a:has_lang
 
   let name = s:GetSynatxName(block, syntax)
-  let syntax_lang_name = s:GetSyntaxLangName(syntax)
-  let syntax_lang = lang ? 'lang=["'']'.syntax_lang_name.'["''][^>]*' : ''
-  let start = '^<'.block.'[^>]*'.syntax_lang.'>'
+  if has_lang
+    let lang_name = s:GetSyntaxLangName(syntax)
+    let lang = 'lang=["'']'.lang_name.'["''][^>]*'
+  else
+    let lang = ''
+  endif
+  let start = '^<'.block.'[^>]*'.lang.'>'
   let end = '^</'.block.'>'
   let syntax_group = s:GetGroupNameForHighlight(syntax)
 
@@ -115,9 +121,14 @@ function! s:SetSyntax(block, syntax, lang)
         \.' start=+'.start.'+'
         \.' end=+'.end.'+'
         \.' keepend contains='.syntax_group.', vueTag'
+
+  execute 'syntax sync match vueSync groupthere '.name.' +'.start.'+'
+  execute 'syntax sync match vueSync groupthere NONE +'.end.'+'
 endfunction
 
 function! s:SetBlockSyntax(config_syntax)
+  syntax sync clear
+
   for [block, syntax] in items(a:config_syntax)
     let type = type(syntax)
     if type == v:t_string
@@ -141,10 +152,6 @@ function! s:HighlightVueTag()
   highlight default link vueTag htmlTag
 endfunction
 
-function! s:SetSyntaxSync()
-  syntax sync fromstart
-endfunction
-
 function! s:SetIsKeyword()
   if has("patch-7.4-1142")
     if has("win32")
@@ -162,7 +169,6 @@ function! VimVuePluginSyntaxMain(...)
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
   call s:LoadSyntaxList(syntax_list)
   call s:SetBlockSyntax(s:config_syntax)
-  " call s:SetSyntaxSync()
   call s:SetIsKeyword()
   call s:HighlightVueTag()
 endfunction
@@ -174,3 +180,6 @@ else
 endif
 
 let b:current_syntax = 'vue'
+if main_syntax == 'vue'
+  unlet main_syntax
+endif
