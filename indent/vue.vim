@@ -14,7 +14,7 @@ function! s:Init()
 
   """ Variables
   let s:indent = {}
-  let s:block_tag = '<\/\?'.join(keys(s:config_syntax), '\|')
+  let s:block_tag = '<\/\?\('.join(keys(s:config_syntax), '\|').'\)'
 
   " To adjust HTML
   let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|'
@@ -38,11 +38,14 @@ endfunction
 
 function! s:GetIndentFile(syntax)
   let syntax = a:syntax
-  " lib/indent/* files are preversed from previous version vim
+  " lib/indent/* files are perferred for better indent result
+  " from previous version Vim
   if syntax == 'html'
     let file = 'lib/indent/xml.vim'
   elseif syntax == 'css'
     let file = 'lib/indent/css.vim'
+  elseif syntax == 'javascript'
+    let file = 'lib/indent/typescript.vim'
   else
     let file = 'indent/'.syntax.'.vim'
   endif
@@ -124,7 +127,7 @@ function! s:AdjustBlockIndent(syntax, ind)
   return ind
 endfunction
 
-function! s:CheckInitIndent(tag, ind)
+function! s:CheckInitIndent(tag, syntax, ind)
   let ind = a:ind
   let curline = getline(v:lnum)
 
@@ -190,6 +193,19 @@ function! s:AdjustHTMLIndent(ind)
       endif
     endif
   endif
+
+  " Indent for multiline array/object in attribute like v-*="[
+  "   ...
+  " ]
+  if prevline =~ '"[[{]\s*$'
+    call vue#LogWithLnum('previous line is an open bracket')
+    let ind = indent(prevlnum) + &sw
+  endif
+  if curline =~ '^\s*[]}][^"]*"\s*$'
+    call vue#LogWithLnum('current line is a closing bracket')
+    let ind = indent(prevlnum) - &sw
+  endif
+
   return ind
 endfunction
 
@@ -199,14 +215,14 @@ function! s:AdjustJavaScriptIndent(ind)
   let prevline = getline(prevlnum)
   let curline = getline(v:lnum)
 
-  " Fix Vim built-in javascript indent
-  if prevline =~ '\w\+(\s*$'
-    call vue#LogWithLnum('previous line is a function call, this line is its first arg')
+  if prevline =~ '^\s*\w.*$' && curline =~ '^\s*\.'
+    call vue#LogWithLnum('current line is the first chain call')
     let ind = indent(prevlnum) + &sw
   endif
-  if curline =~ '^\s*);\?\s*$'
-    call vue#LogWithLnum('this line is the closing parenthesis of the function call')
-    let ind = indent(prevlnum) - &sw
+
+  if prevline =~ ':.*\s=>\s.*,\s*$' && curline !~ '^\s*}\s*$'
+    call vue#LogWithLnum('previous line is arrow function property')
+    let ind = indent(prevlnum)
   endif
   return ind
 endfunction
@@ -223,7 +239,7 @@ function! GetVueIndent()
     call vue#LogWithLnum('context, ind '.ind)
   endif
 
-  let ind = s:CheckInitIndent(tag, ind)
+  let ind = s:CheckInitIndent(tag, syntax, ind)
   return ind
 endfunction
 

@@ -44,6 +44,7 @@ function! s:GetSynatxName(block, syntax)
   let block = a:block
   let syntax = a:syntax
   let name = syntax.toupper(block[0]).block[1:].'Block'
+  let name = substitute(name, '-\(.\)', "\\U\\1", 'g')
   let name = vue#AlterSyntaxForEmmetVim(name, syntax)
   return name
 endfunction
