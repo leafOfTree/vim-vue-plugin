@@ -200,12 +200,13 @@ function! s:AdjustJavaScriptIndent(ind)
   let curline = getline(v:lnum)
 
   " Fix Vim built-in javascript indent
-  if prevline =~? '\w\+(\s*$'
+  if prevline =~ '\w\+(\s*$'
     call vue#LogWithLnum('previous line is a function call, this line is its first arg')
-    let prevind = indent(prevlnum)
-    if ind == prevind
-      let ind = prevind + &sw
-    endif
+    let ind = indent(prevlnum) + &sw
+  endif
+  if curline =~ '^\s*);\?\s*$'
+    call vue#LogWithLnum('this line is the closing parenthesis of the function call')
+    let ind = indent(prevlnum) - &sw
   endif
   return ind
 endfunction
