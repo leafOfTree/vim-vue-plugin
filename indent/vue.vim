@@ -15,10 +15,8 @@ function! s:Init()
   """ Variables
   let s:indent = {}
   let s:block_tag = '<\/\?'.join(keys(s:config_syntax), '\|')
-  " Let <template> handled by HTML
-  let s:template_tag = '\v^\s*\<\/?template'
-  let s:vue_tag_start = '\v^\s*\<(script|style)' 
-  let s:vue_tag_end = '\v^\s*\<\/(script|style)'
+
+  " To adjust HTML
   let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|'
         \.'keygen|link|meta|param|source|track|wbr)'
   let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>' 
@@ -51,7 +49,7 @@ function! s:GetIndentFile(syntax)
   return file
 endfunction
 
-function! s:SetIndentExpr(syntax_list)
+function! s:SetSyntaxIndentExpr(syntax_list)
   let saved_shiftwidth = &shiftwidth
   let saved_formatoptions = &formatoptions
 
@@ -89,7 +87,7 @@ function! s:GetIndentByContext(tag, syntax)
       let ind = 0
     endif
   else
-    " When 'pug' syntax in <template>, set current line
+    " When 'pug' syntax in <template>, set block tags indent to 0
     if a:syntax == 'pug'
       if curline =~ s:block_tag
         let ind = 0
@@ -119,6 +117,8 @@ function! s:AdjustBlockIndent(syntax, ind)
 
   if syntax == 'html'
     let ind = s:AdjustHTMLIndent(ind)
+  elseif syntax == 'javascript'
+    let ind = s:AdjustJavaScriptIndent(ind)
   endif
 
   return ind
@@ -193,6 +193,23 @@ function! s:AdjustHTMLIndent(ind)
   return ind
 endfunction
 
+function! s:AdjustJavaScriptIndent(ind)
+  let ind = a:ind
+  let prevlnum = prevnonblank(v:lnum - 1)
+  let prevline = getline(prevlnum)
+  let curline = getline(v:lnum)
+
+  " Fix Vim built-in javascript indent
+  if prevline =~? '\w\+(\s*$'
+    call vue#LogWithLnum('previous line is a function call, this line is its first arg')
+    let prevind = indent(prevlnum)
+    if ind == prevind
+      let ind = prevind + &sw
+    endif
+  endif
+  return ind
+endfunction
+
 function! GetVueIndent()
   let tag = vue#GetBlockTag(v:lnum)
   let syntax = vue#GetBlockSyntax(v:lnum)
@@ -212,7 +229,7 @@ endfunction
 function! VimVuePluginIndentMain(...)
   call s:Init()
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
-  call s:SetIndentExpr(syntax_list)
+  call s:SetSyntaxIndentExpr(syntax_list)
   call s:SetVueIndent()
 endfunction
 
