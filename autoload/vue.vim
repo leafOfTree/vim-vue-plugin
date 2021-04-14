@@ -253,7 +253,7 @@ function! vue#GetSyntaxList(config_syntax)
       if !count(syntax_list, syntax)
         call add(syntax_list, syntax)
       endif
-    elseif type == v:t_list && len(syntax)
+    elseif type == v:t_list
       for syn in syntax
         if !count(syntax_list, syn)
           call add(syntax_list, syn)
