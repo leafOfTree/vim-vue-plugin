@@ -250,8 +250,9 @@ function! VimVuePluginIndentMain(...)
   call s:SetVueIndent()
 endfunction
 
-if exists('*timer_start') && !exists('SessionLoad') && !s:test
-  call timer_start(50, 'VimVuePluginIndentMain')
+let s:timer = exists('*timer_start') && !exists('SessionLoad') && !s:test
+if s:timer
+  call timer_start(200, 'VimVuePluginIndentMain')
 else
   call VimVuePluginIndentMain()
 endif

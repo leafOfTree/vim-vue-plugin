@@ -174,7 +174,8 @@ function! VimVuePluginSyntaxMain(...)
   call s:HighlightVueTag()
 endfunction
 
-if exists('*timer_start') && !exists('SessionLoad') && !s:test
+let s:timer = exists('*timer_start') && !exists('SessionLoad') && !s:test
+if s:timer
   call timer_start(1, 'VimVuePluginSyntaxMain')
 else
   call VimVuePluginSyntaxMain()
