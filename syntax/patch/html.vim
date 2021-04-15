@@ -64,7 +64,9 @@ syntax match VueKey contained '\vwx[^\=]+'
 syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image)>'
 
 syntax cluster simpleJavascriptExpression
-      \ contains=javaScriptStringS,javaScriptStringD,javaScriptTemplateString,javascriptNumber,javaScriptOperator
+      \ contains=javaScriptStringS,javaScriptStringD
+      \,javaScriptTemplateString,javascriptNumber
+      \,javaScriptOperator,htmlJavaScriptOperator
 
 " JavaScript syntax
 syntax region javaScriptStringS	
@@ -80,9 +82,9 @@ syntax region javaScriptTemplateExpression
       \ contains=@simpleJavascriptExpression
 
 syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' contained
-syntax match javaScriptOperator '[-!|&+<>=%*~^]' contained
-syntax match javaScriptOperator '\v(*)@<!/(/|*)@!' contained
-syntax keyword javaScriptOperator delete instanceof typeof void new in of contained
+syntax match htmlJavaScriptOperator '[-!|&+<>=%*~^]' contained
+syntax match htmlJavaScriptOperator '\v(*)@<!/(/|*)@!' contained
+syntax keyword htmlJavaScriptOperator delete instanceof typeof void new in of contained
 
 highlight default link VueAttr htmlTag
 if s:attribute
@@ -105,6 +107,6 @@ highlight default link javaScriptStringS String
 highlight default link javaScriptStringD String
 highlight default link javaScriptTemplateString String
 highlight default link javaScriptNumber	Constant
-highlight default link javaScriptOperator	Operator
+highlight default link htmlJavaScriptOperator	Operator
 "}}}
 " vim: fdm=marker

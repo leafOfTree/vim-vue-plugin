@@ -60,6 +60,7 @@ let s:msl_exclude_regex = '++'
 
 let s:one_line_scope_regex = '\<\%(if\|else\|for\|while\)\>[^{;]*' . s:line_term
 let s:one_line_scope_exclue_regex = '\<return\>'
+let s:closing_bracket = '[]}],\?\s*$'
 
 " Regex that defines blocks.
 let s:block_regex = '\%([{[]\)\s*\%(|\%([*@]\=\h\w*,\=\s*\)\%(,\s*[*@]\=\h\w*\)*|\)\=' . s:line_term
@@ -124,6 +125,10 @@ endfunction
 function s:GetMSL(lnum, in_one_line_scope)
   " Start on the line we're at and use its indent.
   let msl = a:lnum
+  if s:Match(msl, s:closing_bracket)
+    return msl
+  endif
+
   let lnum = s:PrevNonBlankNonString(a:lnum - 1)
   while lnum > 0
     " If we have a continuation line, or we're in a string, use line as MSL.

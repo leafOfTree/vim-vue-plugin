@@ -19,12 +19,14 @@ function! s:Init()
   " To adjust HTML
   let s:empty_tagname = '(area|base|br|col|embed|hr|input|img|'
         \.'keygen|link|meta|param|source|track|wbr)'
-  let s:empty_tag = '\v\<'.s:empty_tagname.'[^/]*\>' 
-  let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$' 
-  let s:empty_tag_end = '\v^\s*[^\<\>\/]*\/?\>\s*' 
+  let s:empty_tag = '\v\<'.s:empty_tagname.'.*(/)@<!\>'
+  let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^>]*$'
+  let s:empty_tag_end = '\v^\s*[^<>/]*\/?\>\s*'
   let s:tag_start = '\v^\s*\<\w*'   " <
   let s:tag_end = '\v^\s*\/?\>\s*'  " />
   let s:full_tag_end = '\v^\s*\<\/' " </...>
+  let s:ternary_q = '^\s\+?'
+  let s:ternary_e = '^\s\+:.*,\s*$'
 endfunction
 
 function! s:SetVueIndent()
@@ -122,6 +124,8 @@ function! s:AdjustBlockIndent(syntax, ind)
     let ind = s:AdjustHTMLIndent(ind)
   elseif syntax == 'javascript'
     let ind = s:AdjustJavaScriptIndent(ind)
+  elseif syntax == 'css'
+    let ind = s:AdjustCSSIndent(ind)
   endif
 
   return ind
@@ -194,16 +198,36 @@ function! s:AdjustHTMLIndent(ind)
     endif
   endif
 
-  " Indent for multiline array/object in attribute like v-*="[
+  " Multiline array/object in attribute like v-*="[
   "   ...
   " ]
-  if prevline =~ '"[[{]\s*$'
+  if prevline =~ '[[{]\s*$'
     call vue#LogWithLnum('previous line is an open bracket')
     let ind = indent(prevlnum) + &sw
   endif
-  if curline =~ '^\s*[]}][^"]*"\s*$'
+  if curline =~ '^\s*[]}][^"]*"\?\s*$'
     call vue#LogWithLnum('current line is a closing bracket')
     let ind = indent(prevlnum) - &sw
+  endif
+
+  " Multiline ternary 'a ? b : c' in attribute
+  if curline =~ s:ternary_q
+    call vue#LogWithLnum('current line is ?...')
+    let ind = indent(prevlnum) + &sw
+  endif
+  if curline =~ s:ternary_e && prevline =~ s:ternary_q
+    call vue#LogWithLnum('current line is :...')
+    let ind = indent(prevlnum)
+  endif
+  if prevline =~ s:ternary_e
+    call vue#LogWithLnum('prevline line is :...')
+    let ind = indent(prevlnum) - &sw
+  endif
+
+  " Angle bracket in attribute, like v-if="isEnabled('item.<name>')"
+  if prevline =~ '="[^"]*<[^"]*>[^"]*"'
+    call vue#LogWithLnum('prevline line is angle bracket in attribute')
+    let ind = ind - &sw
   endif
 
   return ind
@@ -220,9 +244,30 @@ function! s:AdjustJavaScriptIndent(ind)
     let ind = indent(prevlnum) + &sw
   endif
 
-  if prevline =~ ':.*\s=>\s.*,\s*$' && curline !~ '^\s*}\s*$'
+  if prevline =~ '\s=>\s.*,\s*$' && curline !~ '^\s*[]}])\?,\?\s*$'
     call vue#LogWithLnum('previous line is arrow function property')
     let ind = indent(prevlnum)
+  endif
+  if prevline =~ '\s||\s*$'
+    call vue#LogWithLnum('previous line ends with "||"')
+    let ind = indent(prevlnum) + &sw
+  endif
+  return ind
+endfunction
+
+function! s:AdjustCSSIndent(ind)
+  let ind = a:ind
+  let prevlnum = prevnonblank(v:lnum - 1)
+  let prevline = getline(prevlnum)
+  let curline = getline(v:lnum)
+
+  if prevline =~ ':\s.*,\s*$'
+    call vue#LogWithLnum('previous line is css function')
+    let ind = indent(prevlnum) + &sw
+  endif
+  if curline =~ '^\s*);\?\s*$'
+    call vue#LogWithLnum('curline is closing round bracket')
+    let ind = indent(prevlnum) - &sw
   endif
   return ind
 endfunction
