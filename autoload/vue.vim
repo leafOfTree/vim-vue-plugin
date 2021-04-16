@@ -16,15 +16,15 @@ endfunction
 function! s:MergeDefaultWithUserConfig(user)
   let default = { 
         \'syntax': {
-        \   'script': ['javascript'],
         \   'template': ['html'],
+        \   'script': ['javascript'],
         \   'style': ['css'],
         \},
         \'full_syntax': [],
+        \'initial_indent': [],
         \'attribute': 0,
         \'keyword': 0,
         \'foldexpr': 0,
-        \'initial_indent': [],
         \'debug': 0,
         \}
 
