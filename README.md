@@ -91,6 +91,7 @@ let g:vim_vue_plugin_config = {
       \   'style': ['css'],
       \},
       \'full_syntax': [],
+      \'initial_indent': [],
       \'attribute': 0,
       \'keyword': 0,
       \'foldexpr': 0,
@@ -113,6 +114,8 @@ let g:vim_vue_plugin_config = {
 
 - `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
 
+- `initial_indent`*list*: a list of tag/syntax name with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
+
 For boolean options, set `0` to enable or `1` to disable
 
 - `attribute`: highlight Vue attribute as expression instead of string
@@ -123,9 +126,11 @@ For boolean options, set `0` to enable or `1` to disable
 
 - `debug`: echo debug messages in `messages` list
 
-- `init_indent`: add initial one tab indent inside `script/style` tags. `0` for `.vue` and `1` for `.wpy` by default
-
 > Please check `:h dict` and `:h list` for details about the complex data types
+
+> `typescript` matches `lang="ts"`
+
+> For `.wpy`, `initial_indent` defaults to `['script', 'style']`
 
 ### Example
 
@@ -141,6 +146,7 @@ let g:vim_vue_plugin_config = {
       \   'page-query': 'graphql',
       \},
       \'full_syntax': ['scss', 'html'],
+      \'initial_indent': ['script.javascript', 'style', 'yaml'],
       \'attribute': 1,
       \'keyword': 1,
       \'foldexpr': 1,
