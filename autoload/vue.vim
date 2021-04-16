@@ -7,13 +7,13 @@ function! s:GetConfig(name, default)
   let value =  exists(name) ? eval(name) : a:default
 
   if a:name == 'config'
-    let value = s:MergeDefaultWithConfig(value)
+    let value = s:MergeDefaultWithUserConfig(value)
   endif
 
   return value
 endfunction
 
-function! s:MergeDefaultWithConfig(user)
+function! s:MergeDefaultWithUserConfig(user)
   let default = { 
         \'syntax': {
         \   'script': ['javascript'],
@@ -34,6 +34,16 @@ function! s:MergeDefaultWithConfig(user)
       let default[key] = user[key]
     endif
   endfor
+
+  " For backwards compatibility with 'init_indent'
+  if !has_key(user, 'initial_indent')
+    if has_key(user, 'init_indent')
+          \ ? user.init_indent
+          \ : expand('%:e') == 'wpy'
+      let default.initial_indent = ['script', 'style']
+    endif
+  endif
+
   return default
 endfunction
 

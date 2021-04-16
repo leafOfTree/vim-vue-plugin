@@ -7,13 +7,9 @@ let s:config = vue#GetConfig('config', {})
 let s:keyword = s:config.keyword
 let s:initial_indent = s:config.initial_indent
 
-let s:enable_initial_indent = 0
-for item in s:initial_indent
-  if match(item, 'script') != -1
-    let s:enable_initial_indent = 1
-    break
-  endif
-endfor
+let s:enable_initial_indent = count(s:initial_indent, 'script')
+      \ || count(s:initial_indent, 'javascript')
+      \ || count(s:initial_indent, 'script.javascript')
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
