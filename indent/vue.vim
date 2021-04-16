@@ -10,7 +10,7 @@ function! s:Init()
   """ Configs
   let s:config = vue#GetConfig('config', {})
   let s:config_syntax = s:config.syntax
-  let s:enable_init_indent = s:config.init_indent
+  let s:initial_indent = s:config.initial_indent
 
   """ Variables
   let s:indent = {}
@@ -131,14 +131,15 @@ function! s:AdjustBlockIndent(syntax, ind)
   return ind
 endfunction
 
-function! s:CheckInitIndent(tag, syntax, ind)
+function! s:CheckInitialIndent(tag, syntax, ind)
   let ind = a:ind
-  let curline = getline(v:lnum)
+  let add = 0
 
-  let add = s:enable_init_indent
-        \&& ind == 0
-        \&& count(['style', 'script'], a:tag) == 1 
-        \&& curline !~ s:block_tag
+  if ind == 0 && getline(v:lnum) !~ s:block_tag
+    let add = vue#IncludeOrEqual(s:initial_indent, a:tag.'.'.a:syntax)
+          \ || vue#IncludeOrEqual(s:initial_indent, a:tag)
+          \ || vue#IncludeOrEqual(s:initial_indent, a:syntax)
+  endif
   if add
     call vue#LogWithLnum('add initial indent')
     let ind = &sw
@@ -284,7 +285,7 @@ function! GetVueIndent()
     call vue#LogWithLnum('context, ind '.ind)
   endif
 
-  let ind = s:CheckInitIndent(tag, syntax, ind)
+  let ind = s:CheckInitialIndent(tag, syntax, ind)
   return ind
 endfunction
 

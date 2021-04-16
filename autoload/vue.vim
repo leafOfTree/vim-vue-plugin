@@ -24,7 +24,7 @@ function! s:MergeDefaultWithConfig(user)
         \'attribute': 0,
         \'keyword': 0,
         \'foldexpr': 0,
-        \'init_indent': expand('%:e') == 'wpy',
+        \'initial_indent': [],
         \'debug': 0,
         \}
 
@@ -131,7 +131,9 @@ endfunction
 
 function! s:SyntaxAtEnd(lnum)
   let syns = s:SyntaxListAtEnd(a:lnum)
-  return empty(syns) ? '' : get(syns, 0, '')
+  let syntax_name = empty(syns) ? '' : get(syns, 0, '')
+  let syntax_name = s:RemoveCssPrefix(syntax_name)
+  return syntax_name
 endfunction
 
 function! vue#SyntaxSecondAtEnd(lnum)
@@ -141,7 +143,9 @@ endfunction
 
 function! s:GetBlockTag(lnum)
   let syntax_name = s:SyntaxAtEnd(a:lnum)
-  let tag = tolower(matchstr(syntax_name, '\u\U\+\zeBlock'))
+  let tag = matchstr(syntax_name, '\(\u\U\+\)\+\zeBlock')
+  let tag = substitute(tag, '\U\zs\(\u\)', "-\\1", 'g')
+  let tag = tolower(tag)
   return tag
 endfunction
 
@@ -157,21 +161,22 @@ function! vue#AlterSyntaxForEmmetVim(name, syntax)
 endfunction
 
 " Remove css prefix
-function! s:RemoveCssPrefix(syntax_name, syntax)
-  let syntax = a:syntax
+function! s:RemoveCssPrefix(syntax_name)
+  let syntax_name = a:syntax_name
+  let syntax = matchstr(syntax_name, '^\U\+')
   if syntax == 'css'
-    let next_syntax = tolower(matchstr(a:syntax_name, '^\U\+\zs\u\U\+'))
+    let next_syntax = tolower(matchstr(syntax_name, '^\U\+\zs\u\U\+'))
     if count(s:style_with_css_prefix, next_syntax)
-      let syntax = next_syntax
+      let syntax_name = matchstr(syntax_name, '^\U\+\zs.*')
+      let syntax_name = tolower(syntax_name[0]).syntax_name[1:]
     endif
   endif
-  return syntax
+  return syntax_name
 endfunction
 
 function! s:GetBlockSyntax(lnum)
   let syntax_name = s:SyntaxAtEnd(a:lnum)
   let syntax = matchstr(syntax_name, '^\U\+')
-  let syntax = s:RemoveCssPrefix(syntax_name, syntax)
   return syntax
 endfunction
 
@@ -196,9 +201,7 @@ endfunction
 function! vue#LoadSyntax(group, syntax)
   let group = a:group
   let syntax = a:syntax
-  let full_syntax_type = type(s:full_syntax)
-  if (full_syntax_type == v:t_list && count(s:full_syntax, syntax))
-        \ || (full_syntax_type == v:t_string && s:full_syntax == syntax)
+  if s:IncludeOrEqual(s:full_syntax, syntax)
     call vue#LoadFullSyntax(group, syntax)
   else
     let loaded = vue#LoadDefaultSyntax(group, syntax)
@@ -270,6 +273,18 @@ function! vue#GetSyntaxList(config_syntax)
   call s:ModifySyntaxOrder(syntax_list)
 
   return syntax_list
+endfunction
+
+function! s:IncludeOrEqual(listOrString, item)
+  let listOrString = a:listOrString
+  let item = a:item
+  let type = type(listOrString)
+  return (type == v:t_list && count(listOrString, item))
+        \ || (type == v:t_string && listOrString == item)
+endfunction
+
+function! vue#IncludeOrEqual(listOrString, item)
+  return s:IncludeOrEqual(a:listOrString, a:item)
 endfunction
 
 function! s:ModifySyntaxOrder(syntax_list)

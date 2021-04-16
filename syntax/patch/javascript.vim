@@ -5,7 +5,15 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:config = vue#GetConfig('config', {})
 let s:keyword = s:config.keyword
-let s:init_indent = s:config.init_indent
+let s:initial_indent = s:config.initial_indent
+
+let s:enable_initial_indent = 0
+for item in s:initial_indent
+  if match(item, 'script') != -1
+    let s:enable_initial_indent = 1
+    break
+  endif
+endfor
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -23,7 +31,7 @@ if !s:keyword | finish | endif
 
 let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed setup beforeUnmount unmounted errorCaptured renderTracked renderTriggered'
 
-let s:indent = &sw * (1 + s:init_indent)
+let s:indent = &sw * (1 + s:enable_initial_indent)
 let s:keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
       \.join(split(s:vue_keywords, ' '), '|')
       \.')\ze'
