@@ -224,7 +224,7 @@ ja:
 
 ## Context-based behavior
 
-As there are more than one language in `.vue` file, different mapping, completion and local options may be required under different tags or subtypes(current language type)
+As there are more than one language in `.vue` file, different mapping, completion and local options may be required under different tags or subtypes (current language filetype/syntax)
 
 This plugin provides functions to get the tag/subtype where the cursor is in
 
@@ -264,7 +264,7 @@ This plugin provides functions to get the tag/subtype where the cursor is in
 
 ### emmet-vim
 
-Currently emmet-vim works regarding your HTML/CSS/JavaScript emmet settings, but it depends on how emmet-vim gets `filetype` and may change in the future. Feel free to report an issue if any problem appears
+Currently emmet-vim works regarding your `html, javascript, css, ...` emmet settings, but it depends on how emmet-vim gets `filetype` and may change in the future. Feel free to report an issue if any problem appears
 
 ## Avoid overload
 
