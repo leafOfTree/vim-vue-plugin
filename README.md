@@ -131,12 +131,14 @@ For boolean options, set `1` to enable or `0` to disable
 
 ### Example
 
+Only for demo. Try to set syntax as little as possible for performance
+
 ```vim
 let g:vim_vue_plugin_config = { 
       \'syntax': {
       \   'template': ['html', 'pug'],
       \   'script': ['javascript', 'typescript', 'coffee'],
-      \   'style': ['scss'],
+      \   'style': ['scss', 'sass', 'less', 'stylus'],
       \   'i18n': ['json', 'yaml'],
       \   'route': 'json',
       \   'docs': 'markdown',
@@ -263,6 +265,8 @@ This plugin provides functions to get the tag/subtype where the cursor is in
 
 Currently emmet-vim works regarding your `html, javascript, css, ...` emmet settings, but it depends on how emmet-vim gets `filetype` and may change in the future. Feel free to report an issue if any problem appears
 
+For `sass` using emmet-vim, please check out [this issue][17]
+
 ## Avoid overload
 
 Since there are many sub-languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as loading condition if you'd like to manually find and modify the syntax files causing overload
@@ -284,7 +288,6 @@ For example, the built-in syntax `sass.vim` and `less.vim` in vim8.1 runtime and
 +   runtime! syntax/html.vim
 + endif
 ```
-
 
 ## Acknowledgments & Refs
 
@@ -318,3 +321,4 @@ This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files a
 [14]: https://github.com/leafgarland/typescript-vim
 [15]: https://github.com/HerringtonDarkholme/yats.vim
 [16]: https://github.com/iloginow/vim-stylus
+[17]: https://github.com/leafOfTree/vim-vue-plugin/issues/23#issuecomment-628306633
