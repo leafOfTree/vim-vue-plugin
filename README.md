@@ -10,7 +10,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 ## Upgrade to the latest version
 
-If you installed `vim-vue-plugin` before 3/29/2021, it's recommended to upgrade to the latest version. After upgrade, You will need to configure in a new way as described at [Configuration](#configuration)
+If you installed `vim-vue-plugin` before 3/29/2021, it's recommended to upgrade to the latest version. After upgrade, you will need to configure in a new way as described at [Configuration](#configuration)
 
 What's New
 
@@ -116,7 +116,7 @@ let g:vim_vue_plugin_config = {
 
 - `initial_indent`*list*: a list of tag/syntax name with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
 
-For boolean options, set `0` to enable or `1` to disable
+For boolean options, set `1` to enable or `0` to disable
 
 - `attribute`: highlight Vue attribute as expression instead of string
 
@@ -126,9 +126,9 @@ For boolean options, set `0` to enable or `1` to disable
 
 - `debug`: echo debug messages in `messages` list
 
-> Please check `:h dict` and `:h list` for details about the complex data types
-
 > `typescript` matches `lang="ts"`
+
+> Please check `:h dict` and `:h list` for details about the complex data types
 
 > For `.wpy`, `initial_indent` defaults to `['script', 'style']`
 
@@ -224,11 +224,11 @@ ja:
 
 ## Context-based behavior
 
-As there are more than one language in `.vue` file, different mapping, completion and local options may be required under different tags or subtypes(current language type).
+As there are more than one language in `.vue` file, different mapping, completion and local options may be required under different tags or subtypes(current language type)
 
-This plugin provides functions to get the tag/subtype where the cursor is in.
+This plugin provides functions to get the tag/subtype where the cursor is in
 
-- `GetVueTag() => String` Return value is one of `'template', 'script', 'style'`.
+- `GetVueTag() => String` Return value is one of `'template', 'script', 'style'`
 
     ```vim
     " Example
@@ -240,11 +240,11 @@ This plugin provides functions to get the tag/subtype where the cursor is in.
     endfunction
     ```
 
-- `GetVueSubtype() => String` Return value is one of `'html', 'javascript', 'css', 'scss', ...`.
+- `GetVueSubtype() => String` Return value is one of `'html', 'javascript', 'css', 'scss', ...`
 
-- `OnChangeVueSubtype(subtype)` An event listener that is called when subtype changes.
+- `OnChangeVueSubtype(subtype)` An event listener that is called when subtype changes
 
-    You can define it in your `vimrc` to set local options once the subtype changes.
+    You can define it in your `vimrc` to set local options once the subtype changes
 
     ```vim
     " Example: set local options based on subtype
@@ -264,11 +264,11 @@ This plugin provides functions to get the tag/subtype where the cursor is in.
 
 ### emmet-vim
 
-Currently emmet-vim works regarding your HTML/CSS/JavaScript emmet settings, but it depends on how emmet-vim gets `filetype` and may change in the future. Feel free to report an issue if any problem appears.
+Currently emmet-vim works regarding your HTML/CSS/JavaScript emmet settings, but it depends on how emmet-vim gets `filetype` and may change in the future. Feel free to report an issue if any problem appears
 
 ## Avoid overload
 
-Since there are many sub-languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as loading condition if you'd like to manually find and modify the syntax files causing overload.
+Since there are many sub-languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as loading condition if you'd like to manually find and modify the syntax files causing overload
 
 For example, the built-in syntax `sass.vim` and `less.vim` in vim8.1 runtime and `pug.vim` in vim-pug/syntax always load `css.vim` which this plugin already loads. It can be optimized like
 
@@ -299,11 +299,11 @@ For example, the built-in syntax `sass.vim` and `less.vim` in vim8.1 runtime and
 
 - [vim-svelte-plugin][9] 
 
-    [Svelte][13] is a compilation web framework that shares a similar syntax to Vue.
+    [Svelte][13] is a compilation web framework that shares a similar syntax to Vue
 
 ## License
 
-This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files are extracted from vim runtime.
+This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files are extracted from vim runtime
 
 [1]: https://github.com/mxw/vim-jsx "mxw: vim-jsx"
 [2]: https://github.com/VundleVim/Vundle.vim
