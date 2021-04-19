@@ -56,20 +56,17 @@ What's New
 <br />
 </details>
 
-This plugin is effective if it has set `filetype` to `vue`. Please stay up to date. Feel free to open an issue or pull request
+The filetype will be set to `vue`. Feel free to open an issue or pull request if any questions
 
 ## How it works
 
 `vim-vue-plugin` will try to load multiple syntax and indent files for `.vue` and enable them to work together
 
-Supports
-
-
-- Blocks (both `template/script/style` and custom blocks) with any syntax, including `less, sass, scss, stylus, coffee, typescript, pug, ...`
+- Blocks (both `template/script/style` and custom blocks) with any syntax, including `pug, typescript, coffee, scss, sass, less, stylus, ...`
 
     Relative syntax plugins need to be installed if not provided by vim
 
-- Vue attribute and keyword highlight
+- Attribute and keyword highlight
 
 - A built-in `foldexpr` foldmethod
 
@@ -81,7 +78,7 @@ Supports
 
 `g:vim_vue_plugin_config`*dict* is the only configuration
 
-This is the **default value**. You could copy it as a starting point
+This is its **default value**. You could copy it as a starting point
 
 ```vim
 let g:vim_vue_plugin_config = { 
