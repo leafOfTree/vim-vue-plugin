@@ -68,11 +68,11 @@ The filetype will be set to `vue`. Feel free to open an issue or pull request if
 
 - Attribute and keyword highlight
 
-- A built-in `foldexpr` foldmethod
-
 - [emmet-vim][10] `html, javascript, css, ...` filetype detection
 
 - Context-based behavior, such as to get current tag or syntax, and set local options like `commentstring`
+
+- A built-in `foldexpr` foldmethod
 
 ## Configuration
 
@@ -115,17 +115,17 @@ let g:vim_vue_plugin_config = {
 
 For boolean options, set `1` to enable or `0` to disable
 
-- `attribute`: highlight Vue attribute as expression instead of string
+- `attribute`: highlight attribute as expression instead of string
 
-- `keyword`: highlight Vue keyword such as `data`, `methods`, ...
+- `keyword`: highlight keyword such as `data`, `methods`, ...
 
 - `foldexpr`: enable built-in `foldexpr` foldmethod
 
 - `debug`: echo debug messages in `messages` list
 
-> `typescript` matches `lang="ts"`
-
 > Please check `:h dict` and `:h list` for details about the complex data types
+
+> `typescript` matches `lang="ts"`
 
 > For `.wpy`, `initial_indent` defaults to `['script', 'style']`
 
