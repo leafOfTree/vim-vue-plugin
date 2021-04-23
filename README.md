@@ -223,9 +223,9 @@ ja:
 
 ## Context-based behavior
 
-As there are more than one language in `.vue` file, different mapping, completion and local options may be required under different tags or subtypes (current language filetype/syntax)
+As there are more than one language in `.vue` file, different mapping, completion and local options may be required under different tags or syntax (current language filetype)
 
-This plugin provides functions to get the tag/subtype where the cursor is in
+This plugin provides functions to get the tag/syntax where the cursor is in
 
 - `GetVueTag() => String` Return value is one of `'template', 'script', 'style'`
 
@@ -239,20 +239,20 @@ This plugin provides functions to get the tag/subtype where the cursor is in
     endfunction
     ```
 
-- `GetVueSubtype() => String` Return value is one of `'html', 'javascript', 'css', 'scss', ...`
+- `GetVueSyntax() => String` Return value is one of `'html', 'javascript', 'css', 'scss', ...`
 
-- `OnChangeVueSubtype(subtype)` An event listener that is called when subtype changes
+- `OnChangeVueSyntax(syntax)` An event listener that is called when syntax changes
 
-    You can define it in your `vimrc` to set local options once the subtype changes
+    You can define it in your `vimrc` to set local options based on current syntax
 
     ```vim
-    " Example: set local options based on subtype
-    function! OnChangeVueSubtype(subtype)
-      echom 'Subtype is '.a:subtype
-      if a:subtype == 'html'
+    " Example: set local options based on syntax
+    function! OnChangeVueSyntax(syntax)
+      echom 'Syntax is '.a:syntax
+      if a:syntax == 'html'
         setlocal commentstring=<!--%s-->
         setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
-      elseif a:subtype =~ 'css'
+      elseif a:syntax =~ 'css'
         setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
       else
         setlocal commentstring=//%s
@@ -260,6 +260,8 @@ This plugin provides functions to get the tag/subtype where the cursor is in
       endif
     endfunction
     ```
+
+> It has been renamed to `GetVueSyntax, OnChangeVueSyntax` from `GetVueSubtype, OnChangeVueSubtype` for consistency
 
 ### emmet-vim
 

@@ -115,20 +115,26 @@ function! vue#GetConfig(name, default)
   return s:GetConfig(a:name, a:default)
 endfunction
 
-if exists('##CursorMoved') && exists('*OnChangeVueSubtype')
+if exists('##CursorMoved') && (exists('*OnChangeVueSyntax') || exists('*OnChangeVueSubtype'))
   augroup vim_vue_plugin
     autocmd!
     autocmd CursorMoved,CursorMovedI,WinEnter *.vue,*.wpy
-          \ call s:CheckSubtype()
+          \ call s:CheckSyntax()
   augroup END
 
-  let s:subtype = ''
-  function! s:CheckSubtype()
-    let subtype = GetVueSubtype()
+  if exists('*OnChangeVueSyntax')
+    let s:OnChangeListener = function('OnChangeVueSyntax')
+  else
+    let s:OnChangeListener = function('OnChangeVueSubtype')
+  endif
 
-    if s:subtype != subtype
-      call OnChangeVueSubtype(subtype)
-      let s:subtype = subtype
+  let s:syntax = ''
+  function! s:CheckSyntax()
+    let syntax = GetVueSyntax()
+
+    if s:syntax != syntax
+      call s:OnChangeListener(syntax)
+      let s:syntax = syntax
     endif
   endfunction
 endif
@@ -199,6 +205,11 @@ function! vue#GetBlockSyntax(lnum)
 endfunction
 
 function! GetVueSubtype()
+  let syntax = vue#GetBlockSyntax(line('.'))
+  return syntax
+endfunction
+
+function! GetVueSyntax()
   let syntax = vue#GetBlockSyntax(line('.'))
   return syntax
 endfunction
