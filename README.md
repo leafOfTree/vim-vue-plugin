@@ -124,9 +124,9 @@ For boolean options, set `1` to enable or `0` to disable
 - `debug`: echo debug messages in `messages` list
 
 > Please check `:h dict` and `:h list` for details about the complex data types
-
+>
 > `typescript` matches `lang="ts"`
-
+>
 > For `.wpy`, `initial_indent` defaults to `['script', 'style']`
 
 ### Example
