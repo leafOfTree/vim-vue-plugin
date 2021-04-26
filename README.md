@@ -19,6 +19,8 @@ What's New
 
 ## Installation
 
+You could install it just like other plugins. The filetype will be set to `vue`. Feel free to open an issue or pull request if any questions
+
 <details>
 <summary><a>How to install</a></summary>
 
@@ -52,11 +54,8 @@ What's New
     set rtp+=path/to/this_plugin
     filetype plugin indent on
     ```
-
 <br />
 </details>
-
-The filetype will be set to `vue`. Feel free to open an issue or pull request if any questions
 
 ## How it works
 
@@ -64,7 +63,7 @@ The filetype will be set to `vue`. Feel free to open an issue or pull request if
 
 - Blocks (both `template/script/style` and custom blocks) with any syntax, including `pug, typescript, coffee, scss, sass, less, stylus, ...`
 
-    Relative syntax plugins need to be installed if not provided by vim
+    Sntax plugins need to be installed if not provided by vim
 
 - Attribute and keyword highlight
 
@@ -80,7 +79,7 @@ The filetype will be set to `vue`. Feel free to open an issue or pull request if
 
 This is its **default value**. You could copy it as a starting point
 
-```vim
+```
 let g:vim_vue_plugin_config = { 
       \'syntax': {
       \   'template': ['html'],
@@ -123,17 +122,11 @@ For boolean options, set `1` to enable or `0` to disable
 
 - `debug`: echo debug messages in `messages` list
 
-> Please check `:h dict` and `:h list` for details about the complex data types
->
-> `typescript` matches `lang="ts"`
->
-> For `.wpy`, `initial_indent` defaults to `['script', 'style']`
-
 ### Example
 
 Only for demo. Try to set syntax as little as possible for performance
 
-```vim
+```
 let g:vim_vue_plugin_config = { 
       \'syntax': {
       \   'template': ['html', 'pug'],
@@ -151,6 +144,14 @@ let g:vim_vue_plugin_config = {
       \'foldexpr': 1,
       \}
 ```
+
+Note
+
+- `typescript` matches `lang="ts"`
+
+- For `.wpy`, `initial_indent` defaults to `['script', 'style']`
+
+- You could check `:h dict` and `:h list` for details about the complex data types
 
 ### Archive
 
