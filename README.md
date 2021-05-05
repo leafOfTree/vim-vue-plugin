@@ -59,25 +59,22 @@ You could install it just like other plugins. The filetype will be set to `vue`.
 
 ## How it works
 
-`vim-vue-plugin` will try to load multiple syntax and indent files for `.vue` and enable them to work together
+It loads multiple syntax and indent files for `.vue` and enables them to work together
 
 - Blocks (both `template/script/style` and custom blocks) with any syntax, including `pug, typescript, coffee, scss, sass, less, stylus, ...`
 
-    Sntax plugins need to be installed if not provided by vim
+    Syntax plugins need to be installed if not provided by vim
 
 - Attribute and keyword highlight
-
 - [emmet-vim][10] `html, javascript, css, ...` filetype detection
-
 - Context-based behavior, such as to get current tag or syntax, and set local options like `commentstring`
-
 - A built-in `foldexpr` foldmethod
 
 ## Configuration
 
 `g:vim_vue_plugin_config`*dict* is the only configuration
 
-This is its **default value**. You could copy it as a starting point
+This is **default value**. You could copy it as a starting point
 
 ```
 let g:vim_vue_plugin_config = { 
@@ -109,17 +106,13 @@ let g:vim_vue_plugin_config = {
         - When no valid `lang="..."` appears on the block tag, the first item of `value` will be used as default. `value` can be string if only one
 
 - `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
-
 - `initial_indent`*list*: a list of tag/syntax name with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
 
 For boolean options, set `1` to enable or `0` to disable
 
 - `attribute`: highlight attribute as expression instead of string
-
 - `keyword`: highlight keyword such as `data`, `methods`, ...
-
 - `foldexpr`: enable built-in `foldexpr` foldmethod
-
 - `debug`: echo debug messages in `messages` list
 
 ### Example
@@ -148,9 +141,7 @@ let g:vim_vue_plugin_config = {
 Note
 
 - `typescript` matches `lang="ts"`
-
 - For `.wpy`, `initial_indent` defaults to `['script', 'style']`
-
 - You could check `:h dict` and `:h list` for details about the complex data types
 
 ### Archive
