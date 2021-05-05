@@ -8,9 +8,9 @@
 
 Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1]
 
-## Upgrade to the latest version
+## Upgrade
 
-If you installed `vim-vue-plugin` before 3/29/2021, it's recommended to upgrade to the latest version. After upgrade, you will need to configure in a new way as described at [Configuration](#configuration)
+If you installed `vim-vue-plugin` before `3/29/2021`, it's recommended to upgrade to the latest version. After upgrade, you will need to configure in a new way as described at [Configuration](#configuration)
 
 What's New
 
