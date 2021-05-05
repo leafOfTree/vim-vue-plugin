@@ -61,9 +61,7 @@ You could install it just like other plugins. The filetype will be set to `vue`.
 
 It loads multiple syntax and indent files for `.vue` and enables them to work together
 
-- Blocks (both `template/script/style` and custom blocks) with any syntax, including `pug, typescript, coffee, scss, sass, less, stylus, ...`
-
-    Syntax plugins need to be installed if not provided by vim
+- Blocks (both `template/script/style` and custom blocks) with any syntax, including `pug, typescript, coffee, scss, sass, less, stylus, ...`. Syntax plugins need to be installed if not provided by vim
 - Attribute and keyword highlight
 - [emmet-vim][10] `html, javascript, css, ...` filetype detection
 - Context-based behavior, such as to get current tag or syntax, and set local options like `commentstring`
