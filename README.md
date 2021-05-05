@@ -91,12 +91,12 @@ let g:vim_vue_plugin_config = {
 
 ### Description
 
-`g:vim_vue_plugin_config` has following options
+It has following options
 
-- `syntax`*dict* A dictionary with following key-value pairs
+- `syntax`*dict*
     - `key`*string*: a block's tag name
     - `value`*list*: a list of syntax name for the block
-        - First, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
+        - Only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
         - Syntax is decided by `lang="..."` on the block tag
         - When no valid `lang="..."` appears on the block tag, the first item of `value` will be used as default. `value` can be string if only one
 - `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
@@ -104,10 +104,10 @@ let g:vim_vue_plugin_config = {
 
 For boolean options, set `1` to enable or `0` to disable
 
-- `attribute`: highlight attribute as expression instead of string
-- `keyword`: highlight keyword such as `data`, `methods`, ...
-- `foldexpr`: enable built-in `foldexpr` foldmethod
-- `debug`: echo debug messages in `messages` list
+- `attribute`*boolean*: highlight attribute as expression instead of string
+- `keyword`*boolean*: highlight keyword such as `data`, `methods`, ...
+- `foldexpr`*boolean*: enable built-in `foldexpr` foldmethod
+- `debug`*boolean*: echo debug messages in `messages` list
 
 ### Example
 
