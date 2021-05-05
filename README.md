@@ -64,7 +64,6 @@ It loads multiple syntax and indent files for `.vue` and enables them to work to
 - Blocks (both `template/script/style` and custom blocks) with any syntax, including `pug, typescript, coffee, scss, sass, less, stylus, ...`
 
     Syntax plugins need to be installed if not provided by vim
-
 - Attribute and keyword highlight
 - [emmet-vim][10] `html, javascript, css, ...` filetype detection
 - Context-based behavior, such as to get current tag or syntax, and set local options like `commentstring`
@@ -97,14 +96,11 @@ let g:vim_vue_plugin_config = {
 `g:vim_vue_plugin_config` has following options
 
 - `syntax`*dict* A dictionary with following key-value pairs
-
     - `key`*string*: a block's tag name
     - `value`*list*: a list of syntax name for the block
-
         - First, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
         - Syntax is decided by `lang="..."` on the block tag
         - When no valid `lang="..."` appears on the block tag, the first item of `value` will be used as default. `value` can be string if only one
-
 - `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
 - `initial_indent`*list*: a list of tag/syntax name with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
 
