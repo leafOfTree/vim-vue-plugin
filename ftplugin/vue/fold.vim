@@ -37,7 +37,7 @@ function! GetVueFold(lnum)
 
     " For <script> block
     if GetVueTag(a:lnum) == 'script'
-      let value = s:GetVueFoldForScript(a:lnum, this_line, this_indent)
+      let value = s:FoldForScript(a:lnum, this_line, this_indent)
     else
       let value = this_indent
     endif
@@ -46,23 +46,23 @@ function! GetVueFold(lnum)
   return value
 endfunction
 
-function! s:GetVueFoldForScript(lnum, this_line, this_indent)
+function! s:FoldForScript(lnum, this_line, this_indent)
   let value = -2
   if a:lnum > 1
     let prev_indent = s:IndentLevel(a:lnum - 1)
   else
     let prev_indent = 0
   endif
-  let next_indent = s:IndentLevel(nextnonblank(a:lnum))
+  let next_indent = s:IndentLevel(nextnonblank(a:lnum + 1))
 
-  if a:this_line =~ '[]})],\?\s*$'
+  if a:this_line =~ '^\s*[]})]\+,\?\s*$'
     " Closing ']})'
     let value = '<'.prev_indent
   elseif a:this_indent < next_indent
     " --this
     " ----next
     let value = '>'.next_indent
-  elseif a:this_indent >= next_indent 
+  else
     " ----this
     " --next
     let value = a:this_indent
