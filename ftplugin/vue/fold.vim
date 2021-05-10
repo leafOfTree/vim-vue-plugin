@@ -4,8 +4,6 @@ let s:enable_foldexpr = s:config.foldexpr
 if !s:enable_foldexpr | finish | endif
 " set debug=msg
 
-setlocal foldenable&
-
 function! VueFoldMain(...)
   if line('$') < 1000
     let s:empty_line = '^\s*$'
