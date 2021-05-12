@@ -73,7 +73,7 @@ It loads multiple syntax and indent files for `.vue` and enables them to work to
 
 This is **default value**. You could copy it as a starting point
 
-```
+```vim
 let g:vim_vue_plugin_config = { 
       \'syntax': {
       \   'template': ['html'],
@@ -113,7 +113,7 @@ For boolean options, set `1` to enable or `0` to disable
 
 Only for demo. Try to set syntax as little as possible for performance
 
-```
+```vim
 let g:vim_vue_plugin_config = { 
       \'syntax': {
       \   'template': ['html', 'pug'],
