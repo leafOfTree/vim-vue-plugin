@@ -2,7 +2,7 @@ dist: focal
 
 language: minimal
   
-before_install: 
+before_install:
   - sudo add-apt-repository ppa:neovim-ppa/stable -y
   - sudo apt-get update
   - sudo apt-get -y install neovim
