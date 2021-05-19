@@ -130,6 +130,13 @@ let g:vim_vue_plugin_config = {
       \'keyword': 1,
       \'foldexpr': 1,
       \}
+
+```
+
+You can still change options as if they are global variables
+
+```vim
+let g:vim_vue_plugin_config.foldexpr = 0
 ```
 
 Note
