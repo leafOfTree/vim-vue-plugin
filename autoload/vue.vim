@@ -7,13 +7,13 @@ function! s:GetConfig(name, default)
   let value =  exists(name) ? eval(name) : a:default
 
   if a:name == 'config'
-    let value = s:MergeDefaultWithUserConfig(value)
+    let value = s:MergeUserConfigIntoDefault(value)
   endif
 
   return value
 endfunction
 
-function! s:MergeDefaultWithUserConfig(user)
+function! s:MergeUserConfigIntoDefault(user)
   let default = { 
         \'syntax': {
         \   'template': ['html'],
