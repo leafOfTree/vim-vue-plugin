@@ -114,8 +114,10 @@ function! s:SetSyntax(block, syntax, has_lang)
   else
     let lang = ''
   endif
+
   let start = '^<'.block.'[^>]*'.lang.'>'
-  let end = '^</'.block.'>'
+  let end_tag = '</'.block.'>'
+  let end = '^'.end_tag
   let syntax_group = s:GetGroupNameForHighlight(syntax)
 
   execute 'syntax region '.name.' fold '
@@ -125,6 +127,12 @@ function! s:SetSyntax(block, syntax, has_lang)
 
   execute 'syntax sync match vueSync groupthere '.name.' +'.start.'+'
   execute 'syntax sync match vueSync groupthere NONE +'.end.'+'
+
+  " Support block like <script src="..."></script>
+  let oneline = start.end_tag
+  execute 'syntax match '.name.' fold '
+        \.'+'.oneline.'+'
+        \.' keepend contains='.syntax_group.', vueTag'
 endfunction
 
 function! s:SetBlockSyntax(config_syntax)
