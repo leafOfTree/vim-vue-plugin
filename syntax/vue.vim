@@ -128,11 +128,11 @@ function! s:SetSyntax(block, syntax, has_lang)
   execute 'syntax sync match vueSync groupthere '.name.' +'.start.'+'
   execute 'syntax sync match vueSync groupthere NONE +'.end.'+'
 
-  " Support block like <script src="..."></script>
-  let oneline = start.end_tag
+  " Support block like <script src="...">...</script>
+  let oneline = start.'.*'.end_tag
   execute 'syntax match '.name.' fold '
-        \.'+'.oneline.'+'
-        \.' keepend contains='.syntax_group.', vueTag'
+        \.' +'.oneline.'+'
+        \.' keepend contains='.syntax_group.', vueTag, vueTagOneline'
 endfunction
 
 function! s:SetBlockSyntax(config_syntax)
@@ -155,10 +155,14 @@ function! s:HighlightVueTag()
   syntax region vueTag fold
         \ start=+^<[^/]+ end=+>+ skip=+></+
         \ contained contains=htmlTagN,htmlString,htmlArg
-  syntax region vueTag 
+  syntax region vueTag
         \ start=+^</+ end=+>+
         \ contained contains=htmlTagN,htmlString,htmlArg
+  syntax region vueTagOneline
+        \ start=+</+ end=+>$+
+        \ contained contains=htmlTagN,htmlString,htmlArg
   highlight default link vueTag htmlTag
+  highlight default link vueTagOneline htmlTag
 endfunction
 
 function! s:SetIsKeyword()
