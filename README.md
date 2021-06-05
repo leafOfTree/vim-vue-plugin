@@ -69,9 +69,7 @@ It loads multiple syntax and indent files for `.vue` and enables them to work to
 
 ## Configuration
 
-`g:vim_vue_plugin_config`*dict* is the only configuration
-
-This is **default value**. You could copy it as a starting point
+`g:vim_vue_plugin_config`*dict* is the only configuration. You could copy **default value** below as a starting point
 
 ```vim
 let g:vim_vue_plugin_config = { 
@@ -94,13 +92,13 @@ let g:vim_vue_plugin_config = {
 It has following options
 
 - `syntax`*dict*
-    - `key`*string*: a block's tag name
-    - `value`*list*: a list of syntax name for the block
-        - Only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
-        - Syntax is decided by `lang="..."` on the block tag
-        - When no valid `lang="..."` appears on the block tag, the first item of `value` will be used as default. `value` can be string if only one
-- `full_syntax`*list*: a list of syntax name whose **full** syntax files are always loaded
-- `initial_indent`*list*: a list of tag/syntax name with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
+    - `key`*string*: block's tag name
+    - `value`*list*: syntax for block
+        - Syntax is decided by `lang="..."` on block tag
+        - When no valid `lang="..."` appears on block tag, the first item of `value` will be used as default.
+        - By default, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
+- `full_syntax`*list*: syntax whose **full** syntax files are always loaded
+- `initial_indent`*list*: tag/syntax with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
 
 For boolean options, set `1` to enable or `0` to disable
 
