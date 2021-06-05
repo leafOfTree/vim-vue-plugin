@@ -142,6 +142,7 @@ Note
 - `typescript` matches `lang="ts"`
 - For `.wpy`, `initial_indent` defaults to `['script', 'style']`
 - You could check `:h dict` and `:h list` for details about the complex data types
+- `list` options can be `string` if only one
 
 ### Archive
 
