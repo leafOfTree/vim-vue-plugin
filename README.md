@@ -116,19 +116,17 @@ let g:vim_vue_plugin_config = {
       \'syntax': {
       \   'template': ['html', 'pug'],
       \   'script': ['javascript', 'typescript', 'coffee'],
-      \   'style': ['scss', 'sass', 'less', 'stylus'],
+      \   'style': ['css', 'scss', 'sass', 'less', 'stylus'],
       \   'i18n': ['json', 'yaml'],
       \   'route': 'json',
-      \   'docs': 'markdown',
-      \   'page-query': 'graphql',
       \},
-      \'full_syntax': ['scss', 'html'],
-      \'initial_indent': ['script.javascript', 'style', 'yaml'],
+      \'full_syntax': ['json'],
+      \'initial_indent': ['i18n', 'i18n.json', 'yaml'],
       \'attribute': 1,
       \'keyword': 1,
       \'foldexpr': 1,
+      \'debug': 0,
       \}
-
 ```
 
 You can still change options as if they are global variables
