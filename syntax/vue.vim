@@ -179,9 +179,9 @@ endfunction
 
 function! VimVuePluginSyntaxMain(...)
   call s:Init()
+  call s:SetBlockSyntax(s:config_syntax)
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
   call s:LoadSyntaxList(syntax_list)
-  call s:SetBlockSyntax(s:config_syntax)
   call s:SetIsKeyword()
   call s:HighlightVueTag()
 endfunction

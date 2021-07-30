@@ -244,7 +244,7 @@ function! vue#LoadDefaultSyntax(group, syntax)
     endif
   endfor
   if loaded
-    call vue#Log(a:syntax.': laod default')
+    call vue#Log(a:syntax.': load default')
   else
     call vue#Warn(a:syntax.': syntax not found in '.string(syntax_paths))
     call vue#Warn(a:syntax.': load full instead')

@@ -86,17 +86,22 @@ function! s:GetIndentByContext(tag, syntax)
   let prevline = getline(s:PrevNonBlankNonComment(v:lnum))
   let curline = getline(v:lnum)
 
-  " When not in <template>, set block tags indent to 0
-  if a:tag != 'template'
-    if curline =~ s:block_tag || prevline =~ s:block_tag
+  if a:tag == 'view'
+    " Support 'view' tag from mini-program
+    if curline =~ s:block_tag && empty(prevline)
       let ind = 0
     endif
-  else
+  elseif a:tag == 'template'
     " When 'pug' syntax in <template>, set block tags indent to 0
     if a:syntax == 'pug'
       if curline =~ s:block_tag
         let ind = 0
       endif
+    endif
+  else
+    " When not in <template>, set block tags indent to 0
+    if curline =~ s:block_tag || prevline =~ s:block_tag
+      let ind = 0
     endif
   endif
 
