@@ -60,8 +60,9 @@ syntax match VueAttr '\v(\S)@<!wx[^\=]+(\=\"[^"]*\")?'
       \ containedin=htmlTag  
       \ contains=VueKey,VueQuote
 
+" Mini program syntax
 syntax match VueKey contained '\vwx[^\=]+'
-syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image)>'
+syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image|checkbox|radio)>'
 
 syntax cluster simpleJavascriptExpression
       \ contains=javaScriptStringS,javaScriptStringD
