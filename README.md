@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-icon.svg" width="60" height="60" alt="icon" align="left"/>
+
 # vim-vue-plugin [![Build Status][12]](https://travis-ci.com/leafOfTree/vim-vue-plugin)
 
 <p align="center">
@@ -5,6 +7,7 @@
 <img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="220" />
 </a>
 </p>
+
 
 Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1]
 
