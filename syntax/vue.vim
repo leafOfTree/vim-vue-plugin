@@ -176,7 +176,10 @@ endfunction
 
 function! s:HighlightVueStyle()
   syntax keyword cssPseudoClassId contained deep slotted global
-  syntax region cssFunction contained matchgroup=cssFunctionName start="\<\(v-bind\)\s*(" end=")" contains=cssCustomProp,cssValue.*,cssFunction,cssColor,cssStringQ,cssStringQQ oneline
+  syntax region cssFunction contained matchgroup=cssFunctionName
+        \ start="\<\(v-bind\)\s*(" end=")"
+        \ contains=cssCustomProp,cssValue.*,cssFunction,cssColor,cssStringQ,cssStringQQ
+        \ oneline
 endfunction
 
 function! s:SetIsKeyword()
