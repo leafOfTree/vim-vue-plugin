@@ -155,6 +155,11 @@ function! s:SetBlockSyntax(config_syntax)
   endfor
 endfunction
 
+function! s:HighlightVue()
+  call s:HighlightVueTag()
+  call s:HighlightVueStyle()
+endfunction
+
 function! s:HighlightVueTag()
   syntax region vueTag fold
         \ start=+^<[^/]+ end=+>+ skip=+></+
@@ -167,6 +172,11 @@ function! s:HighlightVueTag()
         \ contained contains=htmlTagN,htmlString,htmlArg
   highlight default link vueTag htmlTag
   highlight default link vueTagOneline htmlTag
+endfunction
+
+function! s:HighlightVueStyle()
+  syntax keyword cssPseudoClassId contained deep slotted global
+  syntax region cssFunction contained matchgroup=cssFunctionName start="\<\(v-bind\)\s*(" end=")" contains=cssCustomProp,cssValue.*,cssFunction,cssColor,cssStringQ,cssStringQQ oneline
 endfunction
 
 function! s:SetIsKeyword()
@@ -187,7 +197,7 @@ function! VimVuePluginSyntaxMain(...)
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
   call s:LoadSyntaxList(syntax_list)
   call s:SetIsKeyword()
-  call s:HighlightVueTag()
+  call s:HighlightVue()
 endfunction
 
 let s:timer = exists('*timer_start') && !exists('SessionLoad') && !s:test
