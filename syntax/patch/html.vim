@@ -45,6 +45,9 @@ syntax region VueExpression
       \ transparent
       \ start="{{"
       \ end="}}"
+
+" Just to avoid error when using pattern in containedin
+syntax match htmlTemplateBlock /htmlTemplateBlock/
 syntax region VueExpression 
       \ containedin=VueValue,htmlString,htmlValue,.*TemplateBlock,html.*Block
       \ contains=@simpleJavascriptExpression
