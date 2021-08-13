@@ -2,8 +2,12 @@
 " Maintainer: leaf <https://github.com/leafOfTree>
 " Credits: Inspired by mxw/vim-jsx.
 
-if exists('b:current_syntax') && b:current_syntax == 'vue'
-  finish
+if !exists('g:main_syntax')
+  if exists('b:current_syntax') && b:current_syntax == 'vue'
+    finish
+  endif
+  " Prevent 'syntax sync' from being cleared
+  let g:main_syntax = 'vue'
 endif
 
 " <sfile> is replaced with the file name of the sourced file
@@ -201,9 +205,13 @@ function! s:SetExtraSyntax()
   call s:SetCurrentSyntax()
 endfunction
 
-function! s:ClearTimerVariable()
+function! s:PostSetting()
   if exists('s:main_timer')
     unlet s:main_timer
+  endif
+
+  if exists('g:main_syntax') && g:main_syntax == 'vue'
+    unlet g:main_syntax
   endif
 endfunction
 
@@ -213,7 +221,7 @@ function! VimVuePluginSyntaxMain(...)
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
   call s:LoadSyntaxList(syntax_list)
   call s:SetExtraSyntax()
-  call s:ClearTimerVariable()
+  call s:PostSetting()
 endfunction
 
 " Entry
