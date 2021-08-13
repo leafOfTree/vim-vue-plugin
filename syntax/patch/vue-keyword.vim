@@ -18,6 +18,8 @@ function! s:GetMatchOption()
   if useJavaScriptPlugin
     let containedin = 'jsObject,jsFuncBlock,@jsExpression' 
   else
+    " Just to avoid error from the containedin pattern
+    syntax match javascriptScriptBlock /javascriptScriptBlock/
     let containedin = '.*ScriptBlock'
   endif
   let containedin .= ',typescriptIdentifierName'
