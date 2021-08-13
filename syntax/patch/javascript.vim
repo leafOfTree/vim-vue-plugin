@@ -68,7 +68,8 @@ let s:basic_reactive = 'reactive readonly isProxy isReactive isReadonly toRaw ma
 let s:refs = 'ref unref toRef toRefs isRef customRef shallowRef triggerRef'
 let s:computed_and_watch = 'computed watchEffect watchPostEffect watchSyncEffect watch'
 let s:composition = 'setup onBeforeMount onMounted onBeforeUpdate onUpdated onBeforeUnmount onUnmounted onErrorCaptured onRenderTracked onRenderTriggered onActivated onDeactivated getCurrentInstance InjectionKey provide inject'
-let s:vue3_keywords = s:basic_reactive.' '.s:refs.' '.s:computed_and_watch.' '.s:composition
+let s:global = 'createApp h defineComponent defineAsyncComponent defineCustomElement resolveComponent resolveDynamicComponent resolveDirective withDirectives createRenderer nextTick mergeProps useCssModule'
+let s:vue3_keywords = join([s:basic_reactive, s:refs, s:computed_and_watch, s:composition, s:global], ' ')
 
 let s:vue3_keywords_regexp = '\v<('
       \.join(split(s:vue3_keywords, ' '), '|')
