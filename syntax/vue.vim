@@ -2,11 +2,8 @@
 " Maintainer: leaf <https://github.com/leafOfTree>
 " Credits: Inspired by mxw/vim-jsx.
 
-if !exists('main_syntax')
-  if exists('b:current_syntax') && b:current_syntax == 'vue'
-    finish
-  endif
-  let main_syntax = 'vue'
+if exists('b:current_syntax') && b:current_syntax == 'vue'
+  finish
 endif
 
 " <sfile> is replaced with the file name of the sourced file
@@ -194,23 +191,39 @@ function! s:SetIsKeyword()
   endif
 endfunction
 
+function! s:SetCurrentSyntax()
+  let b:current_syntax = 'vue'
+endfunction
+
+function! s:SetExtraSyntax()
+  call s:SetIsKeyword()
+  call s:HighlightVue()
+  call s:SetCurrentSyntax()
+endfunction
+
+function! s:ClearTimerVariable()
+  if exists('s:main_timer')
+    unlet s:main_timer
+  endif
+endfunction
+
 function! VimVuePluginSyntaxMain(...)
   call s:Init()
   call s:SetBlockSyntax(s:config_syntax)
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
   call s:LoadSyntaxList(syntax_list)
-  call s:SetIsKeyword()
-  call s:HighlightVue()
+  call s:SetExtraSyntax()
+  call s:ClearTimerVariable()
 endfunction
 
+" Entry
 let s:timer = exists('*timer_start') && !exists('SessionLoad') && !s:test
 if s:timer
-  call timer_start(1, 'VimVuePluginSyntaxMain')
+  if !exists('s:main_timer')
+    let s:main_timer = timer_start(1, 'VimVuePluginSyntaxMain')
+  endif
 else
   call VimVuePluginSyntaxMain()
 endif
 
-let b:current_syntax = 'vue'
-if main_syntax == 'vue'
-  unlet main_syntax
-endif
+call s:SetCurrentSyntax()
