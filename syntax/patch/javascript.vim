@@ -22,10 +22,10 @@ syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>'
       \ containedin=@javascript display
 highlight link javaScriptNumber Constant
 
-" Vue keywords
+" Check if Vue keywords syntax are enabled
 if !s:keyword | finish | endif
 
-let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed setup beforeUnmount unmounted errorCaptured renderTracked renderTriggered'
+let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed beforeUnmount unmounted errorCaptured renderTracked renderTriggered'
 
 let s:indent = &sw * (1 + s:enable_initial_indent)
 let s:keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
@@ -63,10 +63,13 @@ execute 'syntax match vueObjectFuncKey display /'
       \.s:match_option
       \.' nextgroup=jsFuncArgs'
 
-let s:vue3_keywords = 'ref reactive toRefs watch computed'.
-      \' onBeforeMount onMounted onBeforeUpdate onUpdated onBeforeUnmount'.
-      \' onUnmounted onErrorCaptured onRenderTracked onRenderTriggered'.
-      \' getCurrentInstance'
+" https://v3.vuejs.org/api/
+let s:basic_reactive = 'reactive readonly isProxy isReactive isReadonly toRaw markRaw shallowReactive shallowReadonly'
+let s:refs = 'ref unref toRef toRefs isRef customRef shallowRef triggerRef'
+let s:computed_and_watch = 'computed watchEffect watchPostEffect watchSyncEffect watch'
+let s:composition = 'setup onBeforeMount onMounted onBeforeUpdate onUpdated onBeforeUnmount onUnmounted onErrorCaptured onRenderTracked onRenderTriggered onActivated onDeactivated getCurrentInstance InjectionKey provide inject'
+let s:vue3_keywords = s:basic_reactive.' '.s:refs.' '.s:computed_and_watch.' '.s:composition
+
 let s:vue3_keywords_regexp = '\v<('
       \.join(split(s:vue3_keywords, ' '), '|')
       \.')\ze'
