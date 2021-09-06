@@ -8,17 +8,7 @@
 </a>
 </p>
 
-
 Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][1]
-
-## Upgrade
-
-If you installed `vim-vue-plugin` before `3/29/2021`, it's recommended to upgrade to the latest version. After upgrade, you will need to configure in a new way as described at [Configuration](#configuration)
-
-What's New
-
-- Clean code and configuration
-- Improved performance
 
 ## Installation
 
@@ -144,75 +134,6 @@ Note
 - `list` options can be `string` if only one
 - For `.wpy`, `initial_indent` defaults to `['script', 'style']`
 - You could check `:h dict` and `:h list` for details about the complex data types
-
-### Archive
-
-<details>
-<summary>Documentation archive - 3/29/2021</summary>
-Set global variable to `1` to enable or `0` to disable. Ex:
-
-```vim
-let g:vim_vue_plugin_load_full_syntax = 1
-```
-
-| variable                              | description                                                                                            | default                    |
-|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| `g:vim_vue_plugin_load_full_syntax`\* | Enable: load all syntax files in `runtimepath` to enable related syntax plugins.<br> Disable: only in `$VIMRUNTIME/syntax`, `~/.vim/syntax` and `$VIM/vimfiles/syntax`. | 0 |
-| `g:vim_vue_plugin_use_pug`\*          | Enable pug syntax for `<template lang="pug">`.                                                         | 0 |
-| `g:vim_vue_plugin_use_coffee`         | Enable coffee syntax for `<script lang="coffee">`.                                                     | 0 |
-| `g:vim_vue_plugin_use_typescript`     | Enable typescript syntax for `<script lang="ts">`.                                                     | 0 |
-| `g:vim_vue_plugin_use_less`           | Enable less syntax for `<style lang="less">`.                                                          | 0 |
-| `g:vim_vue_plugin_use_sass`           | Enable sass syntax for `<style lang="scss\|sass">`.                               | 0 |
-| `g:vim_vue_plugin_use_scss`           | Enable scss syntax for `<style lang="scss">`.                               | 0 |
-| `g:vim_vue_plugin_use_stylus`         | Enable stylus syntax for `<style lang="stylus">`.                                                      | 0 |
-| `g:vim_vue_plugin_has_init_indent`    | Initially indent one tab inside `style/script` tags.                                                   | 0+ |
-| `g:vim_vue_plugin_highlight_vue_attr` | Highlight vue attribute value as expression instead of string.                                         | 0 |
-| `g:vim_vue_plugin_highlight_vue_keyword` | Highlight vue keyword like `data`, `methods`, ...                       | 0 |
-| `g:vim_vue_plugin_use_foldexpr`\#     | Enable built-in `foldexpr` foldmethod.                                                                  | 0 |
-| `g:vim_vue_plugin_custom_blocks`      | Highlight custom blocks. See details below.                                                            | {} |
-| `g:vim_vue_plugin_debug`              | Echo debug messages in `messages` list. Useful to debug if unexpected indents occur.                   | 0 |
-
-\*: Vim may be slow if the feature is enabled. Find a balance between syntax highlight and speed. By the way, custom syntax can be added in `~/.vim/syntax` or `$VIM/vimfiles/syntax`. 
-
-\#: In the case when it's enabled, the `foldexpr` is not efficient for large files, so it's not enabled initially when the line number exceeds `1000`. You can enable it manually by `setlocal foldmethod=expr` when required.
-
-\+: 0 for `.vue` and 1 for `.wpy`
-
-**Note**
-
-- `g:vim_vue_plugin_load_full_syntax` applies to other `HTML/Sass/Less` plugins.
-- `filetype` is set to `vue` so autocmds and other settings for `javascript` have to be manually enabled for `vue`.
-
-## Custom blocks
-
-You can enable highlighting in a custom block by setting `g:vim_vue_plugin_custom_blocks`. 
-
-The structure is `{ block: filetype }` or `{ block: filetype[] }`. When providing a filetype list, you need to add `lang="..."` in the tag. Otherwise, the first one will be used.
-
-### Example
-
-```vim
-let g:vim_vue_plugin_custom_blocks = { 
-      \'docs': 'markdown',
-      \'i18n': ['json', 'yaml', 'json5'],
-      \}
-```
-
-Should highlight custom blocks in `.vue` such as
-
-```vue
-<docs>
-# This is the documentation for component.
-</docs>
-
-<i18n lang="yaml">
-en:
-  hello: "Hello World!"
-ja:
-  hello: "こんにちは、世界！"
-</i18n>
-```
-</details>
 
 ## Context-based behavior
 
