@@ -22,7 +22,7 @@ What's New
 
 ## Installation
 
-You could install it just like other plugins. The filetype will be set to `vue`. Feel free to open an issue or pull request if any questions
+You could install it just like other plugins. The filetype will be set to `vue`. Feel free to open an issue or a pull request if any questions
 
 <details>
 <summary><a>How to install</a></summary>
@@ -92,7 +92,7 @@ let g:vim_vue_plugin_config = {
 
 ### Description
 
-It has following options
+It has the following options
 
 - `syntax`*dict*
     - `key`*string*: block's tag name
@@ -216,7 +216,7 @@ ja:
 
 ## Context-based behavior
 
-As there are more than one language in `.vue` file, different mapping, completion and local options may be required under different tags or syntax (current language filetype)
+There are more than one language in `.vue` file. Different mappings, completions, and local options may be required under different tags or syntax (current language filetype)
 
 This plugin provides functions to get the tag/syntax where the cursor is in
 
@@ -264,7 +264,7 @@ For `sass` using emmet-vim, please check out [this issue][17]
 
 ## Avoid overload
 
-Since there are many sub-languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as loading condition if you'd like to manually find and modify the syntax files causing overload
+Since there are many sub-languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as a loading condition if you'd like to manually find and modify the syntax files causing overload
 
 For example, the built-in syntax `sass.vim` and `less.vim` in vim8.1 runtime and `pug.vim` in vim-pug/syntax always load `css.vim` which this plugin already loads. It can be optimized like
 
