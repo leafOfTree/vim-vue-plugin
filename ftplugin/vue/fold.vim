@@ -73,7 +73,7 @@ endfunction
 
 function! s:FoldForSpecialLine(this_line)
   if a:this_line =~ s:empty_line
-    return -1
+    return '='
   elseif a:this_line =~ s:vue_tag_start
     return '>1'
   elseif a:this_line =~ s:vue_tag_end
