@@ -85,8 +85,8 @@ let g:vim_vue_plugin_config = {
 It has the following options
 
 - `syntax`*dict*
-    - `key`*string*: block's tag name
-    - `value`*list*: block's syntax
+    - `key`*string*: block tag name
+    - `value`*list*: block syntax
         - Syntax is decided by `lang="..."` on block tag
         - When no valid `lang="..."` appears on block tag, the first item of `value` will be used as default.
         - By default, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
