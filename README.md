@@ -84,21 +84,21 @@ let g:vim_vue_plugin_config = {
 
 It has the following options
 
-- `syntax`*dict*
-    - `key`*string*: block tag name
-    - `value`*list*: block syntax
-        - Syntax is decided by `lang="..."` on block tag
-        - When no valid `lang="..."` appears on block tag, the first item of `value` will be used as default.
-        - By default, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files (including those from plugins) will be loaded
-- `full_syntax`*list*: syntax whose **full** syntax files are always loaded
-- `initial_indent`*list*: tag/syntax with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
+- **syntax**
+    - **key**: *string*. Block tag name
+    - **value**: *string list*. Block syntax
+        - `lang="..."` on block tag decides the effective syntax
+        - When no valid `lang="..."` appears on block tag, the first syntax in the list will be used.
+        - By default, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files, including those from plugins, will be loaded
+- **full_syntax**: *string list*. Syntax whose **full** syntax files will always be loaded
+- **initial_indent**: *string list*. Tag/syntax with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
 
-For boolean options, set `1` to enable or `0` to disable
+For *boolean* options below, set `1` to enable or `0` to disable
 
-- `attribute`*boolean*: highlight attribute as expression instead of string
-- `keyword`*boolean*: highlight keyword such as `data`, `methods`, ...
-- `foldexpr`*boolean*: enable built-in `foldexpr` foldmethod
-- `debug`*boolean*: echo debug messages in `messages` list
+- **attribute**: *boolean*. Highlight attribute as expression instead of string
+- **keyword** : *boolean*. Highlight keyword such as `data`, `methods`, ...
+- **foldexpr**: *boolean*. Enable built-in `foldexpr` foldmethod
+- **debug**: *boolean*. Echo debug messages in `messages` list
 
 ### Example
 
