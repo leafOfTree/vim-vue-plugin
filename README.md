@@ -88,7 +88,7 @@ It has the following options
     - **key**: *string*. Block tag name
     - **value**: *string list*. Block syntax
         - `lang="..."` on block tag decides the effective syntax
-        - When no valid `lang="..."` appears on block tag, the first syntax in the list will be used.
+        - When no valid `lang="..."` is present, the first syntax in the list will be used.
         - By default, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files, including those from plugins, will be loaded
 - **full_syntax**: *string list*. Syntax whose **full** syntax files will always be loaded
 - **initial_indent**: *string list*. Tag/syntax with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
