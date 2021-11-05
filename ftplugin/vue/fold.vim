@@ -2,6 +2,8 @@ let s:config = vue#GetConfig('config', {})
 let s:enable_foldexpr = s:config.foldexpr
 
 if !s:enable_foldexpr | finish | endif
+
+" Useful for debugging foldexpr
 " set debug=msg
 
 function! VueFoldMain(...)
@@ -90,10 +92,4 @@ function! s:IndentLevel(lnum)
 endfunction
 "}}}
 
-let s:test = exists('g:vim_vue_plugin_test')
-let s:timer = exists('*timer_start') && !exists('SessionLoad') && !s:test
-if s:timer
-  call timer_start(300, 'VueFoldMain')
-else
-  call VueFoldMain()
-endif
+call VueFoldMain()
