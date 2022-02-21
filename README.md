@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-icon.svg" width="60" height="60" alt="icon" align="left"/>
 
-# vim-vue-plugin [![Build Status][12]](https://app.travis-ci.com/leafOfTree/vim-vue-plugin.svg?branch=master)
+# vim-vue-plugin [![Build Status](https://app.travis-ci.com/leafOfTree/vim-svelte-plugin.svg?branch=master)](https://app.travis-ci.com/leafOfTree/vim-svelte-plugin)
 
 <p align="center">
 <a href="https://github.com/altercation/vim-colors-solarized">
