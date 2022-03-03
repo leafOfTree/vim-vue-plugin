@@ -59,12 +59,12 @@ syntax region VueExpression
 syntax match htmlArg contained "\<\(enter-from-class\|enter-active-class\|enter-to-class\|leave-from-class\|leave-active-class\|leave-to-class\)\>"
 
 " Wepy directive syntax
-syntax match VueAttr '\v(\S)@<!wx[^\=>]+(\=\"[^"]*\")?'
+syntax match VueAttr '\v(\S)@<!wx[^\=>[:blank:]]+(\=\"[^"]*\")?'
       \ containedin=htmlTag  
       \ contains=VueKey,VueQuote
 
 " Mini program syntax
-syntax match VueKey contained '\vwx[^\=>]+'
+syntax match VueKey contained '\vwx[^\=>[:blank:]]+'
 syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image|checkbox|radio)>'
 
 syntax cluster simpleJavascriptExpression
