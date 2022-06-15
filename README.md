@@ -4,7 +4,7 @@
 
 <p align="center">
 <a href="https://github.com/altercation/vim-colors-solarized">
-<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" />
+<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="260" />
 </a>
 </p>
 
@@ -62,7 +62,7 @@ It loads multiple syntax and indent files for `.vue` and enables them to work to
 
 ## Configuration
 
-`g:vim_vue_plugin_config`*dict* is the only configuration. You could copy **default value** below as a starting point
+`g:vim_vue_plugin_config` is the only configuration. You can copy its **default value** below as a starting point
 
 ```vim
 let g:vim_vue_plugin_config = { 
@@ -124,7 +124,7 @@ let g:vim_vue_plugin_config = {
 
 <img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vue-config-example.png" />
 
-You can still change options as if they are global variables.
+You can still change options later as if they are global variables.
 
 ```vim
 let g:vim_vue_plugin_config.foldexpr = 0
