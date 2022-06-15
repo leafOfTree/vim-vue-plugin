@@ -54,8 +54,8 @@ You could install it just like other plugins. The filetype will be set to `vue`.
 
 It loads multiple syntax and indent files for `.vue` and enables them to work together
 
-- Blocks (both `template/script/style` and custom blocks) with any syntax, including `pug, typescript, coffee, scss, sass, less, stylus, ...`. Syntax plugins need to be installed if not provided by vim
-- Attribute and keyword highlight
+- Blocks (both `template/script/style` and custom blocks) with any specified syntax, including `pug, typescript, coffee, scss, sass, less, stylus, ...`. Syntax plugins need to be installed if not provided by Vim
+- Attribute, directive, and keyword highlight
 - [emmet-vim][10] `html, javascript, css, ...` filetype detection
 - Context-based behavior, such as to get current tag or syntax, and set local options like `commentstring`
 - A built-in `foldexpr` foldmethod
@@ -102,7 +102,7 @@ For *boolean* options below, set `1` to enable or `0` to disable
 
 ### Example
 
-Only for demo. Try to set syntax as little as possible for performance
+Only for demo. Try to set syntax as little as possible for performance.
 
 ```vim
 let g:vim_vue_plugin_config = { 
@@ -122,7 +122,9 @@ let g:vim_vue_plugin_config = {
       \}
 ```
 
-You can still change options as if they are global variables
+<img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vue-config-example.png" />
+
+You can still change options as if they are global variables.
 
 ```vim
 let g:vim_vue_plugin_config.foldexpr = 0
@@ -132,6 +134,7 @@ Note
 
 - `typescript` matches `lang="ts"`
 - `list` options can be `string` if only one
+- The first item of syntax list will be used if no "lang=..."
 - For `.wpy`, `initial_indent` defaults to `['script', 'style']`
 - You could check `:h dict` and `:h list` for details about the complex data types
 
