@@ -141,7 +141,14 @@ endif
 
 function! s:SyntaxListAtEnd(lnum)
   let plnum = prevnonblank(a:lnum)
-  let col = strlen(getline(plnum))
+  let pline = getline(plnum)
+
+  " return [] if prevnonblank is an end tag
+  if pline =~ '^<\/'
+    return []
+  endif
+
+  let col = strlen(pline)
   return map(synstack(plnum, col), 'synIDattr(v:val, "name")')
 endfunction
 
