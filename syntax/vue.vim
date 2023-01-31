@@ -226,5 +226,3 @@ if s:timer
 else
   call VimVuePluginSyntaxMain()
 endif
-
-call s:SetCurrentSyntax()
