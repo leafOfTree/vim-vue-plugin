@@ -302,11 +302,6 @@ function! VimVuePluginIndentMain(...)
   call s:SetVueIndent()
 endfunction
 
-let s:timer = exists('*timer_start') && !exists('SessionLoad') && !s:test
-if s:timer
-  call timer_start(200, 'VimVuePluginIndentMain')
-else
-  call VimVuePluginIndentMain()
-endif
+call VimVuePluginIndentMain()
 
 let b:did_indent = 1

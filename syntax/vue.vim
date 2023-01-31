@@ -202,27 +202,13 @@ function! s:SetExtraSyntax()
   call s:SetCurrentSyntax()
 endfunction
 
-function! s:PostSetting()
-  if exists('s:main_timer')
-    unlet s:main_timer
-  endif
-endfunction
-
 function! VimVuePluginSyntaxMain(...)
   call s:Init()
   let syntax_list = vue#GetSyntaxList(s:config_syntax)
   call s:LoadSyntaxList(syntax_list)
   call s:SetBlockSyntax(s:config_syntax)
   call s:SetExtraSyntax()
-  call s:PostSetting()
 endfunction
 
 " Entry
-let s:timer = exists('*timer_start') && !exists('SessionLoad') && !s:test
-if s:timer
-  if !exists('s:main_timer')
-    let s:main_timer = timer_start(1, 'VimVuePluginSyntaxMain')
-  endif
-else
-  call VimVuePluginSyntaxMain()
-endif
+call VimVuePluginSyntaxMain()
