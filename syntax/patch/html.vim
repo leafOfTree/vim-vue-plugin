@@ -67,10 +67,7 @@ syntax match VueAttr '\v(\S)@<!wx[^\=>[:blank:]]+(\=\"[^"]*\")?'
 syntax match VueKey contained '\vwx[^\=>[:blank:]]+'
 syntax match VueCustomTag containedin=htmlTagN '\v<(view|text|block|image|checkbox|radio)>'
 
-syntax cluster simpleJavascriptExpression
-      \ contains=javaScriptStringS,javaScriptStringD
-      \,javaScriptTemplateString,javascriptNumber
-      \,javaScriptOperator,htmlJavaScriptOperator
+syntax cluster simpleJavascriptExpression contains=\CjavaScript.*
 
 " JavaScript syntax
 syntax region javaScriptStringS	
@@ -85,10 +82,6 @@ syntax region javaScriptTemplateExpression
       \ start=+${+ end=+}+ contained
       \ contains=@simpleJavascriptExpression
 
-syntax match javaScriptNumber '\v<-?\d+L?>|0[xX][0-9a-fA-F]+>' contained
-syntax match htmlJavaScriptOperator '[-!|&+<>=%*~^]' contained
-syntax match htmlJavaScriptOperator '\v(*)@<!/(/|*)@!' contained
-syntax keyword htmlJavaScriptOperator delete instanceof typeof void new in of contained
 syntax keyword htmlTagName contained template script style
 
 highlight default link VueAttr htmlTag
