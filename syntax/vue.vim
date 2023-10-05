@@ -75,7 +75,7 @@ endfunction
 function! s:AfterLoadSyntax(syntax)
   let syntax = a:syntax
   call s:LoadPatchSyntax(syntax)
-  call s:LoadStyleAfterSyntax(syntax)
+  call s:LoadAfterSyntax(syntax)
 endfunction
 
 function! s:LoadPatchSyntax(syntax)
@@ -85,11 +85,8 @@ function! s:LoadPatchSyntax(syntax)
   endif
 endfunction
 
-function! s:LoadStyleAfterSyntax(syntax)
-  let syntax = a:syntax
-  if count(['scss', 'sass', 'less', 'stylus'], syntax) == 1
-    execute 'runtime! after/syntax/'.syntax.'.vim'
-  endif
+function! s:LoadAfterSyntax(syntax)
+  execute 'runtime! after/syntax/'.a:syntax.'.vim'
 endfunction
 
 function! s:GetSyntaxLangName(syntax)
