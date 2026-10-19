@@ -208,6 +208,17 @@ For example, the built-in syntax `sass.vim` and `less.vim` in vim8.1 runtime and
 + endif
 ```
 
+## Tests
+
+Run tests with Vim and Neovim, whichever is installed
+
+```sh
+./test/run.sh
+./test/run.sh basic template  # Only these cases
+```
+
+Each case is a `.vue` file in [test/cases](test/cases), with an optional `.vim` file for the config and syntax checks. A case fails if indenting the whole file changes it, a check fails, or there is an error message. Tests also run on GitHub Actions for each push and pull request.
+
 ## Acknowledgments & Refs
 
 - [mxw/vim-jsx][1]
