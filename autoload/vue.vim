@@ -143,8 +143,9 @@ function! s:SyntaxListAtEnd(lnum)
   let plnum = prevnonblank(a:lnum)
   let pline = getline(plnum)
 
-  " return [] if prevnonblank is an end tag
-  if pline =~ '^<\/'
+  " return [] if prevnonblank is an end tag, e.g. for blank lines between
+  " blocks, but not for the end tag line itself
+  if plnum != a:lnum && pline =~ '^<\/'
     return []
   endif
 
