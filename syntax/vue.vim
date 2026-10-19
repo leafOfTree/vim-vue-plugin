@@ -124,7 +124,10 @@ function! s:SetSyntax(block, syntax, has_lang)
         \.' end=+'.end.'+'
         \.' keepend contains='.syntax_group.', vueTag'
 
-  execute 'syntax sync match vueSync groupthere '.name.' +'.start.'+'
+  " Don't sync to a block ending on the same line, like
+  " <style>p { color: red; }</style>
+  let sync_start = start.'\(.*'.end_tag.'\)\@!'
+  execute 'syntax sync match vueSync groupthere '.name.' +'.sync_start.'+'
   execute 'syntax sync match vueSync groupthere NONE +'.end.'+'
 
   " Block like <script src="...">...</script>
