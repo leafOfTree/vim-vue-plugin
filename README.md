@@ -37,14 +37,14 @@ You could install it just like other plugins. The filetype will be set to `vue`.
     :PlugInstall
     ```
 
-- Or manually, clone this plugin to `path/to/this_plugin`, and add it to `rtp` in vimrc
+- Or manually, clone this plugin to `path/to/this_plugin`, and add it to the start of `rtp` in vimrc. Vim 9 and Neovim come with placeholder `vue` syntax and indent files, which are used instead if this plugin is added to the end by `set rtp+=`.
 
     ```vim
-    set rtp+=path/to/this_plugin
+    set rtp^=path/to/this_plugin
 
     " If filetype is not set to 'vue', try
     filetype off
-    set rtp+=path/to/this_plugin
+    set rtp^=path/to/this_plugin
     filetype plugin indent on
     ```
 <br />
