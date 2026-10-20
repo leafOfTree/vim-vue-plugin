@@ -1,0 +1,21 @@
+<template>
+  <view wx:if="{{ show }}" class="greeting">
+    <text>{{ greeting }}</text>
+  </view>
+</template>
+
+<script>
+  export default {
+    data: function () {
+      return {
+        greeting: 'Hello'
+      };
+    },
+  };
+</script>
+
+<style scoped>
+  .greeting {
+    font-size: 2em;
+  }
+</style>

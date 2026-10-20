@@ -16,3 +16,4 @@ function! Check()
   call ExpectNoSyntax('value < 3', 'vue3Keyword')
   call ExpectSyntax('defineExpose', 'vue3Keyword')
 endfunction
+let g:test_flatten = 1

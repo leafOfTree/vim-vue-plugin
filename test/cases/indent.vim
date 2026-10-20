@@ -7,3 +7,4 @@ let g:vim_vue_plugin_config = {
       \},
       \'initial_indent': ['script', 'style', 'codepen-additional'],
       \}
+let g:test_flatten = 1

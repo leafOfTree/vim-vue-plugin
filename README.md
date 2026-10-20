@@ -217,7 +217,14 @@ Run tests with Vim and Neovim, whichever is installed
 ./test/run.sh basic template  # Only these cases
 ```
 
-Each case is a `.vue` file in [test/cases](test/cases), with an optional `.vim` file for the config and syntax checks. A case fails if indenting the whole file changes it, a check fails, or there is an error message. Tests also run on GitHub Actions for each push and pull request.
+Each case is a `.vue` or `.wpy` file in [test/cases](test/cases), with an optional `.vim` file for the config and checks. A case fails if
+
+- indenting the whole file changes it
+- with `g:test_flatten`, indenting the file after removing all indent doesn't restore it
+- a check in `Check()` fails, such as syntax, `GetVueTag()`, `GetVueSyntax()` or fold level
+- there is an error message
+
+Tests also run on GitHub Actions for each push and pull request.
 
 ## Acknowledgments & Refs
 

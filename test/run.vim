@@ -1,9 +1,12 @@
 " Run one test case, see test/run.sh
 "   VUE_TEST_CASE=basic vim -N -u NONE -i NONE -S test/run.vim
 "
-" A case is test/cases/<name>.vue, with optional test/cases/<name>.vim to set
-" g:vim_vue_plugin_config and define Check() for more assertions. It fails if
+" A case is test/cases/<name>.vue (or .wpy), with optional
+" test/cases/<name>.vim to set g:vim_vue_plugin_config and define Check() for
+" more assertions. It fails if
 " - indenting the whole file changes it
+" - with g:test_flatten, indenting the file without any indent doesn't
+"   restore it
 " - Check() calls Fail() or an Expect*() function fails
 " - there are error messages
 "
@@ -13,6 +16,7 @@ set nocompatible
 let s:root = expand('<sfile>:p:h:h')
 let s:name = $VUE_TEST_CASE
 let s:case = s:root.'/test/cases/'.s:name
+let s:file = filereadable(s:case.'.vue') ? s:case.'.vue' : s:case.'.wpy'
 let s:errors = []
 
 " Plugin first, before Vim's placeholder vue syntax and indent files
@@ -60,6 +64,26 @@ function! ExpectFoldlevel(lnum, level)
   endif
 endfunction
 
+function! ExpectEqual(actual, expected, desc)
+  if a:actual !=# a:expected
+    call Fail(printf('%s should be %s, but got %s',
+          \ a:desc, string(a:expected), string(a:actual)))
+  endif
+endfunction
+
+" Search pattern forward from cursor and check the block there by
+" GetVueTag(), GetVueSyntax() and the block syntax group at the line end
+function! ExpectBlock(pattern, tag, syntax, group)
+  if !search('\V'.a:pattern, 'W')
+    return Fail('not found: '.a:pattern)
+  endif
+  let desc = printf('%s at line %d: ', a:pattern, line('.'))
+  call ExpectEqual(GetVueTag(), a:tag, desc.'tag')
+  call ExpectEqual(GetVueSyntax(), a:syntax, desc.'syntax')
+  let group = synIDattr(synstack(line('.'), col('$') - 1)[0], 'name')
+  call ExpectEqual(group, a:group, desc.'block group')
+endfunction
+
 function! ExpectTag(lnum, tag)
   if GetVueTag(a:lnum) !=# a:tag
     call Fail(printf('tag at line %d should be %s, but got %s',
@@ -74,22 +98,34 @@ filetype plugin indent on
 syntax on
 
 messages clear
-execute 'silent edit '.fnameescape(s:case.'.vue')
+execute 'silent edit '.fnameescape(s:file)
 redraw
+
+function! s:ExpectLines(lines, desc)
+  let actual = getline(1, '$')
+  if actual == a:lines
+    return
+  endif
+  let i = 0
+  while i < len(a:lines) && get(actual, i) ==# a:lines[i]
+    let i += 1
+  endwhile
+  call Fail(printf('%s changed line %d: expected %s, but got %s',
+        \ a:desc, i + 1, string(get(a:lines, i, '')), string(get(actual, i, ''))))
+endfunction
 
 " Indent
 let s:lines = getline(1, '$')
 silent normal! gg=G
-let s:indented = getline(1, '$')
-if s:indented != s:lines
-  let s:lnum = 0
-  while s:lnum < len(s:lines) && get(s:indented, s:lnum) ==# s:lines[s:lnum]
-    let s:lnum += 1
-  endwhile
-  call Fail(printf('indent changed at line %d: expected %s, but got %s',
-        \ s:lnum + 1, string(get(s:lines, s:lnum, '')),
-        \ string(get(s:indented, s:lnum, ''))))
-  silent undo
+call s:ExpectLines(s:lines, 'indent')
+silent edit!
+
+" Indent without any indent
+if get(g:, 'test_flatten', 0)
+  silent %s/^\s\+//e
+  silent normal! gg=G
+  call s:ExpectLines(s:lines, 'indent from flat')
+  silent edit!
 endif
 
 " Assertions

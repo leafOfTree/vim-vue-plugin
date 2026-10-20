@@ -14,3 +14,4 @@ function! Check()
   call ExpectSyntax('computed', 'vueObjectKey')
   call ExpectSyntax('mounted', 'vueObjectFuncName')
 endfunction
+let g:test_flatten = 1

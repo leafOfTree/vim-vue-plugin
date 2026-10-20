@@ -13,3 +13,4 @@ function! Check()
     call ExpectFoldlevel(lnum, levels[lnum - 1])
   endfor
 endfunction
+let g:test_flatten = 1

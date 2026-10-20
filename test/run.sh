@@ -17,7 +17,7 @@ done
 if [ $# -gt 0 ]; then
   cases=$*
 else
-  cases=$(ls test/cases/*.vue | sed 's#.*/##; s#\.vue$##')
+  cases=$(ls test/cases/*.vue test/cases/*.wpy 2>/dev/null | sed 's#.*/##; s#\.[a-z]*$##')
 fi
 
 out=$(mktemp)

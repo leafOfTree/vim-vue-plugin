@@ -16,3 +16,4 @@ function! Check()
   call ExpectNoSyntax('/docs', 'markdownDocsBlock')
   call ExpectSyntax('/docs', 'markdownDocsBlock')
 endfunction
+let g:test_flatten = 1

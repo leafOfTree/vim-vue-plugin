@@ -13,3 +13,4 @@ function! Check()
   call ExpectSyntax('global', 'cssPseudoClassId')
   call ExpectSyntax('deep', 'cssPseudoClassId')
 endfunction
+let g:test_flatten = 1

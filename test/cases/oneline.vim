@@ -20,3 +20,4 @@ function! CheckSync()
           \.string(SyntaxList()))
   endif
 endfunction
+let g:test_flatten = 1
