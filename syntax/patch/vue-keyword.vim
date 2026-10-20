@@ -35,7 +35,7 @@ function! s:GetMatchOption()
 endfunction
 
 " Vue keywords as option key
-let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed setup beforeUnmount unmounted errorCaptured renderTracked renderTriggered'
+let s:vue_keywords = 'name parent functional delimiters comments components directives filters extends mixins inheritAttrs model props propsData data computed watch methods template render renderError inject provide beforeCreate created beforeMount mounted beforeUpdate updated activated deactivated beforeDestroy destroyed setup beforeUnmount unmounted errorCaptured renderTracked renderTriggered emits expose slots compilerOptions serverPrefetch'
 
 let s:indent = s:GetIndent()
 let s:keywords_regexp = '\v^\s{'.s:indent.'}(async )?<('
@@ -61,21 +61,26 @@ execute 'syntax match vueObjectFuncKey display /'
       \.s:match_option
       \.' nextgroup=jsFuncArgs'
 
-" Vue3 keywords as API, https://v3.vuejs.org/api/
-let s:basic_reactive = 'reactive readonly isProxy isReactive isReadonly toRaw markRaw shallowReactive shallowReadonly'
-let s:refs = 'ref unref toRef toRefs isRef customRef shallowRef triggerRef'
-let s:computed_and_watch = 'computed watchEffect watchPostEffect watchSyncEffect watch'
-let s:composition = 'setup onBeforeMount onMounted onBeforeUpdate onUpdated onBeforeUnmount onUnmounted onErrorCaptured onRenderTracked onRenderTriggered onActivated onDeactivated getCurrentInstance InjectionKey provide inject'
-let s:global = 'createApp h defineComponent defineAsyncComponent defineCustomElement resolveComponent resolveDynamicComponent resolveDirective withDirectives createRenderer nextTick mergeProps useCssModule'
-let s:vue3_keywords = join([s:basic_reactive, s:refs, s:computed_and_watch, s:composition, s:global], ' ')
+" Vue3 keywords as API, https://vuejs.org/api/
+let s:basic_reactive = 'reactive readonly isProxy isReactive isReadonly isShallow toRaw markRaw shallowReactive shallowReadonly'
+let s:refs = 'ref unref toRef toValue toRefs isRef customRef shallowRef triggerRef'
+let s:computed_and_watch = 'computed watchEffect watchPostEffect watchSyncEffect watch onWatcherCleanup'
+let s:effect_scope = 'effectScope getCurrentScope onScopeDispose'
+let s:composition = 'setup onBeforeMount onMounted onBeforeUpdate onUpdated onBeforeUnmount onUnmounted onErrorCaptured onRenderTracked onRenderTriggered onActivated onDeactivated onServerPrefetch getCurrentInstance InjectionKey provide inject hasInjectionContext'
+let s:helpers = 'useAttrs useSlots useModel useTemplateRef useId useCssModule useHost useShadowRoot useSSRContext'
+" Compiler macros in <script setup>
+let s:script_setup = 'defineProps defineEmits defineModel defineExpose defineOptions defineSlots withDefaults'
+let s:global = 'createApp createSSRApp h defineComponent defineAsyncComponent defineCustomElement resolveComponent resolveDynamicComponent resolveDirective withDirectives withModifiers createRenderer nextTick mergeProps cloneVNode isVNode'
+let s:vue3_keywords = join([s:basic_reactive, s:refs, s:computed_and_watch, s:effect_scope, s:composition, s:helpers, s:script_setup, s:global], ' ')
 
 let s:vue3_keywords_regexp = '\v<('
       \.join(split(s:vue3_keywords, ' '), '|')
       \.')\ze'
 
+" Followed by ( or type arguments like defineProps<{ foo: string }>()
 execute 'syntax match vue3Keyword display /'
       \.s:vue3_keywords_regexp
-      \.'\_s*\(/'
+      \.'(\_s*\(|\<)/'
       \.s:match_option
 
 highlight default link vueObjectKey vueObjectKeyword

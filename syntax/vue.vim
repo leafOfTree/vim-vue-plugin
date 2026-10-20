@@ -124,9 +124,6 @@ function! s:SetSyntax(block, syntax, has_lang)
         \.' end=+'.end.'+'
         \.' keepend contains='.syntax_group.', vueTag'
 
-  execute 'syntax sync match vueSync groupthere '.name.' +'.start.'+'
-  execute 'syntax sync match vueSync groupthere NONE +'.end.'+'
-
   " Block like <script src="...">...</script>
   let oneline = start.'.*'.end_tag
   execute 'syntax match '.name.' fold '
@@ -135,7 +132,10 @@ function! s:SetSyntax(block, syntax, has_lang)
 endfunction
 
 function! s:SetBlockSyntax(config_syntax)
+  " Parse from start, as syncing by block start doesn't restore states inside
+  " the block like a multi-line css rule
   syntax sync clear
+  syntax sync fromstart
 
   for [block, syntax] in items(a:config_syntax)
     let type = type(syntax)
