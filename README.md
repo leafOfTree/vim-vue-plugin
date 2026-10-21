@@ -14,7 +14,7 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 ## Installation
 
-You could install it just like other plugins. The filetype will be set to `vue`. Feel free to open an issue or a pull request if any questions
+You could install it just like other plugins. The filetype will be set to `vue`. It's tested with Vim 8.2+ and Neovim 0.9+. Feel free to open an issue or a pull request if any questions
 
 See `:help vim-vue-plugin` for the documentation in Vim.
 
@@ -69,7 +69,7 @@ It loads multiple syntax and indent files for `.vue` and enables them to work to
 `g:vim_vue_plugin_config` is the only configuration. You can copy its **default value** below as a starting point
 
 ```vim
-let g:vim_vue_plugin_config = { 
+let g:vim_vue_plugin_config = {
       \'syntax': {
       \   'template': ['html'],
       \   'script': ['javascript'],
@@ -110,7 +110,7 @@ For *boolean* options below, set `1` to enable or `0` to disable
 Only for demo. Try to set syntax as little as possible for performance.
 
 ```vim
-let g:vim_vue_plugin_config = { 
+let g:vim_vue_plugin_config = {
       \'syntax': {
       \   'template': ['html', 'pug'],
       \   'script': ['javascript', 'typescript', 'coffee'],
@@ -150,7 +150,7 @@ There are more than one language in `.vue` file. Different mappings, completions
 
 This plugin provides functions to get the tag/syntax where the cursor is in
 
-- `GetVueTag() => String` Return value is one of `'template', 'script', 'style'`
+- `GetVueTag([lnum]) => String` Return value is the block tag like `'template', 'script', 'style'`, or `''`, at line `lnum` or the cursor line
 
     ```vim
     " Example
@@ -196,21 +196,13 @@ For `sass` using emmet-vim, please check out [this issue][17]
 
 Since there are many sub-languages included, most delays come from syntax files overload. A variable named `b:current_loading_main_syntax` is set to `vue` which can be used as a loading condition if you'd like to manually find and modify the syntax files causing overload
 
-For example, the built-in syntax `sass.vim` and `less.vim` in vim8.1 runtime and `pug.vim` in vim-pug/syntax always load `css.vim` which this plugin already loads. It can be optimized like
+For example, the built-in syntax `sass.vim` and `less.vim` in Vim runtime and `pug.vim` in vim-pug/syntax always load `css.vim` which this plugin already loads. It can be optimized like
 
 `$VIMRUNTIME/syntax/sass.vim`
 ```diff
 - runtime! syntax/css.vim
 + if !exists("b:current_loading_main_syntax")
 +   runtime! syntax/css.vim
-+ endif
-```
-
-`$VIMRUNTIME/syntax/vue.vim`
-```diff
--   runtime! syntax/html.vim
-+ if !exists("b:current_loading_main_syntax")
-+   runtime! syntax/html.vim
 + endif
 ```
 
@@ -222,6 +214,7 @@ Run tests with Vim and Neovim, whichever is installed
 ./test/run.sh
 ./test/run.sh basic template  # Only these cases
 VUE_TEST_EDITORS=nvim ./test/run.sh  # Only Neovim
+./test/shared.sh  # Compare shared-* cases with vim-svelte-plugin
 ```
 
 Each case is a `.vue` or `.wpy` file in [test/cases](test/cases), with an optional `.vim` file for the config and checks. A case fails if
