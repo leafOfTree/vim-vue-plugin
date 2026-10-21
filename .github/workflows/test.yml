@@ -26,3 +26,11 @@ jobs:
         run: ./test/run.sh
         env:
           VUE_TEST_EDITORS: ${{ matrix.neovim && 'nvim' || 'vim' }}
+
+  shared:
+    name: shared cases with vim-svelte-plugin
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check shared cases
+        run: ./test/shared.sh

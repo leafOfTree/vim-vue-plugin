@@ -3,3 +3,4 @@ test.vue
 .DS_STORE
 test/deps/
 doc/tags
+test/other/
