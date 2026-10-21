@@ -263,6 +263,10 @@ endfunction
 " Load all syntax files in 'runtimepath'
 " Useful if there is no default syntax file provided by vim
 function! vue#LoadFullSyntax(group, syntax)
+  if empty(globpath(&runtimepath, 'syntax/'.a:syntax.'.vim'))
+    call vue#Warn(a:syntax.': syntax not found in runtimepath')
+    return
+  endif
   call vue#Log(a:syntax.': load full')
   call s:SetCurrentSyntax(a:syntax)
   execute 'syntax include '.a:group.' syntax/'.a:syntax.'.vim'

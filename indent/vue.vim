@@ -75,6 +75,11 @@ function! s:GetBlockIndent(syntax)
   let indentexpr = get(s:indent, syntax) 
   if !empty(indentexpr)
     let ind = eval(indentexpr)
+  elseif has_key(s:indent, syntax)
+    " No indent file for syntax in config, keep indent as cindent may break
+    " languages like pug or toml
+    call vue#LogWithLnum('indentexpr not found for '.syntax.', keep indent')
+    let ind = -1
   else
     call vue#LogWithLnum('indentexpr not found for '.syntax.', use cindent')
     let ind = cindent(v:lnum)
