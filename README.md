@@ -16,6 +16,8 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 You could install it just like other plugins. The filetype will be set to `vue`. Feel free to open an issue or a pull request if any questions
 
+See `:help vim-vue-plugin` for the documentation in Vim.
+
 <details>
 <summary><a>How to install</a></summary>
 
