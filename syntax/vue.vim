@@ -170,6 +170,10 @@ function! s:HighlightVueTag()
 endfunction
 
 function! s:HighlightVueStyle()
+  " Only with css syntax, as contains= below fails without cssValue* groups
+  if !hlexists('cssTagName')
+    return
+  endif
   syntax keyword cssPseudoClassId contained deep slotted global
   syntax region cssFunction contained matchgroup=cssFunctionName
         \ start="\<\(v-bind\)\s*(" end=")"
