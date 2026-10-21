@@ -92,7 +92,7 @@ endfunction
 function! s:GetSyntaxLangName(syntax)
   let syntax = a:syntax
   if syntax == 'typescript'
-    let syntax = 'ts'
+    let syntax = '\(ts\|typescript\)'
   endif
   return syntax
 endfunction
@@ -105,7 +105,8 @@ function! s:SetSyntax(block, syntax, has_lang)
   let name = s:GetSynatxName(block, syntax)
   if has_lang
     let lang_name = s:GetSyntaxLangName(syntax)
-    let lang = 'lang=["'']'.lang_name.'["'']'
+    " In double or single quotes, or without quotes
+    let lang = 'lang=["'']\?'.lang_name.'\>["'']\?'
   else
     let lang = ''
   endif
