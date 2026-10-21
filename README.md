@@ -134,7 +134,8 @@ let g:vim_vue_plugin_config.foldexpr = 0
 
 Note
 
-- `typescript` matches `lang="ts"`
+- `typescript` matches `lang="ts"` and `lang="typescript"`
+- `lang` can be in double or single quotes, or without quotes
 - `list` options can be `string` if only one
 - The first item of syntax list will be used if no "lang=..."
 - For `.wpy`, `initial_indent` defaults to `['script', 'style']`
