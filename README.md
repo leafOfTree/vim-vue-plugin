@@ -2,6 +2,8 @@
 
 # vim-vue-plugin
 
+[![test](https://github.com/leafOfTree/vim-vue-plugin/actions/workflows/test.yml/badge.svg)](https://github.com/leafOfTree/vim-vue-plugin/actions/workflows/test.yml)
+
 <p align="center">
 <a href="https://github.com/altercation/vim-colors-solarized">
 <img alt="screenshot" src="https://raw.githubusercontent.com/leafOfTree/leafOfTree.github.io/master/vim-vue-plugin-screenshot.png" width="260" />
@@ -244,7 +246,7 @@ This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files a
 
 [1]: https://github.com/mxw/vim-jsx "mxw: vim-jsx"
 [2]: https://github.com/VundleVim/Vundle.vim
-[3]: https://vuejs.org/v2/guide/single-file-components.html
+[3]: https://vuejs.org/guide/scaling-up/sfc.html
 [4]: https://github.com/digitaltoad/vim-pug
 [5]: https://github.com/tpope/vim-pathogen
 [6]: https://github.com/Tencent/wepy
@@ -253,7 +255,6 @@ This plugin is under [The Unlicense][8]. Other than this, `lib/indent/*` files a
 [9]: https://github.com/leafOfTree/vim-svelte-plugin
 [10]: https://github.com/mattn/emmet-vim
 [11]: https://github.com/kchmck/vim-coffee-script
-[12]: https://travis-ci.com/leafOfTree/vim-vue-plugin.svg?branch=master
 [13]: https://svelte.dev/
 [14]: https://github.com/leafgarland/typescript-vim
 [15]: https://github.com/HerringtonDarkholme/yats.vim
