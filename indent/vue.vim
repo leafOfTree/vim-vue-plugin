@@ -36,6 +36,7 @@ function! s:SetVueIndent()
   " XML indentkeys
   setlocal indentkeys+=*<Return>,<>>,<<>,/
   setlocal indentexpr=GetVueIndent()
+  let b:undo_indent = 'setlocal indentexpr< indentkeys< smartindent<'
 endfunction
 
 function! s:GetIndentFile(syntax)

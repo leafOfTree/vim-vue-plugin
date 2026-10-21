@@ -14,6 +14,8 @@ function! VueFoldMain(...)
 
     setlocal foldexpr=GetVueFold(v:lnum)
     setlocal foldmethod=expr
+    let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin.' | ' : '')
+          \ . 'setlocal foldexpr< foldmethod<'
   endif
 endfunction
 
