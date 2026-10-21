@@ -122,7 +122,6 @@ function! s:PrevNonBlankNonComment(lnum)
 endfunction
 
 function! s:AdjustBlockIndent(syntax, ind)
-  let block = a:block
   let syntax = a:syntax
   let ind = a:ind
 
@@ -173,6 +172,7 @@ function! s:PrevMultilineEmptyTag(lnum)
 
     let lnum = lnum - 1
   endwhile
+  return [0, 0]
 endfunction
 
 function! s:AdjustHTMLIndent(ind)
