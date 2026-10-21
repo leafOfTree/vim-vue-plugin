@@ -16,6 +16,8 @@ Vim syntax and indent plugin for `.vue` files. Mainly inspired by [mxw/vim-jsx][
 
 You could install it just like other plugins. The filetype will be set to `vue`. Feel free to open an issue or a pull request if any questions
 
+See `:help vim-vue-plugin` for the documentation in Vim.
+
 <details>
 <summary><a>How to install</a></summary>
 
@@ -92,6 +94,7 @@ It has the following options
         - `lang="..."` on block tag decides the effective syntax
         - When no valid `lang="..."` is present, the first syntax in the list will be used.
         - By default, only syntax files from `['$VIMRUNTIME', '$VIM/vimfiles', '$HOME/.vim']` are loaded. If none is found, then **full** syntax files, including those from plugins, will be loaded
+    - Each key replaces the default of the same key, so `{'syntax': {'script': ['javascript', 'typescript']}}` keeps `template` as `['html']` and `style` as `['css']`. Set a key to `[]` to remove the block
 - **full_syntax**: *string list*. Syntax whose **full** syntax files will always be loaded
 - **initial_indent**: *string list*. Tag/syntax with initial one tab indent. The format can be `tag.syntax`, `tag`, or `syntax`
 

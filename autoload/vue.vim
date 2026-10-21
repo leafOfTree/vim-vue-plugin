@@ -28,10 +28,16 @@ function! s:MergeUserConfigIntoDefault(user)
         \'debug': 0,
         \}
 
+  " Each key of syntax replaces the default of the same key, so blocks not in
+  " user config keep their default syntax
   let user = a:user
   for key in keys(default)
     if has_key(user, key)
-      let default[key] = user[key]
+      if key ==# 'syntax' && type(user[key]) == v:t_dict
+        call extend(default[key], user[key])
+      else
+        let default[key] = user[key]
+      endif
     endif
   endfor
 
