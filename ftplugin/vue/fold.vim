@@ -88,7 +88,7 @@ endfunction
 
 function! s:IndentLevel(lnum)
   " Add 1 to indentLevel, so start/end tags can fold properly
-  return indent(a:lnum) / &shiftwidth + 1
+  return indent(a:lnum) / shiftwidth() + 1
 endfunction
 "}}}
 

@@ -147,7 +147,7 @@ function! s:CheckInitialIndent(tag, syntax, ind)
   endif
   if add
     call vue#LogWithLnum('add initial indent')
-    let ind = &sw
+    let ind = shiftwidth()
   endif
   return ind
 endfunction
@@ -183,16 +183,16 @@ function! s:AdjustHTMLIndent(ind)
 
   if prevline =~? s:empty_tag
     call vue#LogWithLnum('previous line is an empty tag')
-    let ind = ind - &sw
+    let ind = ind - shiftwidth()
   endif
 
   " Align '/>' and '>' with '<'
   if curline =~? s:tag_end 
-    let ind = ind - &sw
+    let ind = ind - shiftwidth()
   endif
   " Then correct the indentation of any element following '/>' or '>'.
   if prevline =~? s:tag_end
-    let ind = ind + &sw
+    let ind = ind + shiftwidth()
 
     " Decrease indent if prevlines are a multiline empty tag
     let [start, end] = s:PrevMultilineEmptyTag(v:lnum)
@@ -200,7 +200,7 @@ function! s:AdjustHTMLIndent(ind)
       call vue#LogWithLnum('previous line is a multiline empty tag')
       let ind = indent(v:lnum - 1)
       if curline =~? s:full_tag_end 
-        let ind = ind - &sw
+        let ind = ind - shiftwidth()
       endif
     endif
   endif
@@ -210,17 +210,17 @@ function! s:AdjustHTMLIndent(ind)
   " ]
   if prevline =~ '[[{]\s*$'
     call vue#LogWithLnum('previous line is an open bracket')
-    let ind = indent(prevlnum) + &sw
+    let ind = indent(prevlnum) + shiftwidth()
   endif
   if curline =~ '^\s*[]}][^"]*"\?\s*$'
     call vue#LogWithLnum('current line is a closing bracket')
-    let ind = indent(prevlnum) - &sw
+    let ind = indent(prevlnum) - shiftwidth()
   endif
 
   " Multiline ternary 'a ? b : c' in attribute
   if curline =~ s:ternary_q
     call vue#LogWithLnum('current line is ?...')
-    let ind = indent(prevlnum) + &sw
+    let ind = indent(prevlnum) + shiftwidth()
   endif
   if curline =~ s:ternary_e && prevline =~ s:ternary_q
     call vue#LogWithLnum('current line is :...')
@@ -228,13 +228,13 @@ function! s:AdjustHTMLIndent(ind)
   endif
   if prevline =~ s:ternary_e
     call vue#LogWithLnum('prevline line is :...')
-    let ind = indent(prevlnum) - &sw
+    let ind = indent(prevlnum) - shiftwidth()
   endif
 
   " Angle bracket in attribute, like v-if="isEnabled('item.<name>')"
   if prevline =~ '="[^"]*<[^"]*>[^"]*"'
     call vue#LogWithLnum('prevline line is angle bracket in attribute')
-    let ind = ind - &sw
+    let ind = ind - shiftwidth()
   endif
 
   return ind
@@ -248,7 +248,7 @@ function! s:AdjustJavaScriptIndent(ind)
 
   if prevline =~ '^\s*\w.*$' && curline =~ '^\s*\.'
     call vue#LogWithLnum('current line is the first chain call')
-    let ind = indent(prevlnum) + &sw
+    let ind = indent(prevlnum) + shiftwidth()
   endif
 
   if prevline =~ '\s=>\s.*,\s*$' && curline !~ '^\s*[]}])\?,\?\s*$'
@@ -257,7 +257,7 @@ function! s:AdjustJavaScriptIndent(ind)
   endif
   if prevline =~ '\s||\s*$'
     call vue#LogWithLnum('previous line ends with "||"')
-    let ind = indent(prevlnum) + &sw
+    let ind = indent(prevlnum) + shiftwidth()
   endif
   return ind
 endfunction
@@ -270,11 +270,11 @@ function! s:AdjustCSSIndent(ind)
 
   if prevline =~ ':\s.*,\s*$'
     call vue#LogWithLnum('previous line is css function')
-    let ind = indent(prevlnum) + &sw
+    let ind = indent(prevlnum) + shiftwidth()
   endif
   if curline =~ '^\s*);\?\s*$'
     call vue#LogWithLnum('curline is closing round bracket')
-    let ind = indent(prevlnum) - &sw
+    let ind = indent(prevlnum) - shiftwidth()
   endif
   return ind
 endfunction
