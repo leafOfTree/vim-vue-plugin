@@ -6,10 +6,23 @@ on:
 
 jobs:
   test:
+    name: ${{ matrix.neovim && 'nvim' || 'vim' }} ${{ matrix.version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { neovim: false, version: v8.2.0000 }
+          - { neovim: false, version: stable }
+          - { neovim: true, version: v0.9.5 }
+          - { neovim: true, version: stable }
     steps:
       - uses: actions/checkout@v4
-      - name: Install Vim and Neovim
-        run: sudo apt-get update && sudo apt-get install -y vim neovim
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: ${{ matrix.neovim }}
+          version: ${{ matrix.version }}
       - name: Run tests
         run: ./test/run.sh
+        env:
+          VUE_TEST_EDITORS: ${{ matrix.neovim && 'nvim' || 'vim' }}
