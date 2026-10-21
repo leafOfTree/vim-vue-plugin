@@ -233,6 +233,8 @@ Each case is a `.vue` or `.wpy` file in [test/cases](test/cases), with an option
 
 Tests also run on GitHub Actions for each push and pull request, with Vim 8.2.0000, the latest Vim, Neovim 0.9.5 and the latest Neovim.
 
+Cases named `shared-*` are for scenarios also in [vim-svelte-plugin][9], which handles blocks in the same way. `./test/shared.sh` lists shared cases in only one of them, as a warning on GitHub Actions, so a fix in one plugin can be checked in the other.
+
 ## Acknowledgments & Refs
 
 - [mxw/vim-jsx][1]
