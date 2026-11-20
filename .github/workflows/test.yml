@@ -7,12 +7,13 @@ on:
 jobs:
   test:
     name: ${{ matrix.neovim && 'nvim' || 'vim' }} ${{ matrix.version }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - { neovim: false, version: v8.2.0000 }
+          # Vim 8.2's configure checks fail on Ubuntu 26.04's toolchain.
+          - { neovim: false, version: v8.2.0000, os: ubuntu-24.04 }
           - { neovim: false, version: stable }
           - { neovim: true, version: v0.9.5 }
           - { neovim: true, version: stable }
