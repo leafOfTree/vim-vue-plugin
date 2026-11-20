@@ -17,8 +17,3 @@ if exists("loaded_matchit")
         \ '<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
   let b:undo_ftplugin .= ' | unlet! b:match_ignorecase b:match_words'
 endif
-
-" Indent correctly with template string for vim-javascript/built-in
-" indentexpr
-let b:syng_str = '^\%(.*template\)\@!.*string\|special'
-let b:syng_strcom = '^\%(.*template\)\@!.*string\|comment\|regex\|special\|doc'
